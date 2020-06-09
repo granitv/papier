@@ -2,12 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="99df481c-3e22-4ccc-b447-299b27aa347c" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/Controller/RegistrationController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/composer.json" beforeDir="false" afterPath="$PROJECT_DIR$/composer.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/composer.lock" beforeDir="false" afterPath="$PROJECT_DIR$/composer.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/packages/security.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/config/packages/security.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/routes.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/config/routes.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/public/pages/register.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/public/pages/register.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/public/comp/navbar.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/public/comp/navbar.html.twig" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -49,7 +44,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1591691891997</updated>
-      <workItem from="1591691893222" duration="10264000" />
+      <workItem from="1591691893222" duration="10602000" />
     </task>
     <task id="LOCAL-00001" summary="roots">
       <created>1591696868198</created>
@@ -65,7 +60,21 @@
       <option name="project" value="LOCAL" />
       <updated>1591703871141</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="roots+login">
+      <created>1591705688244</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1591705688244</updated>
+    </task>
+    <task id="LOCAL-00004" summary="roots+login">
+      <created>1591705746345</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1591705746345</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -73,25 +82,26 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="roots" />
-    <option name="LAST_COMMIT_MESSAGE" value="roots" />
+    <MESSAGE value="roots+login" />
+    <option name="LAST_COMMIT_MESSAGE" value="roots+login" />
   </component>
   <component name="WindowStateProjectService">
     <state x="574" y="181" width="441" height="562" key="#com.intellij.ide.util.MemberChooser" timestamp="1591704814755">
       <screen x="0" y="27" width="1600" height="873" />
     </state>
     <state x="574" y="181" width="441" height="562" key="#com.intellij.ide.util.MemberChooser/0.27.1600.873@0.27.1600.873" timestamp="1591704814755" />
-    <state x="243" y="27" width="1103" height="873" key="CommitChangelistDialog2" timestamp="1591703871102">
+    <state x="243" y="27" width="1103" height="873" key="CommitChangelistDialog2" timestamp="1591705746301">
       <screen x="0" y="27" width="1600" height="873" />
     </state>
-    <state x="243" y="27" width="1103" height="873" key="CommitChangelistDialog2/0.27.1600.873@0.27.1600.873" timestamp="1591703871102" />
+    <state x="243" y="27" width="1103" height="873" key="CommitChangelistDialog2/0.27.1600.873@0.27.1600.873" timestamp="1591705746301" />
     <state x="661" y="362" key="Github.ShareDialog" timestamp="1591692476801">
       <screen x="0" y="27" width="1600" height="873" />
     </state>
     <state x="661" y="362" key="Github.ShareDialog/0.27.1600.873@0.27.1600.873" timestamp="1591692476801" />
-    <state x="395" y="198" width="800" height="528" key="Vcs.Push.Dialog.v2" timestamp="1591703877339">
+    <state x="395" y="198" width="800" height="528" key="Vcs.Push.Dialog.v2" timestamp="1591705750939">
       <screen x="0" y="27" width="1600" height="873" />
     </state>
-    <state x="395" y="198" width="800" height="528" key="Vcs.Push.Dialog.v2/0.27.1600.873@0.27.1600.873" timestamp="1591703877339" />
+    <state x="395" y="198" width="800" height="528" key="Vcs.Push.Dialog.v2/0.27.1600.873@0.27.1600.873" timestamp="1591705750939" />
     <state x="495" y="251" width="600" height="423" key="git4idea.merge.GitPullDialog" timestamp="1591703504935">
       <screen x="0" y="27" width="1600" height="873" />
     </state>

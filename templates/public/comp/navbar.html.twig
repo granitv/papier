@@ -44,12 +44,18 @@
         </ul>
 
         <ul class="list-unstyled CTAs">
+            {% if app.user %}
             <li>
-                <a href="/login" class="download">Login</a>
+                <a href="/logout" class="article">Logout</a>
             </li>
-            <li>
-                <a href="{{ path('register') }}" class="article">Register</a>
-            </li>
+                 {% else %}
+             <li>
+                 <a href="/login" class="download">Login</a>
+             </li>
+             <li>
+                 <a href="{{ path('register') }}" class="article">Register</a>
+             </li>
+            {% endif %}
         </ul>
     </nav>
     <div id="content">
