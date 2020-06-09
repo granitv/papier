@@ -1,0 +1,18 @@
+{% extends 'public/comp/base.html.twig' %}
+{% block body %}
+   <div>
+       <h1>Collection {{ coll.name }}</h1>
+       <div class="row justify-content-around">
+           <div class="col-md-12 p-4">
+               <div class="card p-4" >
+                   <img class="card-img-top" src="{{ coll.image }}" alt="Card image cap">
+                   <div class="card-body">
+                       <h5 class="card-title">{{ coll.name }}</h5>
+                       <p class="card-text">{{ coll.description }}</p>
+                       <a href="#" class="btn btn-primary">{{ coll.price }} €</a>
+                   </div>
+               </div>
+           </div>
+       </div> {#one part#}
+   </div>
+{% endblock %}

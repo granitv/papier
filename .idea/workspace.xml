@@ -2,9 +2,13 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="99df481c-3e22-4ccc-b447-299b27aa347c" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/src/Migrations/Version20200609125620.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/public/pages/collection.html.twig" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/css/mainstyle.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/css/mainstyle.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/routes.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/config/routes.yaml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Controller/DefaultController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/DefaultController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Entity/Coll.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/Coll.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/public/comp/header.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/public/comp/header.html.twig" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/public/comp/navbar.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/public/comp/navbar.html.twig" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/public/pages/collectionbase.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/public/pages/collectionbase.html.twig" afterDir="false" />
     </list>
@@ -53,7 +57,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1591691891997</updated>
-      <workItem from="1591691893222" duration="11952000" />
+      <workItem from="1591691893222" duration="13213000" />
     </task>
     <task id="LOCAL-00001" summary="roots">
       <created>1591696868198</created>
@@ -97,7 +101,14 @@
       <option name="project" value="LOCAL" />
       <updated>1591706709402</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="roots+login+coll">
+      <created>1591707237110</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1591707237110</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -106,25 +117,30 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="roots" />
     <MESSAGE value="roots+login" />
-    <option name="LAST_COMMIT_MESSAGE" value="roots+login" />
+    <MESSAGE value="roots+login+coll" />
+    <option name="LAST_COMMIT_MESSAGE" value="roots+login+coll" />
   </component>
   <component name="WindowStateProjectService">
+    <state x="496" y="264" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1591707424582">
+      <screen x="0" y="27" width="1600" height="873" />
+    </state>
+    <state x="496" y="264" key="#com.intellij.fileTypes.FileTypeChooser/0.27.1600.873@0.27.1600.873" timestamp="1591707424582" />
     <state x="574" y="181" width="441" height="562" key="#com.intellij.ide.util.MemberChooser" timestamp="1591704814755">
       <screen x="0" y="27" width="1600" height="873" />
     </state>
     <state x="574" y="181" width="441" height="562" key="#com.intellij.ide.util.MemberChooser/0.27.1600.873@0.27.1600.873" timestamp="1591704814755" />
-    <state x="243" y="27" width="1103" height="873" key="CommitChangelistDialog2" timestamp="1591706709347">
+    <state x="243" y="27" width="1103" height="873" key="CommitChangelistDialog2" timestamp="1591707237065">
       <screen x="0" y="27" width="1600" height="873" />
     </state>
-    <state x="243" y="27" width="1103" height="873" key="CommitChangelistDialog2/0.27.1600.873@0.27.1600.873" timestamp="1591706709347" />
+    <state x="243" y="27" width="1103" height="873" key="CommitChangelistDialog2/0.27.1600.873@0.27.1600.873" timestamp="1591707237065" />
     <state x="661" y="362" key="Github.ShareDialog" timestamp="1591692476801">
       <screen x="0" y="27" width="1600" height="873" />
     </state>
     <state x="661" y="362" key="Github.ShareDialog/0.27.1600.873@0.27.1600.873" timestamp="1591692476801" />
-    <state x="395" y="198" width="800" height="528" key="Vcs.Push.Dialog.v2" timestamp="1591706714398">
+    <state x="395" y="198" width="800" height="528" key="Vcs.Push.Dialog.v2" timestamp="1591707241995">
       <screen x="0" y="27" width="1600" height="873" />
     </state>
-    <state x="395" y="198" width="800" height="528" key="Vcs.Push.Dialog.v2/0.27.1600.873@0.27.1600.873" timestamp="1591706714397" />
+    <state x="395" y="198" width="800" height="528" key="Vcs.Push.Dialog.v2/0.27.1600.873@0.27.1600.873" timestamp="1591707241995" />
     <state x="495" y="251" width="600" height="423" key="git4idea.merge.GitPullDialog" timestamp="1591703504935">
       <screen x="0" y="27" width="1600" height="873" />
     </state>

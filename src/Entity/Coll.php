@@ -44,6 +44,11 @@ class Coll
      */
     private $image;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $file_url;
+
     public function __construct()
     {
         $this->orders = new ArrayCollection();
@@ -129,6 +134,18 @@ class Coll
     public function setImage(string $image): self
     {
         $this->image = $image;
+
+        return $this;
+    }
+
+    public function getFileUrl(): ?string
+    {
+        return $this->file_url;
+    }
+
+    public function setFileUrl(?string $file_url): self
+    {
+        $this->file_url = $file_url;
 
         return $this;
     }

@@ -44,4 +44,11 @@ class DefaultController extends AbstractController
     public function registerAction(){
         return $this->render('public/pages/register.html.twig');
     }
+
+    public function collectionAction($id,CollRepository $collR){
+        $coll = $collR->find($id);
+        return $this->render('public/pages/collection.html.twig',[
+            'coll'=>$coll
+        ]);
+    }
 }

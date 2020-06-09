@@ -33,3 +33,7 @@ contact:
 register:
     path: /register
     controller: App\Controller\RegistrationController::registerAction
+
+collection:
+    path: /collection/{id}
+    controller: App\Controller\DefaultController::collectionAction
