@@ -1,0 +1,58 @@
+<div class="wrapper">
+    <!-- Sidebar  -->
+
+    <nav id="sidebar">
+        <div class="sidebar-header">
+            <h3>Papier Peint Logo</h3>
+        </div>
+
+        <ul class="list-unstyled components">
+            <li>
+                <a href="{{ path('home') }}">ACCUEIL</a>
+            </li>
+            <li class="active">
+                <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">SUR MESURE</a>
+                <ul class="collapse list-unstyled" id="homeSubmenu">
+                    <li>
+                        <a href="{{ path('papierpeint') }}">Papier peint</a>
+                    </li>
+                    <li>
+                        <a href="{{ path('murtendu') }}">Mur tendu</a>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">COLLECTION</a>
+                <ul class="collapse list-unstyled" id="pageSubmenu">
+                    <li>
+                        <a href="{{ path('collectionbase') }}">COLLECTION Base</a>
+                    </li>
+                    <li>
+                        <a href="{{ path('collectionpersonnaliser') }}">COLLECTION Personnaliser</a>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <a href="{{ path('about') }}">About</a>
+            </li>
+            <li>
+                <a href="{{ path('portfolio') }}">Portfolio</a>
+            </li>
+            <li>
+                <a href="{{ path('contact') }}">Contact</a>
+            </li>
+        </ul>
+
+        <ul class="list-unstyled CTAs">
+            <li>
+                <a href="{{ path('home') }}" class="download">Login</a>
+            </li>
+            <li>
+                <a href="{{ path('register') }}" class="article">Register</a>
+            </li>
+        </ul>
+    </nav>
+    <div id="content">
+        <button type="button" id="sidebarCollapse" class="btn btn-info">
+            <i class="fas fa-align-left"></i>
+        </button>

@@ -1,3 +1,35 @@
-#index:
-#    path: /
-#    controller: App\Controller\DefaultController::index
+home:
+    path: /
+    controller: App\Controller\DefaultController::indexAction
+
+papierpeint:
+    path: /papierpeint
+    controller: App\Controller\DefaultController::papierpeintAction
+
+murtendu:
+    path: /murtendu
+    controller: App\Controller\DefaultController::murtenduAction
+
+collectionbase:
+    path: /collectionbase
+    controller: App\Controller\DefaultController::collectionbaseAction
+
+collectionpersonnaliser:
+    path: /collectionpersonnaliser
+    controller: App\Controller\DefaultController::collectionpersonnaliserAction
+
+about:
+    path: /about
+    controller: App\Controller\DefaultController::aboutAction
+
+portfolio:
+    path: /portfolio
+    controller: App\Controller\DefaultController::portfolioAction
+
+contact:
+    path: /contact
+    controller: App\Controller\DefaultController::contactAction
+
+register:
+    path: /register
+    controller: App\Controller\DefaultController::registerAction
