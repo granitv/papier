@@ -1,6 +1,7 @@
 <?php
 namespace App\Controller;
 
+use App\Repository\CollRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class DefaultController extends AbstractController
@@ -17,8 +18,11 @@ class DefaultController extends AbstractController
         return $this->render('public/pages/murtendu.html.twig');
     }
 
-    public function collectionbaseAction(){
-        return $this->render('public/pages/collectionbase.html.twig');
+    public function collectionbaseAction(CollRepository $collR){
+        $allColl = $collR->findAll();
+        return $this->render('public/pages/collectionbase.html.twig',[
+            'allColl' => $allColl
+        ]);
     }
 
     public function collectionpersonnaliserAction(){
