@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="99df481c-3e22-4ccc-b447-299b27aa347c" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/src/Controller/RegistrationController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/composer.json" beforeDir="false" afterPath="$PROJECT_DIR$/composer.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/composer.lock" beforeDir="false" afterPath="$PROJECT_DIR$/composer.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/packages/security.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/config/packages/security.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/routes.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/config/routes.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/public/pages/register.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/public/pages/register.html.twig" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ComposerSettings">
+    <execution />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectId" id="1d4kjyAWLN2d8ph8q4jdu4bZy1p" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="nodejs_package_manager_path" value="npm" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/templates/public/comp" />
+      <recent name="$PROJECT_DIR$/templates/public/pages" />
+    </key>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="99df481c-3e22-4ccc-b447-299b27aa347c" name="Default Changelist" comment="" />
+      <created>1591691891997</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1591691891997</updated>
+      <workItem from="1591691893222" duration="10264000" />
+    </task>
+    <task id="LOCAL-00001" summary="roots">
+      <created>1591696868198</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1591696868198</updated>
+    </task>
+    <task id="LOCAL-00002" summary="roots">
+      <created>1591703871141</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1591703871141</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="2" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="roots" />
+    <option name="LAST_COMMIT_MESSAGE" value="roots" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="574" y="181" width="441" height="562" key="#com.intellij.ide.util.MemberChooser" timestamp="1591704814755">
+      <screen x="0" y="27" width="1600" height="873" />
+    </state>
+    <state x="574" y="181" width="441" height="562" key="#com.intellij.ide.util.MemberChooser/0.27.1600.873@0.27.1600.873" timestamp="1591704814755" />
+    <state x="243" y="27" width="1103" height="873" key="CommitChangelistDialog2" timestamp="1591703871102">
+      <screen x="0" y="27" width="1600" height="873" />
+    </state>
+    <state x="243" y="27" width="1103" height="873" key="CommitChangelistDialog2/0.27.1600.873@0.27.1600.873" timestamp="1591703871102" />
+    <state x="661" y="362" key="Github.ShareDialog" timestamp="1591692476801">
+      <screen x="0" y="27" width="1600" height="873" />
+    </state>
+    <state x="661" y="362" key="Github.ShareDialog/0.27.1600.873@0.27.1600.873" timestamp="1591692476801" />
+    <state x="395" y="198" width="800" height="528" key="Vcs.Push.Dialog.v2" timestamp="1591703877339">
+      <screen x="0" y="27" width="1600" height="873" />
+    </state>
+    <state x="395" y="198" width="800" height="528" key="Vcs.Push.Dialog.v2/0.27.1600.873@0.27.1600.873" timestamp="1591703877339" />
+    <state x="495" y="251" width="600" height="423" key="git4idea.merge.GitPullDialog" timestamp="1591703504935">
+      <screen x="0" y="27" width="1600" height="873" />
+    </state>
+    <state x="495" y="251" width="600" height="423" key="git4idea.merge.GitPullDialog/0.27.1600.873@0.27.1600.873" timestamp="1591703504935" />
+    <state x="463" y="212" width="672" height="678" key="search.everywhere.popup" timestamp="1591696044747">
+      <screen x="0" y="27" width="1600" height="873" />
+    </state>
+    <state x="463" y="212" width="672" height="678" key="search.everywhere.popup/0.27.1600.873@0.27.1600.873" timestamp="1591696044747" />
+  </component>
+</project>
