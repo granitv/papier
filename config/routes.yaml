@@ -32,4 +32,4 @@ contact:
 
 register:
     path: /register
-    controller: App\Controller\DefaultController::registerAction
+    controller: App\Controller\RegistrationController::registerAction
