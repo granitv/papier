@@ -8,38 +8,40 @@
 
         <ul class="list-unstyled components">
             <li>
-                <a href="{{ path('home') }}">ACCUEIL</a>
+                <a href="{{ path('admin') }}">ACCUEIL Admin</a>
             </li>
             <li class="active">
-                <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">SUR MESURE</a>
+                <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Edit SUR MESURE</a>
                 <ul class="collapse list-unstyled" id="homeSubmenu">
                     <li>
-                        <a href="{{ path('papierpeint') }}">Papier peint</a>
+                        <a href="{{ path('papierpeint') }}">Edit Papier peint</a>
                     </li>
                     <li>
-                        <a href="{{ path('murtendu') }}">Mur tendu</a>
+                        <a href="{{ path('murtendu') }}">Edit Mur tendu</a>
                     </li>
                 </ul>
             </li>
             <li>
-                <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">COLLECTION</a>
+                <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Edit COLLECTION</a>
                 <ul class="collapse list-unstyled" id="pageSubmenu">
                     <li>
-                        <a href="{{ path('collectionbase') }}">COLLECTION Base</a>
+                        <a href="{{ path('collectionbase') }}">Edit COLLECTION Base</a>
                     </li>
                     <li>
-                        <a href="{{ path('collectionpersonnaliser') }}">COLLECTION Personnaliser</a>
+                        <a href="{{ path('collectionpersonnaliser') }}">Edit COLLECTION Personnaliser</a>
                     </li>
                 </ul>
             </li>
             <li>
-                <a href="{{ path('about') }}">About</a>
-            </li>
-            <li>
-                <a href="{{ path('portfolio') }}">Portfolio</a>
-            </li>
-            <li>
-                <a href="{{ path('contact') }}">Contact</a>
+                <a href="#addSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Add COLLECTION</a>
+                <ul class="collapse list-unstyled" id="addSubmenu">
+                    <li>
+                        <a href="{{ path('addCollectionBase') }}">Add COLLECTION Base</a>
+                    </li>
+                    <li>
+                        <a href="{{ path('addCollectionpersonnaliser') }}">Add COLLECTION Personnaliser</a>
+                    </li>
+                </ul>
             </li>
         </ul>
 
@@ -48,13 +50,6 @@
             <li>
                 <a href="/logout" class="article">Logout</a>
             </li>
-                 {% else %}
-             <li>
-                 <a href="/login" class="download">Login</a>
-             </li>
-             <li>
-                 <a href="{{ path('register') }}" class="article">Register</a>
-             </li>
             {% endif %}
         </ul>
     </nav>
@@ -64,6 +59,7 @@
                 <i class="fas fa-align-left"></i>
             </button>
             {% if app.user %}
-            <p>Hi {{ app.user.username }}</p>
+                <p>Hi {{ app.user.username }}</p>
             {% endif %}
+
         </div>

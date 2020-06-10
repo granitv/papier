@@ -2,11 +2,18 @@
 {% block body %}
     <h1>Collection Base</h1>
     <div class="row justify-content-around">
+        <div id="myModal" class="modal">
+            <span class="close">&times;</span>
+            <img class="modal-content" id="img01">
+            <div id="caption"></div>
+        </div>
     {% for coll in allColl %}
 
             <div class="col-md-4 p-4">
                 <div class="card p-4" >
-                    <img class="card-img-top" src="{{ coll.image }}" alt="Card image cap">
+                    {% for img in coll.image  %}
+                        <img class="myImg" src="{{ img.url }}" alt="Snow" style="width:100%;max-width:300px">
+                    {% endfor %}
                     <div class="card-body">
                         <h5 class="card-title">{{ coll.name }}</h5>
                         <p class="card-text">{{ coll.description }}</p>

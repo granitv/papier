@@ -2,13 +2,25 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="99df481c-3e22-4ccc-b447-299b27aa347c" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/Migrations/Version20200609125620.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/public/pages/collection.html.twig" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Entity/Image.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Form/CollType.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Form/ImageType.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/admin/comp/base.html.twig" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/admin/comp/footer.html.twig" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/admin/comp/header.html.twig" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/admin/comp/navbar.html.twig" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/admin/pages/addcollectionBase.html.twig" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/admin/pages/addcollectionpersonnaliserAction.html.twig" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/admin/pages/home.html.twig" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/config/routes.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/config/routes.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/assets/css/mainstyle.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/css/mainstyle.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controller/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/AdminController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Controller/DefaultController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/DefaultController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Entity/Coll.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/Coll.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/public/comp/header.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/public/comp/header.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Entity/User.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/User.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Form/UserType.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Form/UserType.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/public/comp/footer.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/public/comp/footer.html.twig" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/public/comp/navbar.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/public/comp/navbar.html.twig" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/public/pages/collectionbase.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/public/pages/collectionbase.html.twig" afterDir="false" />
     </list>
@@ -38,10 +50,13 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/templates/admin/comp" />
     <property name="nodejs_package_manager_path" value="npm" />
   </component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/templates/admin/comp" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/templates/public/comp" />
       <recent name="$PROJECT_DIR$/templates/public/pages" />
@@ -57,7 +72,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1591691891997</updated>
-      <workItem from="1591691893222" duration="13213000" />
+      <workItem from="1591691893222" duration="21757000" />
     </task>
     <task id="LOCAL-00001" summary="roots">
       <created>1591696868198</created>
@@ -108,7 +123,14 @@
       <option name="project" value="LOCAL" />
       <updated>1591707237110</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="roots+login+coll">
+      <created>1591708455842</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1591708455842</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -121,33 +143,37 @@
     <option name="LAST_COMMIT_MESSAGE" value="roots+login+coll" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="496" y="264" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1591707424582">
+    <state x="496" y="264" width="568" height="396" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1591773934536">
       <screen x="0" y="27" width="1600" height="873" />
     </state>
-    <state x="496" y="264" key="#com.intellij.fileTypes.FileTypeChooser/0.27.1600.873@0.27.1600.873" timestamp="1591707424582" />
+    <state x="496" y="264" width="568" height="396" key="#com.intellij.fileTypes.FileTypeChooser/0.27.1600.873@0.27.1600.873" timestamp="1591773934536" />
     <state x="574" y="181" width="441" height="562" key="#com.intellij.ide.util.MemberChooser" timestamp="1591704814755">
       <screen x="0" y="27" width="1600" height="873" />
     </state>
     <state x="574" y="181" width="441" height="562" key="#com.intellij.ide.util.MemberChooser/0.27.1600.873@0.27.1600.873" timestamp="1591704814755" />
-    <state x="243" y="27" width="1103" height="873" key="CommitChangelistDialog2" timestamp="1591707237065">
+    <state x="533" y="220" width="524" height="484" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog" timestamp="1591776954231">
       <screen x="0" y="27" width="1600" height="873" />
     </state>
-    <state x="243" y="27" width="1103" height="873" key="CommitChangelistDialog2/0.27.1600.873@0.27.1600.873" timestamp="1591707237065" />
+    <state x="533" y="220" width="524" height="484" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/0.27.1600.873@0.27.1600.873" timestamp="1591776954231" />
+    <state x="243" y="27" width="1103" height="873" key="CommitChangelistDialog2" timestamp="1591708455745">
+      <screen x="0" y="27" width="1600" height="873" />
+    </state>
+    <state x="243" y="27" width="1103" height="873" key="CommitChangelistDialog2/0.27.1600.873@0.27.1600.873" timestamp="1591708455745" />
     <state x="661" y="362" key="Github.ShareDialog" timestamp="1591692476801">
       <screen x="0" y="27" width="1600" height="873" />
     </state>
     <state x="661" y="362" key="Github.ShareDialog/0.27.1600.873@0.27.1600.873" timestamp="1591692476801" />
-    <state x="395" y="198" width="800" height="528" key="Vcs.Push.Dialog.v2" timestamp="1591707241995">
+    <state x="395" y="198" width="800" height="528" key="Vcs.Push.Dialog.v2" timestamp="1591708461062">
       <screen x="0" y="27" width="1600" height="873" />
     </state>
-    <state x="395" y="198" width="800" height="528" key="Vcs.Push.Dialog.v2/0.27.1600.873@0.27.1600.873" timestamp="1591707241995" />
+    <state x="395" y="198" width="800" height="528" key="Vcs.Push.Dialog.v2/0.27.1600.873@0.27.1600.873" timestamp="1591708461062" />
     <state x="495" y="251" width="600" height="423" key="git4idea.merge.GitPullDialog" timestamp="1591703504935">
       <screen x="0" y="27" width="1600" height="873" />
     </state>
     <state x="495" y="251" width="600" height="423" key="git4idea.merge.GitPullDialog/0.27.1600.873@0.27.1600.873" timestamp="1591703504935" />
-    <state x="463" y="212" width="672" height="678" key="search.everywhere.popup" timestamp="1591696044747">
+    <state x="463" y="212" width="672" height="678" key="search.everywhere.popup" timestamp="1591774818003">
       <screen x="0" y="27" width="1600" height="873" />
     </state>
-    <state x="463" y="212" width="672" height="678" key="search.everywhere.popup/0.27.1600.873@0.27.1600.873" timestamp="1591696044747" />
+    <state x="463" y="212" width="672" height="678" key="search.everywhere.popup/0.27.1600.873@0.27.1600.873" timestamp="1591774818003" />
   </component>
 </project>

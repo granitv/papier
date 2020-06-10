@@ -40,18 +40,19 @@ class Coll
     private $orders;
 
     /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $image;
-
-    /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $file_url;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Image::class, mappedBy="coll")
+     */
+    private $image;
+
     public function __construct()
     {
         $this->orders = new ArrayCollection();
+        $this->image = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -126,17 +127,7 @@ class Coll
         return $this;
     }
 
-    public function getImage(): ?string
-    {
-        return $this->image;
-    }
 
-    public function setImage(string $image): self
-    {
-        $this->image = $image;
-
-        return $this;
-    }
 
     public function getFileUrl(): ?string
     {
@@ -146,6 +137,37 @@ class Coll
     public function setFileUrl(?string $file_url): self
     {
         $this->file_url = $file_url;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Image[]
+     */
+    public function getImage(): Collection
+    {
+        return $this->image;
+    }
+
+    public function addImage(Image $image): self
+    {
+        if (!$this->image->contains($image)) {
+            $this->image[] = $image;
+            $image->setColl($this);
+        }
+
+        return $this;
+    }
+
+    public function removeImage(Image $image): self
+    {
+        if ($this->image->contains($image)) {
+            $this->image->removeElement($image);
+            // set the owning side to null (unless already changed)
+            if ($image->getColl() === $this) {
+                $image->setColl(null);
+            }
+        }
 
         return $this;
     }

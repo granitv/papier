@@ -21,7 +21,7 @@ class DefaultController extends AbstractController
     public function collectionbaseAction(CollRepository $collR){
         $allColl = $collR->findAll();
         return $this->render('public/pages/collectionbase.html.twig',[
-            'allColl' => $allColl
+            "allColl" => $allColl
         ]);
     }
 

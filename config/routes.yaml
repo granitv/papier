@@ -37,3 +37,15 @@ register:
 collection:
     path: /collection/{id}
     controller: App\Controller\DefaultController::collectionAction
+
+admin:
+    path: /admin
+    controller: App\Controller\AdminController::homeAction
+
+addCollectionBase:
+    path: /admin/add/collectionBase
+    controller: App\Controller\AdminController::addcollectionBaseAction
+
+addCollectionpersonnaliser:
+    path: /admin/add/collectionpersonnaliser
+    controller: App\Controller\AdminController::addcollectionpersonnaliserAction
