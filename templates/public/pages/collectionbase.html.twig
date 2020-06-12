@@ -11,9 +11,16 @@
 
             <div class="col-md-4 p-4">
                 <div class="card p-4" >
+                    <div class="row">
                     {% for img in coll.image  %}
-                        <img class="myImg" src="{{ img.url }}" alt="Snow" style="width:100%;max-width:300px">
+                        {% if loop.first %}
+                            <img class="myImg" src="{{ img.url }}" alt="{{ coll.name }}" style="width:100%;max-width:300px">
+                            {% else %}
+                                <img class="myImg" src="{{ img.url }}" alt="{{ coll.name }}" style="width:30%;margin: 4px; border-radius: 5%">
+                        {% endif %}
+
                     {% endfor %}
+                    </div>
                     <div class="card-body">
                         <h5 class="card-title">{{ coll.name }}</h5>
                         <p class="card-text">{{ coll.description }}</p>
