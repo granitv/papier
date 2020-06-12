@@ -3,9 +3,12 @@
     "license": "proprietary",
     "require": {
         "php": "^7.2.5",
+        "ext-json": "*",
         "ext-ctype": "*",
         "ext-iconv": "*",
+        "plasticbrain/php-flash-messages": "^1.0",
         "sensio/framework-extra-bundle": "^5.1",
+        "stripe/stripe-php": "^7.37",
         "symfony/asset": "5.1.*",
         "symfony/console": "5.1.*",
         "symfony/dotenv": "5.1.*",

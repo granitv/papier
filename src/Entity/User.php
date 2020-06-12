@@ -68,6 +68,21 @@ class User implements UserInterface, \Serializable
      */
     private $orders;
 
+    /**
+     * @ORM\OneToOne(targetEntity=Basket::class, cascade={"persist", "remove"})
+     */
+    private $basket;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Facture::class, mappedBy="User")
+     */
+    private $factures;
+
+    /**
+     * @ORM\ManyToMany(targetEntity=Coll::class, inversedBy="users")
+     */
+    private $Coll;
+
 
 
     public function __construct()
@@ -76,7 +91,9 @@ class User implements UserInterface, \Serializable
         // may not be needed, see section on salt below
         // $this->salt = md5(uniqid('', true));
 
-        $this->orders = new ArrayCollection();    }
+        $this->orders = new ArrayCollection();
+        $this->factures = new ArrayCollection();
+        $this->Coll = new ArrayCollection();    }
 
     public function getEmail(): ?string
     {
@@ -222,5 +239,74 @@ class User implements UserInterface, \Serializable
     public function getId(): ?int
     {
         return $this->id;
+    }
+
+    public function getBasket(): ?Basket
+    {
+        return $this->basket;
+    }
+
+    public function setBasket(?Basket $basket): self
+    {
+        $this->basket = $basket;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Facture[]
+     */
+    public function getFactures(): Collection
+    {
+        return $this->factures;
+    }
+
+    public function addFacture(Facture $facture): self
+    {
+        if (!$this->factures->contains($facture)) {
+            $this->factures[] = $facture;
+            $facture->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeFacture(Facture $facture): self
+    {
+        if ($this->factures->contains($facture)) {
+            $this->factures->removeElement($facture);
+            // set the owning side to null (unless already changed)
+            if ($facture->getUser() === $this) {
+                $facture->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Coll[]
+     */
+    public function getColl(): Collection
+    {
+        return $this->Coll;
+    }
+
+    public function addColl(Coll $coll): self
+    {
+        if (!$this->Coll->contains($coll)) {
+            $this->Coll[] = $coll;
+        }
+
+        return $this;
+    }
+
+    public function removeColl(Coll $coll): self
+    {
+        if ($this->Coll->contains($coll)) {
+            $this->Coll->removeElement($coll);
+        }
+
+        return $this;
     }
 }

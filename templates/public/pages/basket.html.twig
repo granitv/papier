@@ -1,0 +1,42 @@
+{% extends 'public/comp/base.html.twig' %}
+{% block body %}
+    <div class="mt-3 bg-dark">
+        <h3 class="ml-3"> Mon pannier</h3>
+        <hr class="mx-3">
+        <div class="container">
+            <table class="table text-white">
+                <thead>
+                <tr>
+                    <th scope="col"> Products </th>
+                    <th scope="col"> Prix </th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for basket in userBasket %}
+                    {% for volumes in basket.coll %}
+                        <tr>
+                            <td> {{ volumes.name }} </td>
+                            <td> {{ volumes.price }} €</td>
+                        </tr>
+                    {% endfor %}
+                {% endfor %}
+                {% for basket in userBasket %}
+                    <tr>
+                        <td> Prix Total</td>
+                        <td> {{ basket.total }} €</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    {% for basket in userBasket %}
+        {% if  basket.total > 0   %}
+
+            <a class="btn btn-primary" href="{{ path('goToPayment', {id:basket.id}) }}"> Aller au payement</a>
+        {% endif %}
+    {% endfor %}
+
+
+{% endblock %}

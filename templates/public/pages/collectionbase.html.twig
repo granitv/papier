@@ -25,6 +25,7 @@
                         <h5 class="card-title">{{ coll.name }}</h5>
                         <p class="card-text">{{ coll.description }}</p>
                         <p class="card-text">{{ coll.price }} €</p>
+                        <a class="btn btn-primary" href="{{ path('addBasket',{id: coll.id}) }}"> Ajouter au panier </a>
                         <a href="{{ path('collection',{id: coll.id}) }}" class="btn btn-primary">Read More</a>
                     </div>
                 </div>

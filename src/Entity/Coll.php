@@ -49,10 +49,28 @@ class Coll
      */
     private $image;
 
+    /**
+     * @ORM\ManyToMany(targetEntity=Basket::class, mappedBy="Coll")
+     */
+    private $baskets;
+
+    /**
+     * @ORM\ManyToMany(targetEntity=Facture::class, mappedBy="Coll")
+     */
+    private $factures;
+
+    /**
+     * @ORM\ManyToMany(targetEntity=User::class, mappedBy="Coll")
+     */
+    private $users;
+
     public function __construct()
     {
         $this->orders = new ArrayCollection();
         $this->image = new ArrayCollection();
+        $this->baskets = new ArrayCollection();
+        $this->factures = new ArrayCollection();
+        $this->users = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -167,6 +185,90 @@ class Coll
             if ($image->getColl() === $this) {
                 $image->setColl(null);
             }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Basket[]
+     */
+    public function getBaskets(): Collection
+    {
+        return $this->baskets;
+    }
+
+    public function addBasket(Basket $basket): self
+    {
+        if (!$this->baskets->contains($basket)) {
+            $this->baskets[] = $basket;
+            $basket->addColl($this);
+        }
+
+        return $this;
+    }
+
+    public function removeBasket(Basket $basket): self
+    {
+        if ($this->baskets->contains($basket)) {
+            $this->baskets->removeElement($basket);
+            $basket->removeColl($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Facture[]
+     */
+    public function getFactures(): Collection
+    {
+        return $this->factures;
+    }
+
+    public function addFacture(Facture $facture): self
+    {
+        if (!$this->factures->contains($facture)) {
+            $this->factures[] = $facture;
+            $facture->addColl($this);
+        }
+
+        return $this;
+    }
+
+    public function removeFacture(Facture $facture): self
+    {
+        if ($this->factures->contains($facture)) {
+            $this->factures->removeElement($facture);
+            $facture->removeColl($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|User[]
+     */
+    public function getUsers(): Collection
+    {
+        return $this->users;
+    }
+
+    public function addUser(User $user): self
+    {
+        if (!$this->users->contains($user)) {
+            $this->users[] = $user;
+            $user->addColl($this);
+        }
+
+        return $this;
+    }
+
+    public function removeUser(User $user): self
+    {
+        if ($this->users->contains($user)) {
+            $this->users->removeElement($user);
+            $user->removeColl($this);
         }
 
         return $this;

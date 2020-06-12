@@ -25,4 +25,5 @@ class Kernel extends BaseKernel
         $routes->import('../config/{routes}/*.yaml');
         $routes->import('../config/{routes}.yaml');
     }
+
 }
