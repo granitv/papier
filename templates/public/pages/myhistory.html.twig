@@ -1,0 +1,47 @@
+{% extends'public/comp/base.html.twig' %}
+{% block body %}
+    <h1>My History:</h1>
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Design</th>
+            <th scope="col">Height</th>
+            <th scope="col">Width</th>
+            <th scope="col">Text</th>
+            <th scope="col">FileUrl</th>
+            <th scope="col">Quantity</th>
+            <th scope="col">Recouvrement des laizes:</th>
+            <th scope="col">Type:</th>
+            <th scope="col">Total Price:</th>
+            <th scope="col">Status</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for o in allOrder %}
+            <tr>
+
+
+
+
+            <th scope="row">{{ o.id }}</th>
+        <td><img src="{{ o.coll.image[0].url }}" width="100px"></td>
+
+        <td>{{ o.height }} cm</td>
+           <td> {{ o.width }} cm</td>
+            <td>{{ o.text }}</td>
+           <td> {{ o.fileUrl }}</td>
+           <td> {{ o.quantity }}</td>
+
+
+                <td>{% if o.overlapping == 0 %} Aucun {% else %} 4cm {% endif %}</td>
+
+            <td>{{ o.typee.name }}</td>
+                <td> {{ o.totalPrice/100|number_format(2) }} €</td>
+                <td> {% if o.getBasket is not null %}<div class="text-center alert alert-warning" role="alert">UnPayed <a class="btn-sm btn-success" href="{{ path('basket') }}">Pay Now</a></div>  {% else %} <div class="text-center alert alert-success" role="alert">Payed</div>   {{ o.getBasket }}{% endif %}</td>
+            </tr>
+        {% endfor %}
+
+        </tbody>
+    </table>
+{% endblock %}

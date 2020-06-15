@@ -81,3 +81,7 @@ addtolib:
 deleteOrder:
     path: /deleteOrder/{id}
     controller: App\Controller\UserController::deleteOrder
+
+myhistory:
+    path: /myhistory
+    controller: App\Controller\ProfileController::myHistoryAction

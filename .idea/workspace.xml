@@ -2,36 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="99df481c-3e22-4ccc-b447-299b27aa347c" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Entity/Typee.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Form/OrderType.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Repository/TypeeRepository.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Controller/ProfileController.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/public/pages/myhistory.html.twig" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/config/routes.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/config/routes.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/css/mainstyle.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/css/mainstyle.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Controller/DefaultController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/DefaultController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Controller/UserController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/UserController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Entity/Basket.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/Basket.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Entity/Facture.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/Facture.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Entity/Order.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/Order.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Migrations/Version20200609120257.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Migrations/Version20200609120641.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Migrations/Version20200609120749.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Migrations/Version20200609123924.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Migrations/Version20200609124126.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Migrations/Version20200609124326.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Migrations/Version20200609125620.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Migrations/Version20200610080222.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Migrations/Version20200612082644.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Migrations/Version20200612082904.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Migrations/Version20200612083717.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Migrations/Version20200612090904.php" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/public/comp/footer.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/public/comp/footer.html.twig" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/public/comp/navbar.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/public/comp/navbar.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/public/pages/basket.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/public/pages/basket.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/public/pages/collection.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/public/pages/collection.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/public/pages/collectionbase.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/public/pages/collectionbase.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/public/pages/payment.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/public/pages/payment.html.twig" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -203,7 +179,7 @@
       <workItem from="1591691893222" duration="21938000" />
       <workItem from="1591944904434" duration="6999000" />
       <workItem from="1591990783130" duration="4217000" />
-      <workItem from="1592204465560" duration="24642000" />
+      <workItem from="1592204465560" duration="27552000" />
     </task>
     <task id="LOCAL-00001" summary="roots">
       <created>1591696868198</created>
@@ -282,7 +258,14 @@
       <option name="project" value="LOCAL" />
       <updated>1591979291510</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="roots+login+coll+img+ilm+stripe+basket">
+      <created>1592261906244</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1592261906244</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -295,7 +278,8 @@
     <MESSAGE value="roots+login+coll+img" />
     <MESSAGE value="roots+login+coll+img+ilm" />
     <MESSAGE value="roots+login+coll+img+ilm+stripe" />
-    <option name="LAST_COMMIT_MESSAGE" value="roots+login+coll+img+ilm+stripe" />
+    <MESSAGE value="roots+login+coll+img+ilm+stripe+basket" />
+    <option name="LAST_COMMIT_MESSAGE" value="roots+login+coll+img+ilm+stripe+basket" />
   </component>
   <component name="WindowStateProjectService">
     <state x="395" y="124" width="800" height="677" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1591991093147">
@@ -318,25 +302,25 @@
       <screen x="0" y="27" width="1600" height="873" />
     </state>
     <state x="533" y="220" width="524" height="484" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/0.27.1600.873@0.27.1600.873" timestamp="1592204808430" />
-    <state x="243" y="27" width="1103" height="873" key="CommitChangelistDialog2" timestamp="1591979291441">
+    <state x="243" y="27" width="1103" height="873" key="CommitChangelistDialog2" timestamp="1592261906118">
       <screen x="0" y="27" width="1600" height="873" />
     </state>
-    <state x="243" y="27" width="1103" height="873" key="CommitChangelistDialog2/0.27.1600.873@0.27.1600.873" timestamp="1591979291441" />
+    <state x="243" y="27" width="1103" height="873" key="CommitChangelistDialog2/0.27.1600.873@0.27.1600.873" timestamp="1592261906118" />
     <state x="661" y="362" key="Github.ShareDialog" timestamp="1591692476801">
       <screen x="0" y="27" width="1600" height="873" />
     </state>
     <state x="661" y="362" key="Github.ShareDialog/0.27.1600.873@0.27.1600.873" timestamp="1591692476801" />
-    <state x="395" y="198" width="800" height="528" key="Vcs.Push.Dialog.v2" timestamp="1591979309647">
+    <state x="395" y="198" width="800" height="528" key="Vcs.Push.Dialog.v2" timestamp="1592261910938">
       <screen x="0" y="27" width="1600" height="873" />
     </state>
-    <state x="395" y="198" width="800" height="528" key="Vcs.Push.Dialog.v2/0.27.1600.873@0.27.1600.873" timestamp="1591979309647" />
+    <state x="395" y="198" width="800" height="528" key="Vcs.Push.Dialog.v2/0.27.1600.873@0.27.1600.873" timestamp="1592261910938" />
     <state x="495" y="251" width="600" height="423" key="git4idea.merge.GitPullDialog" timestamp="1591703504935">
       <screen x="0" y="27" width="1600" height="873" />
     </state>
     <state x="495" y="251" width="600" height="423" key="git4idea.merge.GitPullDialog/0.27.1600.873@0.27.1600.873" timestamp="1591703504935" />
-    <state x="463" y="212" width="672" height="678" key="search.everywhere.popup" timestamp="1592260528347">
+    <state x="463" y="212" width="672" height="678" key="search.everywhere.popup" timestamp="1592262470690">
       <screen x="0" y="27" width="1600" height="873" />
     </state>
-    <state x="463" y="212" width="672" height="678" key="search.everywhere.popup/0.27.1600.873@0.27.1600.873" timestamp="1592260528347" />
+    <state x="463" y="212" width="672" height="678" key="search.everywhere.popup/0.27.1600.873@0.27.1600.873" timestamp="1592262470690" />
   </component>
 </project>

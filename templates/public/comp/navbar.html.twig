@@ -63,11 +63,13 @@
             <button type="button" id="sidebarCollapse" class="btn btn-info">
                 <i class="fas fa-align-left"></i>
             </button>
-            <div class="row">
+            <div class="row mr-2">
 
                 {% if app.user %}
                     <p>Hi {{ app.user.username }}</p>
+
                     <a href="{{ path('basket') }}" ><i class="text-info fas fa-shopping-cart fa-2x"></i></a>
+
                 {% endif %}
             </div>
         </div>
