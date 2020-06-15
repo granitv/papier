@@ -35,9 +35,15 @@ class Basket
      */
     private $Coll;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Order::class, mappedBy="basket")
+     */
+    private $order1;
+
     public function __construct()
     {
         $this->Coll = new ArrayCollection();
+        $this->order1 = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -90,6 +96,37 @@ class Basket
     {
         if ($this->Coll->contains($coll)) {
             $this->Coll->removeElement($coll);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Order[]
+     */
+    public function getOrder1(): Collection
+    {
+        return $this->order1;
+    }
+
+    public function addOrder1(Order $order1): self
+    {
+        if (!$this->order1->contains($order1)) {
+            $this->order1[] = $order1;
+            $order1->setBasket($this);
+        }
+
+        return $this;
+    }
+
+    public function removeOrder1(Order $order1): self
+    {
+        if ($this->order1->contains($order1)) {
+            $this->order1->removeElement($order1);
+            // set the owning side to null (unless already changed)
+            if ($order1->getBasket() === $this) {
+                $order1->setBasket(null);
+            }
         }
 
         return $this;

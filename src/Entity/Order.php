@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\OrderRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -49,6 +51,41 @@ class Order
      * @ORM\JoinColumn(nullable=false)
      */
     private $user;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $quantity;
+
+    /**
+     * @ORM\Column(type="integer", nullable=false)
+     */
+    private $totalPrice;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $overlapping;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Basket::class, inversedBy="order1")
+     */
+    private $basket;
+
+    /**
+     * @ORM\ManyToMany(targetEntity=Facture::class, mappedBy="order1")
+     */
+    private $factures;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Typee::class, inversedBy="orders")
+     */
+    private $typee;
+
+    public function __construct()
+    {
+        $this->factures = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -126,4 +163,93 @@ class Order
 
         return $this;
     }
+
+    public function getQuantity(): ?int
+    {
+        return $this->quantity;
+    }
+
+    public function setQuantity(?int $quantity): self
+    {
+        $this->quantity = $quantity;
+
+        return $this;
+    }
+
+    public function getTotalPrice(): ?int
+    {
+        return $this->totalPrice;
+    }
+
+    public function setTotalPrice(int $totalPrice): self
+    {
+        $this->totalPrice = $totalPrice;
+
+        return $this;
+    }
+
+    public function getOverlapping(): ?string
+    {
+        return $this->overlapping;
+    }
+
+    public function setOverlapping(?string $overlapping): self
+    {
+        $this->overlapping = $overlapping;
+
+        return $this;
+    }
+
+    public function getBasket(): ?Basket
+    {
+        return $this->basket;
+    }
+
+    public function setBasket(?Basket $basket): self
+    {
+        $this->basket = $basket;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Facture[]
+     */
+    public function getFactures(): Collection
+    {
+        return $this->factures;
+    }
+
+    public function addFacture(Facture $facture): self
+    {
+        if (!$this->factures->contains($facture)) {
+            $this->factures[] = $facture;
+            $facture->addOrder1($this);
+        }
+
+        return $this;
+    }
+
+    public function removeFacture(Facture $facture): self
+    {
+        if ($this->factures->contains($facture)) {
+            $this->factures->removeElement($facture);
+            $facture->removeOrder1($this);
+        }
+
+        return $this;
+    }
+
+    public function getTypee(): ?Typee
+    {
+        return $this->typee;
+    }
+
+    public function setTypee(?Typee $typee): self
+    {
+        $this->typee = $typee;
+
+        return $this;
+    }
+
 }

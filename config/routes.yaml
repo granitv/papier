@@ -77,3 +77,7 @@ library:
 addtolib:
     path: /library/{id}
     controller: App\Controller\UserController::addToLib
+
+deleteOrder:
+    path: /deleteOrder/{id}
+    controller: App\Controller\UserController::deleteOrder

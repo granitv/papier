@@ -8,22 +8,33 @@
                 <thead>
                 <tr>
                     <th scope="col"> Products </th>
+                    <th scope="col">Width</th>
+                    <th scope="col">Hight</th>
+                    <th scope="col">Recouvrement des laizes:</th>
                     <th scope="col"> Prix </th>
+                    <th scope="col"> Suprime </th>
                 </tr>
                 </thead>
                 <tbody>
                 {% for basket in userBasket %}
-                    {% for volumes in basket.coll %}
+                    {% for order in basket.Order1 %}
                         <tr>
-                            <td> {{ volumes.name }} </td>
-                            <td> {{ volumes.price }} €</td>
+                            <td> {{ order.coll.name }} </td>
+                            <td>{{ order.width }} cm</td>
+                            <td>{{ order.height }} cm</td>
+                            <td>{% if order.overlapping == 0 %} Aucun {% else %} 4cm {% endif %}</td>
+                            <td> {{ order.totalPrice/100|number_format(2) }} €</td>
+                            <td><a onclick="return confirm('Are you sure you wanna delete this?');"href="{{ path('deleteOrder',{id: order.id}) }}"><i class="text-danger fas fa-trash-alt"></i></a></td>
                         </tr>
                     {% endfor %}
                 {% endfor %}
                 {% for basket in userBasket %}
                     <tr>
                         <td> Prix Total</td>
-                        <td> {{ basket.total }} €</td>
+                        <td> </td>
+                        <td> </td>
+                        <td> </td>
+                        <td> {{ basket.total/100|number_format(2) }} €</td> <td> </td>
                     </tr>
                 {% endfor %}
                 </tbody>

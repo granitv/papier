@@ -8,10 +8,10 @@
         <form action="{{ path('paymentOk', {id:basket.id }) }}"  method="post" id="payment-form">
             {% endfor %}
             <div class="form-row">
-                <label for="card-element" >
+                <label class="row col-md-12" for="card-element" >
                     Credit or debit card
                 </label>
-                <div id="card-element" >
+                <div id="card-element" class="col-md-12">
                     <!-- A Stripe Element will be inserted here. -->
                 </div>
 

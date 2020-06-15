@@ -12,6 +12,7 @@ use App\Repository\BasketRepository;
 
 use App\Repository\CollRepository;
 use App\Repository\FactureRepository;
+use App\Repository\OrderRepository;
 use App\Repository\UserRepository;
 use Plasticbrain\FlashMessages\FlashMessages;
 use Doctrine\DBAL\Schema\View;
@@ -80,10 +81,12 @@ class UserController extends AbstractController
             $user->setBasket($basket);
         }
         $basket = $user->getBasket();
-        if ($basket->getColl()->count() == 0){
+
+        if ($basket->getOrder1()->count() == 0){
             $basket->setTotal(0);
         }
         $this->userBasket = $basketRepository->findBy(['id' => $basket->getId() ]);
+
         return $this->render('public/pages/basket.html.twig', [
             'userBasket' => $this->userBasket
         ]);
@@ -92,7 +95,7 @@ class UserController extends AbstractController
     {
         $this->basket = $basketRepository->findBy(['id' => $id]);
         $basketPrice = $this->basket['0'];
-        $total = $basketPrice->getTotal() * 100;
+        $total = $basketPrice->getTotal();
         return $this->render('public/pages/payment.html.twig', [
             'categorys' => $this->categorys,
             'intent' => $this->intent,
@@ -104,7 +107,7 @@ class UserController extends AbstractController
         $this->fail = false;
         $basket = $user->getBasket();
         $basketPrice = $basket->getTotal();
-        $total = $basketPrice  * 100;
+        $total = $basketPrice;
         \Stripe\Stripe::setApiKey('sk_test_oZ41JW4bx1BzklgENDZAChFP00Spk89Qzt');
         $json_str = file_get_contents('php://input');
         $json_obj = json_decode($json_str);
@@ -125,7 +128,7 @@ class UserController extends AbstractController
             $flsh->error('Votre payement a été refusé');
             $flsh->display();
 
-            return $this->render('home.html.twig', [
+            return $this->render('public/pages/home.html.twig', [
                 'categorys'=> $this->categorys,
 
             ]);
@@ -135,12 +138,12 @@ class UserController extends AbstractController
         if ($this->fail != true) {
             if ($intent['status'] === 'succeeded') {
                 $factures = new Facture();
-                $basketVol = $basket->getColl();
+                $basketVol = $basket->getOrder1();
                 foreach ($basketVol as $volInBask) {
 
-                    $user->addColl($volInBask);
-                    $factures->addColl($volInBask);
-                    $basket->removeColl($volInBask);
+                    $user->addOrder($volInBask);
+                    $factures->addOrder1($volInBask);
+                    $basket->removeOrder1($volInBask);
                 }
                 $factures->setTotal($basket->getTotal());
                 $factures->setUser($user);
@@ -148,10 +151,10 @@ class UserController extends AbstractController
                 $entityManager->persist($factures);
                 $entityManager->persist($basket);
                 $entityManager->flush();
-                $this->volumes = $user->getColl();
+                $this->volumes = $user->getOrders();
             }
         }
-        return $this->render('public/page/home.html.twig');
+        return $this->render('public/pages/home.html.twig');
     }
     public function libAction(UserRepository $userRepository){
 
@@ -244,6 +247,20 @@ class UserController extends AbstractController
             'volumes' => $user->getVolumes()
         ]);
 
+    }
+    public function deleteOrder($id,OrderRepository $orderR,UserRepository $userR,BasketRepository $basketR){
+        $selectOrder = $orderR->findOneBy(["id"=>$id]);
+
+        if($this->getUser() == $selectOrder->getUser()){
+            //   $user = $userRepository->find($this->getUser());
+            $user = $this->getUser();
+            $basket = $user->getBasket();
+            $basketPrice = $basket->getTotal();
+            $basket->setTotal($basketPrice-$selectOrder->getTotalPrice());
+            $this->insertInDB($basket);
+            $this->removeFromDB($selectOrder);
+        }
+        return $this->redirect('/basket');
     }
     public function removeFromDB($removethis){
         $manager = $this->getDoctrine()->getManager();
