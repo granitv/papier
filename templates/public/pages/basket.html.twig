@@ -17,8 +17,8 @@
                 </tr>
                 </thead>
                 <tbody>
-                {% for basket in userBasket %}
-                    {% for order in basket.Order1 %}
+
+                    {% for order in userBasket.Order1 %}
                         <tr>
                             <td> {{ order.coll.name }} <img src="{{ order.coll.image[0].url }}" width="100px"> </td>
                             <td>{{ order.width }} cm</td>
@@ -29,27 +29,171 @@
                             <td><a onclick="return confirm('Are you sure you wanna delete this?');"href="{{ path('deleteOrder',{id: order.id}) }}"><i class="text-danger fas fa-trash-alt"></i></a></td>
                         </tr>
                     {% endfor %}
-                {% endfor %}
-                {% for basket in userBasket %}
+
+
                     <tr>
                         <td> Prix Total</td>
                         <td> </td>
                         <td> </td>
                         <td> </td>
-                        <td> {{ basket.total/100|number_format(2) }} €</td> <td> </td><td> </td>
+                        <td> {{ userBasket.total/100|number_format(2) }} €</td> <td> </td><td> </td>
                     </tr>
-                {% endfor %}
+
                 </tbody>
             </table>
         </div>
     </div>
 
-    {% for basket in userBasket %}
-        {% if  basket.total > 0   %}
+    {#id fullname country street postcode city tel note#}
 
-            <a class="btn btn-primary" href="{{ path('goToPayment', {id:basket.id}) }}"> Aller au payement</a>
+    {% if address == false  %}
+    <a href="{{ path('updateinfo') }}" class="btn-sm btn-success">Add Address</a>
+        {% else %}
+            <div class="container my-4 border p-4">
+                <div class="row">
+                    <div class="col-md-4">
+                        <address>
+                            <strong>{{ thisUserAddress.fullname }}</strong><br>
+                            {{ thisUserAddress.street }}<br>
+                            {{ thisUserAddress.country }},    {{ thisUserAddress.city }} {{ thisUserAddress.postcode }}<br>
+                            <abbr title="Phone">Tel:</abbr>{{ thisUserAddress.tel }}
+                        </address>
+
+
+                    </div>
+                    <div class="col-md-4">
+                        <address>
+                            <strong>Email:</strong>
+                            <a href="mailto:#">{{ app.user.email }}</a><br>
+                            <strong>Notes:</strong>
+                            {{ thisUserAddress.note }}
+                        </address>
+                    </div>
+
+                </div>
+                <a href="{{ path('updateinfo') }}" class="btn-sm btn-success">Edit Address</a>
+            </div>
+    {% endif %}
+        {% if  userBasket.total > 0 and address != false  %}
+
+
+
+    <script src="https://js.stripe.com/v3/"></script>
+    <div class="container bg-info text-light rounded p-4">
+
+        <form action="{{ path('paymentOk', {id:userBasket.id }) }}"  method="post" id="payment-form">
+
+            <div class="form-row">
+                <label class="row col-md-12" for="card-element" >
+                    Credit or debit card
+                </label>
+                <div id="card-element" class="col-md-12">
+                    <!-- A Stripe Element will be inserted here. -->
+                </div>
+
+                <!-- Used to display form errors. -->
+                <div id="card-errors" role="alert"></div>
+            </div>
+            <div class="mt-3 d-flex justify-content-center">
+                <input type="submit" class="btn btn-dark" value="Passer la commande"  data-secret="<?= $intent['client_secret'] ?>">
+            </div>
+        </form>
+    </div>
+
+
+
+
+
+
+
+
+    <script>
+        // Create a Stripe client.
+        var stripe = Stripe('pk_test_6FLe9cmG06GJJ0QXYR8IFlYj00wvU475eE');
+
+        // Create an instance of Elements.
+        var elements = stripe.elements();
+
+        // Custom styling can be passed to options when creating an Element.
+        // (Note that this demo uses a wider set of styles than the guide below.)
+        var style = {
+            base: {
+                color: '#32325d',
+                fontFamily: '"Helvetica Neue", Helvetica, sans-serif',
+                fontSmoothing: 'antialiased',
+                fontSize: '16px',
+                '::placeholder': {
+                    color: '#aab7c4'
+                }
+            },
+            invalid: {
+                color: '#fa755a',
+                iconColor: '#fa755a'
+            }
+        };
+
+        // Create an instance of the card Element.
+        var card = elements.create('card', {style: style});
+
+        // Add an instance of the card Element into the `card-element` <div>.
+        card.mount('#card-element');
+
+        // Handle real-time validation errors from the card Element.
+        card.on('change', function(event) {
+            var displayError = document.getElementById('card-errors');
+            if (event.error) {
+                displayError.textContent = event.error.message;
+            } else {
+                displayError.textContent = '';
+            }
+        });
+
+        // Handle form submission.
+        var form = document.getElementById('payment-form');
+        form.addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            stripe.createToken(card).then(function(result) {
+                if (result.error) {
+                    // Inform the user if there was an error.
+                    var errorElement = document.getElementById('card-errors');
+                    errorElement.textContent = result.error.message;
+                } else {
+                    // Send the token to your server.
+                    stripeTokenHandler(result.token);
+                }
+            });
+        });
+
+        // Submit the form with the token ID.
+        function stripeTokenHandler(token) {
+            // Insert the token ID into the form so it gets submitted to the server
+            var form = document.getElementById('payment-form');
+            var hiddenInput = document.createElement('input');
+            hiddenInput.setAttribute('type', 'hidden');
+            hiddenInput.setAttribute('name', 'stripeToken');
+            hiddenInput.setAttribute('value', token.id);
+            form.appendChild(hiddenInput);
+
+            // Submit the form
+            form.submit();
+        }
+
+        var response = fetch('/secret').then(function(response) {
+            return response.json();
+        }).then(function(responseJson) {
+            var clientSecret = responseJson.client_secret;
+            // Call stripe.confirmCardPayment() with the client secret.
+        });
+
+
+    </script>
+
+
+           {# <a class="btn btn-primary" href="{{ path('goToPayment', {id:basket.id}) }}"> Aller au payement</a>#}
+
         {% endif %}
-    {% endfor %}
+
 
 
 {% endblock %}

@@ -76,7 +76,8 @@ class UserController extends AbstractController
         ]);
     }
 
-    public function basketAction(OrderRepository $orderR,UserRepository $userRepository,BasketRepository $basketRepository, CollRepository $collRepository){
+    public function basketAction(OrderRepository $orderR,UserRepository $userRepository,BasketRepository $basketRepository, CollRepository $collRepository,UserInfoRepository $userInfoR,
+                                 Request $request){
         if($this->getUser() == null){
             return $this->redirect('/login');
         }
@@ -101,10 +102,31 @@ class UserController extends AbstractController
         $basket->setTotal($newTotal);
         $this->insertInDB($basket);
 
-        $this->userBasket = $basketRepository->findBy(['id' => $basket->getId() ]);
+        $this->userBasket = $basketRepository->findOneBy(['id' => $basket->getId() ]);
+//test
 
+        $this->basket = $basketRepository->findOneBy(['id' => $basket->getId()]);
+        $basketPrice = $this->basket;
+        $user = $this->getUser();
+        if($basketPrice->getUser() !== $this->getUser()){
+            return $this->redirect('/basket');
+        }
+        $thisUserAddress = null;
+        if($user->getUserinfo() == null){
+            $address = false;
+        }else{
+            $thisUserAddress = $user->getUserinfo();
+            $address = true;
+        }
+        $total = $basketPrice->getTotal();
+
+        //test
         return $this->render('public/pages/basket.html.twig', [
-            'userBasket' => $this->userBasket
+            'categorys' => $this->categorys,
+            'intent' => $this->intent,
+            'userBasket' => $this->userBasket,
+            'address' => $address,
+            'thisUserAddress' =>$thisUserAddress
         ]);
     }
     public function goToPaymentAction(UserInfoRepository $userInfoR,
@@ -150,7 +172,8 @@ class UserController extends AbstractController
         return $this->render('public/pages/payment.html.twig', [
             'categorys' => $this->categorys,
             'intent' => $this->intent,
-            'userBasket' => $this->basket
+            'userBasket' => $this->basket,
+
         ]);
     }
     public function stripeAction(Request $request, $id, BasketRepository $basketRepository, UserRepository $userRepository, FactureRepository $factureRepository){
@@ -189,15 +212,22 @@ class UserController extends AbstractController
         if ($this->fail != true) {
             if ($intent['status'] === 'succeeded') {
                 $factures = new Facture();
-                $basketVol = $basket->getOrder1();
-                foreach ($basketVol as $volInBask) {
+                $orderInbasket = $basket->getOrder1();
+                foreach ($orderInbasket as $oneOrder) {
 
-                    $user->addOrder($volInBask);
-                    $factures->addOrder1($volInBask);
-                    $basket->removeOrder1($volInBask);
+                    $factures->addOrder1($oneOrder);
+                    $basket->removeOrder1($oneOrder);
                 }
                 $factures->setTotal($basket->getTotal());
                 $factures->setUser($user);
+                //	fullname	country	street	postcode	city	tel	note
+                $factures->setFullname($user->getUserinfo()->getFullname());
+                $factures->setCountry($user->getUserinfo()->getCountry());
+                $factures->setStreet($user->getUserinfo()->getStreet());
+                $factures->setPostcode($user->getUserinfo()->getPostcode());
+                $factures->setCity($user->getUserinfo()->getCity());
+                $factures->setTel($user->getUserinfo()->getTel());
+                $factures->setNote($user->getUserinfo()->getNote());
                 $entityManager = $this->getDoctrine()->getManager();
                 $entityManager->persist($factures);
                 $entityManager->persist($basket);

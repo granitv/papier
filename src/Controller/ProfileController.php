@@ -90,9 +90,7 @@ class ProfileController extends AbstractController
             $this->insertInDB($updateInfo);
             $userupp = $user->setUserinfo($updateInfo);
             $this->insertInDB($userupp);
-           //teestt
-
-            //testtt
+            return $this->redirect('/basket');
         }
         return $this->render('public/pages/updateinfo.html.twig',[
             'updateinfoForm'=> $updateinfoForm->createView()
