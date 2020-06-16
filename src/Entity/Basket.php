@@ -40,6 +40,11 @@ class Basket
      */
     private $order1;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=UserInfo::class, inversedBy="baskets")
+     */
+    private $userinfo;
+
     public function __construct()
     {
         $this->Coll = new ArrayCollection();
@@ -128,6 +133,18 @@ class Basket
                 $order1->setBasket(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getUserinfo(): ?UserInfo
+    {
+        return $this->userinfo;
+    }
+
+    public function setUserinfo(?UserInfo $userinfo): self
+    {
+        $this->userinfo = $userinfo;
 
         return $this;
     }

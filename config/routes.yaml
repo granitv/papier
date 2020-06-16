@@ -89,3 +89,7 @@ myhistory:
 editorder:
     path: /editorder/{id}
     controller: App\Controller\ProfileController::editorderAction
+
+updateinfo:
+    path: /updateinfo
+    controller: App\Controller\ProfileController::updateinfoAction

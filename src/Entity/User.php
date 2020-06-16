@@ -83,6 +83,11 @@ class User implements UserInterface, \Serializable
      */
     private $Coll;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=UserInfo::class, inversedBy="users")
+     */
+    private $userinfo;
+
 
 
     public function __construct()
@@ -306,6 +311,18 @@ class User implements UserInterface, \Serializable
         if ($this->Coll->contains($coll)) {
             $this->Coll->removeElement($coll);
         }
+
+        return $this;
+    }
+
+    public function getUserinfo(): ?UserInfo
+    {
+        return $this->userinfo;
+    }
+
+    public function setUserinfo(?UserInfo $userinfo): self
+    {
+        $this->userinfo = $userinfo;
 
         return $this;
     }

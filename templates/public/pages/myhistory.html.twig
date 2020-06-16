@@ -11,12 +11,13 @@
             <th scope="col">Text</th>
             <th scope="col">FileUrl</th>
             <th scope="col">Quantity</th>
-            <th scope="col">Recouvrement des laizes:</th>
+            <th scope="col" data-toggle="tooltip" data-placement="top" title="Recouvrement des laizes:">RL:</th>
             <th scope="col">Type:</th>
             <th scope="col">Total Price:</th>
             <th scope="col">Status</th>
-            <th scope="col">Edit</th>
-            <th scope="col"> Suprime </th>
+            <th scope="col" data-toggle="tooltip" data-placement="top" title="Edit:">E</th>
+            <th scope="col" data-toggle="tooltip" data-placement="top" title="Supprimer">S</th>
+            <th scope="col">Created / Modified</th>
         </tr>
         </thead>
         <tbody>
@@ -27,7 +28,7 @@
 
 
             <th scope="row">{{ o.id }}</th>
-        <td><img src="{{ o.coll.image[0].url }}" width="100px"></td>
+        <td><a href="{{ path('collection',{id: o.coll.id}) }}"><img src="{{ o.coll.image[0].url }}" width="60px"></a></td>
 
         <td>{{ o.height }} cm</td>
            <td> {{ o.width }} cm</td>
@@ -42,9 +43,10 @@
                 <td> {{ o.totalPrice/100|number_format(2) }} €</td>
                 <td> {% if o.getBasket is not null %}<div class="text-center alert alert-warning" role="alert">UnPayed <a class="btn-sm btn-success" href="{{ path('basket') }}">Pay Now</a></div>  {% else %} <div class="text-center alert alert-success" role="alert">Payed</div>   {{ o.getBasket }}{% endif %}</td>
 
-                <td> {% if o.getBasket is not null %}<a href="{{ path('editorder',{id: o.id}) }}"><i class="text-info fas fa-edit fa-2x"></i></a> {% endif %}</td>
+                <td> {% if o.getBasket is not null %}<a href="{{ path('editorder',{id: o.id}) }}"><i class="text-info fas fa-pencil-alt"></i></a> {% endif %}</td>
                 <td>{% if o.getBasket is not null %}<a onclick="return confirm('Are you sure you wanna delete this?');"href="{{ path('deleteOrder',{id: o.id}) }}"><i class="text-danger fas fa-trash-alt"></i></a>{% endif %}
                     </td>
+                <td class="text-center"><ul><li>{{ o.createdAt|date("m/d/Y H:i", "Europe/Paris") }}</li>   <li>{% if o.LastModified is not null %}{{ o.LastModified|date("m/d/Y H:i", "Europe/Paris") }}{% else %} - {% endif %}</li></ul></td>
             </tr>
         {% endfor %}
 

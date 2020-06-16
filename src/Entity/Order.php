@@ -82,6 +82,16 @@ class Order
      */
     private $typee;
 
+    /**
+     * @ORM\Column(type="datetime")
+     */
+    private $created_at;
+
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private $last_modified;
+
     public function __construct()
     {
         $this->factures = new ArrayCollection();
@@ -248,6 +258,30 @@ class Order
     public function setTypee(?Typee $typee): self
     {
         $this->typee = $typee;
+
+        return $this;
+    }
+
+    public function getCreatedAt(): ?\DateTimeInterface
+    {
+        return $this->created_at;
+    }
+
+    public function setCreatedAt(\DateTimeInterface $created_at): self
+    {
+        $this->created_at = $created_at;
+
+        return $this;
+    }
+
+    public function getLastModified(): ?\DateTimeInterface
+    {
+        return $this->last_modified;
+    }
+
+    public function setLastModified(?\DateTimeInterface $last_modified): self
+    {
+        $this->last_modified = $last_modified;
 
         return $this;
     }

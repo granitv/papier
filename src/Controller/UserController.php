@@ -8,11 +8,13 @@ use App\Entity\Basket;
 use App\Entity\Facture;
 use App\Entity\User;
 
+use App\Entity\UserInfo;
 use App\Repository\BasketRepository;
 
 use App\Repository\CollRepository;
 use App\Repository\FactureRepository;
 use App\Repository\OrderRepository;
+use App\Repository\UserInfoRepository;
 use App\Repository\UserRepository;
 use Plasticbrain\FlashMessages\FlashMessages;
 use Doctrine\DBAL\Schema\View;
@@ -75,6 +77,9 @@ class UserController extends AbstractController
     }
 
     public function basketAction(OrderRepository $orderR,UserRepository $userRepository,BasketRepository $basketRepository, CollRepository $collRepository){
+        if($this->getUser() == null){
+            return $this->redirect('/login');
+        }
         $user = $userRepository->find($this->getUser());
         if ($user->getBasket() == null) {
             $basket = new Basket();
@@ -102,10 +107,45 @@ class UserController extends AbstractController
             'userBasket' => $this->userBasket
         ]);
     }
-    public function goToPaymentAction(Request $request, BasketRepository $basketRepository, $id)
+    public function goToPaymentAction(UserInfoRepository $userInfoR,
+        Request $request, BasketRepository $basketRepository, $id)
     {
-        $this->basket = $basketRepository->findBy(['id' => $id]);
-        $basketPrice = $this->basket['0'];
+        $this->basket = $basketRepository->findOneBy(['id' => $id]);
+        $basketPrice = $this->basket;
+        $user = $this->getUser();
+        if($basketPrice->getUser() !== $this->getUser()){
+            return $this->redirect('/basket');
+        }
+        if($basketPrice->getUserinfo() == null){
+            //Test
+                if($user->getUserinfo() == null){
+                    $updateinfo = new UserInfo();
+                }else{
+                    $updateinfo = $user->getUserinfo();
+                }
+                $updateinfoForm = $this->createForm('App\Form\UserInfoType',$updateinfo);
+                $updateinfoForm->handleRequest($request);
+                if($updateinfoForm->isSubmitted() && $updateinfoForm->isValid()){
+                    $updateInfo = $updateinfoForm->getData();
+                    $this->insertInDB($updateInfo);
+                    $userupp = $user->setUserinfo($updateInfo);
+                    $this->insertInDB($userupp);
+                    $baskupp = $basketPrice->setUserinfo($updateInfo);
+                    $this->insertInDB($baskupp);
+                    //teestt
+                    return $this->render('public/pages/payment.html.twig', [
+                        'categorys' => $this->categorys,
+                        'intent' => $this->intent,
+                        'userBasket' => $this->basket
+                    ]);
+                    //testtt
+                }
+                return $this->render('public/pages/updateinfo.html.twig',[
+                    'updateinfoForm'=> $updateinfoForm->createView()
+                ]);
+            //test
+            //return $this->redirect('/updateinfo');
+        }
         $total = $basketPrice->getTotal();
         return $this->render('public/pages/payment.html.twig', [
             'categorys' => $this->categorys,

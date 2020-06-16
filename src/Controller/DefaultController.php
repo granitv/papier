@@ -78,7 +78,7 @@ $allType = $typeeR->findAll();
                 $total = ((($height*$width)/10000)*$typeeInForm->getPrice())*$quantity*100;
 
                 $order1->setTotalPrice($total);
-
+                $order1->setCreatedAt(new \DateTime());
                 $this->insertInDB($order1);
                 $this->addFlash('success','Your order has been submitted');
 

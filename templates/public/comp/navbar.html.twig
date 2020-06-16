@@ -66,7 +66,7 @@
             <div class="row mr-2">
 
                 {% if app.user %}
-                    <p>Hi {{ app.user.username }}</p>
+                    <p class="border rounded mx-2 px-4" >Hi {{ app.user.username }}</p>
 
                     <a class="border rounded mx-2" href="{{ path('basket') }}" >Cart<i class="text-info fas fa-shopping-cart fa-2x"></i></a>
                     <a class="border rounded mx-2" href="{{ path('myhistory') }}" >My History<i class="text-info fas fa-history fa-2x"></i></a>

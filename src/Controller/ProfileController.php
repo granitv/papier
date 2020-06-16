@@ -4,8 +4,11 @@
 namespace App\Controller;
 
 use App\Entity\Order;
+use App\Entity\UserInfo;
+use App\Repository\BasketRepository;
 use App\Repository\OrderRepository;
 use App\Repository\TypeeRepository;
+use App\Repository\UserInfoRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -34,7 +37,7 @@ class ProfileController extends AbstractController
                 return $this->redirect('/login');
             }
             $order1->setUser($this->getUser());
-
+            $order1->setLastModified(new \DateTime());
             $height = $orderForm->get('height')->getData();
             $width = $orderForm->get('width')->getData();
             $quantity = $orderForm->get('quantity')->getData();
@@ -72,6 +75,30 @@ class ProfileController extends AbstractController
             "allType"=>$allType
         ]);
     }
+
+    public function updateinfoAction(Request $request,UserInfoRepository $userInfoR,BasketRepository $basketR){
+        $user = $this->getUser();
+        if($user->getUserinfo() == null){
+            $updateinfo = new UserInfo();
+        }else{
+            $updateinfo = $user->getUserinfo();
+        }
+        $updateinfoForm = $this->createForm('App\Form\UserInfoType',$updateinfo);
+        $updateinfoForm->handleRequest($request);
+        if($updateinfoForm->isSubmitted() && $updateinfoForm->isValid()){
+            $updateInfo = $updateinfoForm->getData();
+            $this->insertInDB($updateInfo);
+            $userupp = $user->setUserinfo($updateInfo);
+            $this->insertInDB($userupp);
+           //teestt
+
+            //testtt
+        }
+        return $this->render('public/pages/updateinfo.html.twig',[
+            'updateinfoForm'=> $updateinfoForm->createView()
+        ]);
+    }
+
     public function removeFromDB($removethis){
         $manager = $this->getDoctrine()->getManager();
         $manager->remove($removethis);
