@@ -12,6 +12,7 @@
                     <th scope="col">Hight</th>
                     <th scope="col">Recouvrement des laizes:</th>
                     <th scope="col"> Prix </th>
+                    <th scope="col"> Edit </th>
                     <th scope="col"> Suprime </th>
                 </tr>
                 </thead>
@@ -19,11 +20,12 @@
                 {% for basket in userBasket %}
                     {% for order in basket.Order1 %}
                         <tr>
-                            <td> {{ order.coll.name }} </td>
+                            <td> {{ order.coll.name }} <img src="{{ order.coll.image[0].url }}" width="100px"> </td>
                             <td>{{ order.width }} cm</td>
                             <td>{{ order.height }} cm</td>
                             <td>{% if order.overlapping == 0 %} Aucun {% else %} 4cm {% endif %}</td>
                             <td> {{ order.totalPrice/100|number_format(2) }} €</td>
+                            <td> {% if order.getBasket is not null %}<a href="{{ path('editorder',{id: order.id}) }}"><i class="text-info fas fa-edit fa-2x"></i></a> {% endif %}</td>
                             <td><a onclick="return confirm('Are you sure you wanna delete this?');"href="{{ path('deleteOrder',{id: order.id}) }}"><i class="text-danger fas fa-trash-alt"></i></a></td>
                         </tr>
                     {% endfor %}
@@ -34,7 +36,7 @@
                         <td> </td>
                         <td> </td>
                         <td> </td>
-                        <td> {{ basket.total/100|number_format(2) }} €</td> <td> </td>
+                        <td> {{ basket.total/100|number_format(2) }} €</td> <td> </td><td> </td>
                     </tr>
                 {% endfor %}
                 </tbody>

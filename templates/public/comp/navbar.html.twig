@@ -68,8 +68,8 @@
                 {% if app.user %}
                     <p>Hi {{ app.user.username }}</p>
 
-                    <a href="{{ path('basket') }}" ><i class="text-info fas fa-shopping-cart fa-2x"></i></a>
-
+                    <a class="border rounded mx-2" href="{{ path('basket') }}" >Cart<i class="text-info fas fa-shopping-cart fa-2x"></i></a>
+                    <a class="border rounded mx-2" href="{{ path('myhistory') }}" >My History<i class="text-info fas fa-history fa-2x"></i></a>
                 {% endif %}
             </div>
         </div>

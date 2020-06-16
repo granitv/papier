@@ -1,0 +1,36 @@
+{% extends'public/comp/base.html.twig' %}
+{% block body %}
+    <div class="row justify-content-center">
+
+        <div class="col-md-6">
+            {{ form_start(editOrderForm) }}
+            <label>Type: <ul hidden>{% for t in allType %}
+                        <span id="typeID{{ t.id }}">{{ t.price }}</span>
+                    {% endfor %}</ul></label>
+            {{ form_widget(editOrderForm.typee) }}
+            <label>Width:</label>
+            {{ form_widget(editOrderForm.width) }}
+            <label>Hight:</label>
+            {{ form_widget(editOrderForm.height) }}
+            <label>Recouvrement des laizes:</label>
+            {{ form_widget(editOrderForm.overlapping) }}
+            <label>Quantity:</label>
+            {{ form_widget(editOrderForm.quantity) }}
+            <div class="row justify-content-between p-4">
+                <div class="text-dark" style="font-size: x-large">
+                    Total: <span id="totalPrice">{{ oneEditOrder.totalPrice/100|number_format(2) }}</span> €
+                </div>
+                <div>
+                    {{ form_widget(editOrderForm.order, {
+                        'label' : 'Edit',
+                        'attr': {
+                            'class': 'btn btn-info'}
+                    })
+                    }}
+
+                </div>
+            </div>
+            {{ form_end(editOrderForm) }}
+        </div>
+    </div>
+{% endblock %}

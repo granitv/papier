@@ -85,3 +85,7 @@ deleteOrder:
 myhistory:
     path: /myhistory
     controller: App\Controller\ProfileController::myHistoryAction
+
+editorder:
+    path: /editorder/{id}
+    controller: App\Controller\ProfileController::editorderAction

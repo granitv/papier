@@ -74,7 +74,7 @@ class UserController extends AbstractController
         ]);
     }
 
-    public function basketAction(UserRepository $userRepository,BasketRepository $basketRepository, CollRepository $collRepository){
+    public function basketAction(OrderRepository $orderR,UserRepository $userRepository,BasketRepository $basketRepository, CollRepository $collRepository){
         $user = $userRepository->find($this->getUser());
         if ($user->getBasket() == null) {
             $basket = new Basket();
@@ -85,6 +85,17 @@ class UserController extends AbstractController
         if ($basket->getOrder1()->count() == 0){
             $basket->setTotal(0);
         }
+        $allOrderByThisUser = $orderR->findBy(['user'=> $this->getUser()]);
+
+        $newTotal=0;
+        foreach($allOrderByThisUser as $a){
+            if($a->getBasket() !== null){
+                $newTotal += $a->getTotalPrice();
+            }
+        }
+        $basket->setTotal($newTotal);
+        $this->insertInDB($basket);
+
         $this->userBasket = $basketRepository->findBy(['id' => $basket->getId() ]);
 
         return $this->render('public/pages/basket.html.twig', [
@@ -251,7 +262,7 @@ class UserController extends AbstractController
     public function deleteOrder($id,OrderRepository $orderR,UserRepository $userR,BasketRepository $basketR){
         $selectOrder = $orderR->findOneBy(["id"=>$id]);
 
-        if($this->getUser() == $selectOrder->getUser()){
+        if($this->getUser() == $selectOrder->getUser() && $selectOrder->getBasket() !== null){
             //   $user = $userRepository->find($this->getUser());
             $user = $this->getUser();
             $basket = $user->getBasket();
