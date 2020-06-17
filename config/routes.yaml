@@ -54,29 +54,9 @@ basket:
     path: /basket
     controller: App\Controller\UserController::basketAction
 
-addBasketButContinue:
-    path: /subs/{id}
-    controller: App\Controller\UserController::addBasketButContinue
-
-addBasket:
-    path: /basket/{id}
-    controller: App\Controller\UserController::addBasket
-
-goToPayment:
-    path: /gotopayment/{id}
-    controller: App\Controller\UserController::goToPaymentAction
-
 paymentOk:
     path: /paymentok/{id}
     controller: App\Controller\UserController::stripeAction
-
-library:
-    path: /library
-    controller: App\Controller\UserController::libAction
-
-addtolib:
-    path: /library/{id}
-    controller: App\Controller\UserController::addToLib
 
 deleteOrder:
     path: /deleteOrder/{id}
@@ -93,3 +73,7 @@ editorder:
 updateinfo:
     path: /updateinfo
     controller: App\Controller\ProfileController::updateinfoAction
+
+facture:
+    path: /facture/{id}
+    controller: App\Controller\ProfileController::factureAction

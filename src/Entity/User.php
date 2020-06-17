@@ -79,11 +79,6 @@ class User implements UserInterface, \Serializable
     private $factures;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Coll::class, inversedBy="users")
-     */
-    private $Coll;
-
-    /**
      * @ORM\ManyToOne(targetEntity=UserInfo::class, inversedBy="users")
      */
     private $userinfo;
@@ -98,7 +93,8 @@ class User implements UserInterface, \Serializable
 
         $this->orders = new ArrayCollection();
         $this->factures = new ArrayCollection();
-        $this->Coll = new ArrayCollection();    }
+
+          }
 
     public function getEmail(): ?string
     {
@@ -289,31 +285,7 @@ class User implements UserInterface, \Serializable
         return $this;
     }
 
-    /**
-     * @return Collection|Coll[]
-     */
-    public function getColl(): Collection
-    {
-        return $this->Coll;
-    }
 
-    public function addColl(Coll $coll): self
-    {
-        if (!$this->Coll->contains($coll)) {
-            $this->Coll[] = $coll;
-        }
-
-        return $this;
-    }
-
-    public function removeColl(Coll $coll): self
-    {
-        if ($this->Coll->contains($coll)) {
-            $this->Coll->removeElement($coll);
-        }
-
-        return $this;
-    }
 
     public function getUserinfo(): ?UserInfo
     {

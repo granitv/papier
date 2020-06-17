@@ -1,0 +1,65 @@
+
+   <div class="container-fluid">
+       <h1>Facture: #{{ o.getFactures[0].id }}</h1>
+
+       <table class="table">
+           <thead>
+           <tr>
+               <th scope="col">Design</th>
+               <th scope="col">Height</th>
+               <th scope="col">Width</th>
+               <th scope="col">Text</th>
+               <th scope="col">Quantity</th>
+               <th scope="col" data-toggle="tooltip" data-placement="top" title="Recouvrement des laizes:">RL:</th>
+               <th scope="col">Type:</th>
+               <th scope="col">Total Price:</th>
+               <th scope="col">Status</th>
+               <th scope="col">Created</th>
+           </tr>
+           </thead>
+           <tbody>
+           <tr>
+               <td>{{ o.coll.name }}</td>
+
+               <td>{{ o.height }} cm</td>
+               <td> {{ o.width }} cm</td>
+               <td>{{ o.text }}</td>
+               <td> {{ o.quantity }}</td>
+               <td>{% if o.overlapping == 0 %} Aucun {% else %} 4cm {% endif %}</td>
+               <td>{{ o.typee.name }}</td>
+               <td> {{ o.totalPrice/100|number_format(2) }} €</td>
+               <td> {% if o.getBasket is not null %}<div class="text-center alert alert-warning" role="alert">UnPayed <a class="btn-sm btn-success" href="{{ path('basket') }}">Pay Now</a></div>  {% else %} <div class="text-center alert alert-success" role="alert">Payed</div>   {{ o.getBasket }}{% endif %}</td>
+
+               <td class="text-center">{{ o.getFactures[0].createdAt|date("m/d/Y H:i", "Europe/Paris") }} <br> {% if o.LastModified is not null %}{{ o.LastModified|date("m/d/Y H:i", "Europe/Paris") }} {% endif %}</td>
+
+           </tr>
+
+           </tbody>
+       </table>
+       <hr>
+       <div class=" my-4 border p-4">
+           <div class="row">
+               <div class="col-md-4">
+                   <address>
+                       <strong>{{ o.getFactures[0].fullname }}</strong><br>
+                       {{ o.getFactures[0].street }}<br>
+                       {{ o.getFactures[0].country }},    {{ o.getFactures[0].city }} {{ o.getFactures[0].postcode }}<br>
+                       <abbr title="Phone">Tel:</abbr>{{ o.getFactures[0].tel }}
+                   </address>
+
+
+               </div>
+               <div class="col-md-4">
+                   <address>
+                       <strong>Email:</strong>
+                       <a href="mailto:#">{{ o.user.email }}</a><br>
+                       <strong>Notes:</strong>
+                       {{ o.getFactures[0].note }}
+                   </address>
+               </div>
+
+           </div>
+
+       </div>
+   </div>
+

@@ -31,11 +31,6 @@ class Basket
     private $user;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Coll::class, inversedBy="baskets")
-     */
-    private $Coll;
-
-    /**
      * @ORM\OneToMany(targetEntity=Order::class, mappedBy="basket")
      */
     private $order1;
@@ -47,7 +42,6 @@ class Basket
 
     public function __construct()
     {
-        $this->Coll = new ArrayCollection();
         $this->order1 = new ArrayCollection();
     }
 
@@ -76,32 +70,6 @@ class Basket
     public function setUser(User $user): self
     {
         $this->user = $user;
-
-        return $this;
-    }
-
-    /**
-     * @return Collection|Coll[]
-     */
-    public function getColl(): Collection
-    {
-        return $this->Coll;
-    }
-
-    public function addColl(Coll $coll): self
-    {
-        if (!$this->Coll->contains($coll)) {
-            $this->Coll[] = $coll;
-        }
-
-        return $this;
-    }
-
-    public function removeColl(Coll $coll): self
-    {
-        if ($this->Coll->contains($coll)) {
-            $this->Coll->removeElement($coll);
-        }
 
         return $this;
     }

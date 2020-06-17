@@ -3,9 +3,10 @@
     "license": "proprietary",
     "require": {
         "php": "^7.2.5",
-        "ext-json": "*",
         "ext-ctype": "*",
         "ext-iconv": "*",
+        "ext-json": "*",
+        "dompdf/dompdf": "^0.8.5",
         "plasticbrain/php-flash-messages": "^1.0",
         "sensio/framework-extra-bundle": "^5.1",
         "stripe/stripe-php": "^7.37",

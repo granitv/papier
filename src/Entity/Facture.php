@@ -31,11 +31,6 @@ class Facture
     private $User;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Coll::class, inversedBy="factures")
-     */
-    private $Coll;
-
-    /**
      * @ORM\ManyToMany(targetEntity=Order::class, inversedBy="factures")
      */
     private $order1;
@@ -75,9 +70,13 @@ class Facture
      */
     private $note;
 
+    /**
+     * @ORM\Column(type="datetime")
+     */
+    private $created_at;
+
     public function __construct()
     {
-        $this->Coll = new ArrayCollection();
         $this->order1 = new ArrayCollection();
     }
 
@@ -110,31 +109,10 @@ class Facture
         return $this;
     }
 
-    /**
-     * @return Collection|Coll[]
-     */
-    public function getColl(): Collection
-    {
-        return $this->Coll;
-    }
 
-    public function addColl(Coll $coll): self
-    {
-        if (!$this->Coll->contains($coll)) {
-            $this->Coll[] = $coll;
-        }
 
-        return $this;
-    }
 
-    public function removeColl(Coll $coll): self
-    {
-        if ($this->Coll->contains($coll)) {
-            $this->Coll->removeElement($coll);
-        }
 
-        return $this;
-    }
 
     /**
      * @return Collection|Order[]
@@ -242,6 +220,18 @@ class Facture
     public function setNote(string $note): self
     {
         $this->note = $note;
+
+        return $this;
+    }
+
+    public function getCreatedAt(): ?\DateTimeInterface
+    {
+        return $this->created_at;
+    }
+
+    public function setCreatedAt(\DateTimeInterface $created_at): self
+    {
+        $this->created_at = $created_at;
 
         return $this;
     }

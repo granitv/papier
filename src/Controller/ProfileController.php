@@ -3,7 +3,6 @@
 
 namespace App\Controller;
 
-use App\Entity\Order;
 use App\Entity\UserInfo;
 use App\Repository\BasketRepository;
 use App\Repository\OrderRepository;
@@ -11,6 +10,8 @@ use App\Repository\TypeeRepository;
 use App\Repository\UserInfoRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
+use Dompdf\Dompdf;
+use Dompdf\Options;
 
 
 class ProfileController extends AbstractController
@@ -76,7 +77,7 @@ class ProfileController extends AbstractController
         ]);
     }
 
-    public function updateinfoAction(Request $request,UserInfoRepository $userInfoR,BasketRepository $basketR){
+    public function updateinfoAction(Request $request){
         $user = $this->getUser();
         if($user->getUserinfo() == null){
             $updateinfo = new UserInfo();
@@ -90,10 +91,51 @@ class ProfileController extends AbstractController
             $this->insertInDB($updateInfo);
             $userupp = $user->setUserinfo($updateInfo);
             $this->insertInDB($userupp);
+            $this->addFlash('success', 'Your address has been edited');
             return $this->redirect('/basket');
         }
         return $this->render('public/pages/updateinfo.html.twig',[
             'updateinfoForm'=> $updateinfoForm->createView()
+        ]);
+    }
+
+    public function factureAction($id,OrderRepository $orderR){
+        $selectedOrder = $orderR->findOneBy(['id'=>$id]);
+        $user = $this->getUser();
+        if($user !== $selectedOrder->getUser()){
+            return $this->redirect('/myhistory');
+        }
+
+        // Configure Dompdf according to your needs
+        $pdfOptions = new Options();
+        $pdfOptions->set('defaultFont', 'Arial');
+
+        // Instantiate Dompdf with our options
+        $dompdf = new Dompdf($pdfOptions);
+
+        // Retrieve the HTML generated in our twig file
+        $html = $this->renderView('public/pages/facture.html.twig', [
+            'o'=>$selectedOrder,
+            'title' => "Welcome to our PDF Test"
+        ]);
+
+        // Load HTML to Dompdf
+        $dompdf->loadHtml($html);
+
+        // (Optional) Setup the paper size and orientation 'portrait' or 'portrait'
+        $dompdf->setPaper('A4', 'portrait');
+
+        // Render the HTML as PDF
+        $dompdf->render();
+        $faturesID = $selectedOrder->getFactures();
+        $fatureID = $faturesID[0]->getId();
+        // Output the generated PDF to Browser (force download)
+        $dompdf->stream("facture-$fatureID.pdf", [
+            "Attachment" => true
+        ]);
+
+        return $this->render('public/pages/facture.html.twig', [
+            'o'=>$selectedOrder
         ]);
     }
 

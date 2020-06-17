@@ -4,31 +4,18 @@
 namespace App\Controller;
 
 use App\Entity\Basket;
-
 use App\Entity\Facture;
-use App\Entity\User;
-
-use App\Entity\UserInfo;
 use App\Repository\BasketRepository;
-
 use App\Repository\CollRepository;
 use App\Repository\FactureRepository;
 use App\Repository\OrderRepository;
 use App\Repository\UserInfoRepository;
 use App\Repository\UserRepository;
 use Plasticbrain\FlashMessages\FlashMessages;
-use Doctrine\DBAL\Schema\View;
-
 use Stripe\Exception\CardException;
-use Stripe\PaymentIntent;
-use Stripe\Stripe;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-
-use Symfony\Component\Config\Definition\Exception\Exception;
-use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Validator\Constraints\Date;
+
 
 class UserController extends AbstractController
 {
@@ -36,48 +23,12 @@ class UserController extends AbstractController
     public $intent;
     public $categorys;
     public $userBasket;
-    public $intentSecret;
-    public $paymethod;
     public $basket;
     public $fail;
     public $volumes;
     public $lib;
-    public $userLib;
-    public $inLib;
 
-
-    public function addBasket(UserRepository $userRepository,BasketRepository $basketRepository, CollRepository $collRepository, $id){
-        $coll = $collRepository->find($id);
-        $user = $userRepository->find($this->getUser());
-        if ($user->getBasket() == null){
-            $basket = new Basket();
-            $user->setBasket($basket);
-        }
-        $basket = $user->getBasket();
-        $prices = [];
-        $basket->addColl($coll);
-        $basket->setUser($this->getUser());
-        //    dump($basket->getVolumes()->count());
-        $this->insertInDB($basket);
-        $this->userBasket = $basketRepository->findBy(['id' => $basket->getId() ]);
-        foreach ($this->userBasket as $basket){
-            foreach ($basket->getColl() as $colls){
-                array_push($prices, $colls->getPrice());
-            }
-        }
-        if ($basket->getColl()->count() == 0){
-            $basket->setTotal(0);
-        }else{
-            $basket->setTotal(array_sum($prices));
-            $this->insertInDB($basket);
-        }
-        return $this->render('public/pages/basket.html.twig', [
-            'userBasket' => $this->userBasket
-        ]);
-    }
-
-    public function basketAction(OrderRepository $orderR,UserRepository $userRepository,BasketRepository $basketRepository, CollRepository $collRepository,UserInfoRepository $userInfoR,
-                                 Request $request){
+    public function basketAction(OrderRepository $orderR,UserRepository $userRepository,BasketRepository $basketRepository){
         if($this->getUser() == null){
             return $this->redirect('/login');
         }
@@ -103,7 +54,7 @@ class UserController extends AbstractController
         $this->insertInDB($basket);
 
         $this->userBasket = $basketRepository->findOneBy(['id' => $basket->getId() ]);
-//test
+
 
         $this->basket = $basketRepository->findOneBy(['id' => $basket->getId()]);
         $basketPrice = $this->basket;
@@ -120,7 +71,7 @@ class UserController extends AbstractController
         }
         $total = $basketPrice->getTotal();
 
-        //test
+
         return $this->render('public/pages/basket.html.twig', [
             'categorys' => $this->categorys,
             'intent' => $this->intent,
@@ -129,54 +80,8 @@ class UserController extends AbstractController
             'thisUserAddress' =>$thisUserAddress
         ]);
     }
-    public function goToPaymentAction(UserInfoRepository $userInfoR,
-        Request $request, BasketRepository $basketRepository, $id)
-    {
-        $this->basket = $basketRepository->findOneBy(['id' => $id]);
-        $basketPrice = $this->basket;
-        $user = $this->getUser();
-        if($basketPrice->getUser() !== $this->getUser()){
-            return $this->redirect('/basket');
-        }
-        if($basketPrice->getUserinfo() == null){
-            //Test
-                if($user->getUserinfo() == null){
-                    $updateinfo = new UserInfo();
-                }else{
-                    $updateinfo = $user->getUserinfo();
-                }
-                $updateinfoForm = $this->createForm('App\Form\UserInfoType',$updateinfo);
-                $updateinfoForm->handleRequest($request);
-                if($updateinfoForm->isSubmitted() && $updateinfoForm->isValid()){
-                    $updateInfo = $updateinfoForm->getData();
-                    $this->insertInDB($updateInfo);
-                    $userupp = $user->setUserinfo($updateInfo);
-                    $this->insertInDB($userupp);
-                    $baskupp = $basketPrice->setUserinfo($updateInfo);
-                    $this->insertInDB($baskupp);
-                    //teestt
-                    return $this->render('public/pages/payment.html.twig', [
-                        'categorys' => $this->categorys,
-                        'intent' => $this->intent,
-                        'userBasket' => $this->basket
-                    ]);
-                    //testtt
-                }
-                return $this->render('public/pages/updateinfo.html.twig',[
-                    'updateinfoForm'=> $updateinfoForm->createView()
-                ]);
-            //test
-            //return $this->redirect('/updateinfo');
-        }
-        $total = $basketPrice->getTotal();
-        return $this->render('public/pages/payment.html.twig', [
-            'categorys' => $this->categorys,
-            'intent' => $this->intent,
-            'userBasket' => $this->basket,
 
-        ]);
-    }
-    public function stripeAction(Request $request, $id, BasketRepository $basketRepository, UserRepository $userRepository, FactureRepository $factureRepository){
+    public function stripeAction(Request $request, UserRepository $userRepository){
         $user = $userRepository->find($this->getUser());
         $this->fail = false;
         $basket = $user->getBasket();
@@ -220,7 +125,7 @@ class UserController extends AbstractController
                 }
                 $factures->setTotal($basket->getTotal());
                 $factures->setUser($user);
-                //	fullname	country	street	postcode	city	tel	note
+
                 $factures->setFullname($user->getUserinfo()->getFullname());
                 $factures->setCountry($user->getUserinfo()->getCountry());
                 $factures->setStreet($user->getUserinfo()->getStreet());
@@ -228,112 +133,23 @@ class UserController extends AbstractController
                 $factures->setCity($user->getUserinfo()->getCity());
                 $factures->setTel($user->getUserinfo()->getTel());
                 $factures->setNote($user->getUserinfo()->getNote());
+                $factures->setCreatedAt(new \DateTime());
                 $entityManager = $this->getDoctrine()->getManager();
                 $entityManager->persist($factures);
                 $entityManager->persist($basket);
                 $entityManager->flush();
                 $this->volumes = $user->getOrders();
+                $this->addFlash('success', 'Your order has been submitted');
             }
         }
-        return $this->render('public/pages/home.html.twig');
-    }
-    public function libAction(UserRepository $userRepository){
-
-        $user = $userRepository->find($this->getUser());
-        $this->volumes = $user->getVolumes();
-        return $this->render('library.html.twig',
-            [
-                'categorys' => $this->categorys,
-                'volumes' => $this->volumes
-            ]);
-    }
-    public function comicAction(volumeRepository $volumeRepository, $id, UserRepository $userRepository){
-        $user = $userRepository->find($this->getUser());
-        $volume = $volumeRepository->findOneBy([ "id" => $id]);
-        $userWiVolume =  $volume->getUser();
-// 1- 5
-        //3 - 5
-        if(sizeof($userWiVolume)){
-            foreach ($userWiVolume as $uv){
-                if($uv == $user){
-
-                    $this->inLib = true;
-
-                }else{
-                    $this->inLib = false;
-                }
-            }
-        }else{
-            if($userWiVolume === $user){
-
-                $this->inLib = true;
-
-            }else{
-                $this->inLib = false;
-            }
-        }
-
-
-        /*   $this->lib = $user->getVolumes();
-           $check = false;
-          foreach ($this->lib as $library) {
-              foreach ($volinlib as $vol) {
-                  if ($vol == $library){
-                      dd(e)
-                  }
-              }
-          } */
-
-
-
-
-
-
-
-        //  dd($volume->getUser());
-
-
-
-        return $this->render('public/pages/comic.html.twig',
-            ['categorys' => $this->categorys,
-                'volume' => $volume,
-                'lib'  => $this->userLib,
-                'inLib' => $this->inLib
-            ]);
-
-
-
+        return $this->redirect('/myhistory');
     }
 
-    public function addToLib(UserRepository $userRepository, VolumeRepository $volumeRepository, $id){
-
-        $volume= $volumeRepository->findBy(['id' => $id]);
-        $volumeAdded = $volume['0'];
-
-
-        $user = $userRepository->find($this->getUser());
-        $factures = new Factures();
-        $factures->setTotal(0);
-        $factures->addVolumesFacture($volumeAdded);
-        $factures->setUsersFactures($user);
-        $user->addVolume($volumeAdded);
-
-        $entityManager = $this->getDoctrine()->getManager();
-        $entityManager->persist($factures);
-        $entityManager->persist($user);
-
-        $entityManager->flush();
-        return $this->render('library.html.twig', [
-            'categorys' => $this->categorys,
-            'volumes' => $user->getVolumes()
-        ]);
-
-    }
-    public function deleteOrder($id,OrderRepository $orderR,UserRepository $userR,BasketRepository $basketR){
+    public function deleteOrder($id,OrderRepository $orderR){
         $selectOrder = $orderR->findOneBy(["id"=>$id]);
 
         if($this->getUser() == $selectOrder->getUser() && $selectOrder->getBasket() !== null){
-            //   $user = $userRepository->find($this->getUser());
+
             $user = $this->getUser();
             $basket = $user->getBasket();
             $basketPrice = $basket->getTotal();

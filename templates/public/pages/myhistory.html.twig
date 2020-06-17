@@ -18,6 +18,7 @@
             <th scope="col" data-toggle="tooltip" data-placement="top" title="Edit:">E</th>
             <th scope="col" data-toggle="tooltip" data-placement="top" title="Supprimer">S</th>
             <th scope="col">Created / Modified</th>
+            <th scope="col">Facture</th>
         </tr>
         </thead>
         <tbody>
@@ -46,7 +47,8 @@
                 <td> {% if o.getBasket is not null %}<a href="{{ path('editorder',{id: o.id}) }}"><i class="text-info fas fa-pencil-alt"></i></a> {% endif %}</td>
                 <td>{% if o.getBasket is not null %}<a onclick="return confirm('Are you sure you wanna delete this?');"href="{{ path('deleteOrder',{id: o.id}) }}"><i class="text-danger fas fa-trash-alt"></i></a>{% endif %}
                     </td>
-                <td class="text-center"><ul><li>{{ o.createdAt|date("m/d/Y H:i", "Europe/Paris") }}</li>   <li>{% if o.LastModified is not null %}{{ o.LastModified|date("m/d/Y H:i", "Europe/Paris") }}{% else %} - {% endif %}</li></ul></td>
+                <td class="text-center">{{ o.createdAt|date("m/d/Y H:i", "Europe/Paris") }} <br> {% if o.LastModified is not null %}{{ o.LastModified|date("m/d/Y H:i", "Europe/Paris") }}{% else %} - {% endif %}</td>
+                <td class="text-center">{% if o.getBasket is null %} <a href="{{ path('facture',{id:o.id}) }}" class="btn-sm btn-info">Download</a> {% endif %}</td>
             </tr>
         {% endfor %}
 
