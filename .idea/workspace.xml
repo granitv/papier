@@ -2,20 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="99df481c-3e22-4ccc-b447-299b27aa347c" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/Entity/Ship.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Form/ShipType.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Repository/ShipRepository.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/routes.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/config/routes.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Controller/ProfileController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/ProfileController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Controller/RegistrationController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/RegistrationController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Controller/UserController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/UserController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Entity/Basket.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/Basket.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Entity/Facture.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/Facture.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Migrations/Version20200616234036.php" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/public/pages/basket.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/public/pages/basket.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/public/pages/facture.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/public/pages/facture.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/public/pages/myhistory.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/public/pages/myhistory.html.twig" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -195,7 +184,7 @@
       <workItem from="1592303895369" duration="19639000" />
       <workItem from="1592557472582" duration="3860000" />
       <workItem from="1592672440139" duration="2643000" />
-      <workItem from="1592767340641" duration="14133000" />
+      <workItem from="1592767340641" duration="16183000" />
     </task>
     <task id="LOCAL-00001" summary="roots">
       <created>1591696868198</created>
@@ -316,7 +305,14 @@
       <option name="project" value="LOCAL" />
       <updated>1592353871661</updated>
     </task>
-    <option name="localTasksCounter" value="18" />
+    <task id="LOCAL-00018" summary="all in one facture">
+      <created>1592830068480</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1592830068480</updated>
+    </task>
+    <option name="localTasksCounter" value="19" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -334,7 +330,8 @@
     <MESSAGE value="roots+login+coll+img+ilm+stripe+basket+order+edit+delete+adress" />
     <MESSAGE value="roots+login+coll+img+ilm+stripe+basket+order+edit+delete+adress+onepaymentpage" />
     <MESSAGE value="facture pdf" />
-    <option name="LAST_COMMIT_MESSAGE" value="facture pdf" />
+    <MESSAGE value="all in one facture" />
+    <option name="LAST_COMMIT_MESSAGE" value="all in one facture" />
   </component>
   <component name="WindowStateProjectService">
     <state x="395" y="124" width="800" height="677" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1591991093147">
@@ -357,18 +354,18 @@
       <screen x="0" y="27" width="1600" height="873" />
     </state>
     <state x="533" y="220" width="524" height="484" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/0.27.1600.873@0.27.1600.873" timestamp="1592820772495" />
-    <state x="243" y="27" width="1103" height="873" key="CommitChangelistDialog2" timestamp="1592353871573">
+    <state x="243" y="27" width="1103" height="873" key="CommitChangelistDialog2" timestamp="1592830068362">
       <screen x="0" y="27" width="1600" height="873" />
     </state>
-    <state x="243" y="27" width="1103" height="873" key="CommitChangelistDialog2/0.27.1600.873@0.27.1600.873" timestamp="1592353871573" />
+    <state x="243" y="27" width="1103" height="873" key="CommitChangelistDialog2/0.27.1600.873@0.27.1600.873" timestamp="1592830068362" />
     <state x="661" y="362" key="Github.ShareDialog" timestamp="1591692476801">
       <screen x="0" y="27" width="1600" height="873" />
     </state>
     <state x="661" y="362" key="Github.ShareDialog/0.27.1600.873@0.27.1600.873" timestamp="1591692476801" />
-    <state x="395" y="198" width="800" height="528" key="Vcs.Push.Dialog.v2" timestamp="1592353875604">
+    <state x="395" y="198" width="800" height="528" key="Vcs.Push.Dialog.v2" timestamp="1592830072719">
       <screen x="0" y="27" width="1600" height="873" />
     </state>
-    <state x="395" y="198" width="800" height="528" key="Vcs.Push.Dialog.v2/0.27.1600.873@0.27.1600.873" timestamp="1592353875604" />
+    <state x="395" y="198" width="800" height="528" key="Vcs.Push.Dialog.v2/0.27.1600.873@0.27.1600.873" timestamp="1592830072719" />
     <state x="495" y="251" width="600" height="423" key="git4idea.merge.GitPullDialog" timestamp="1591703504935">
       <screen x="0" y="27" width="1600" height="873" />
     </state>

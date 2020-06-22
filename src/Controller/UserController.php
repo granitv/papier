@@ -42,6 +42,12 @@ class UserController extends AbstractController
         $basket = $user->getBasket();
         if ($basket->getOrder1()->count() == 0){
             $basket->setTotal(0);
+            if($basket->getShip()){
+                $shipping = $basket->getShip();
+                $shipping->setPrice(0);
+                $this->insertInDB($shipping);
+            }
+
         }
         $allOrderByThisUser = $orderR->findBy(['user'=> $this->getUser()]);
 
@@ -73,8 +79,6 @@ class UserController extends AbstractController
             $thisUserAddress = $user->getUserinfo();
             $address = true;
         }
-        $total = $basketPrice->getTotal();
-        //testtime
         $date=[];
         $today= new \DateTime();
         $nextmonday= clone $today;
@@ -93,6 +97,7 @@ class UserController extends AbstractController
         $newDay= clone $date[0];
         $newDay1 = $newDay->modify('+7 days');
         $date[]=$newDay1;
+
         if($basket->getShip() == null){
             $shipping = new Ship();
             $shipping->setStartDate($date[1]);
@@ -100,9 +105,18 @@ class UserController extends AbstractController
             $this->insertInDB($shipping);
             $bbship = $basket->setShip($shipping);
             $this->insertInDB($bbship);
+
         }else{
+            if ($basket->getOrder1()->count() !== 0){
+                if($basket->getShip() && $basket->getShip()->getPrice() == 0){
+                    $shipping = $basket->getShip();
+                    $shipping->setPrice(500);
+                    $this->insertInDB($shipping);
+                }
+            }else{
+                $shipping->setPrice(0);
+            }
             $diff = $today->diff($basket->getShip()->getStartDate())->format("%r%a");
-          //  dd($diff);
             if($diff <= 0){
                 $shipping = $basket->getShip();
                 $shipping->setStartDate($date[1]);
@@ -110,12 +124,8 @@ class UserController extends AbstractController
                 $this->insertInDB($shipping);
             }
         }
-      //  dd($date);
-       /* $secoudmonday = clone $nextmonday;
-        $secoudmonday->modify('+7 days');*/
 
 
-//testtime
 
         return $this->render('public/pages/basket.html.twig', [
             'categorys' => $this->categorys,
@@ -139,8 +149,6 @@ class UserController extends AbstractController
             return $this->redirect('/basket');
         }
         $basket = $user->getBasket();
-
-
 
         //testtime
         $date=[];

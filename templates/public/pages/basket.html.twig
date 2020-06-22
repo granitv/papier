@@ -78,30 +78,25 @@
                 </div>
                 <a href="{{ path('updateinfo') }}" class="btn-sm btn-success">Edit Address</a>
             </div>
+{% if userBasket.total != 0 %}
+
+    <p>{% if userBasket.ship is null %}No shipping Selected{% else %}Shipping date: {{ userBasket.ship.startDate|date('d M Y') }}{% endif %}</p>
+    <p  class="text-dark my-2">Livraison indicative:
+        {% for d in date %}
+            {% set difference = date(d).diff(date("now")) %}
+            {% set leftDays = difference.days %}
+            {% if leftDays <= 0 %}
+                <span class="disabled btn btn-info ">{{ d|date('d M Y') }}</span>
+            {% else %}
+                <a href="{{path('updateShipping',{id: loop.index-1 })}}">  <span class="btn{% if userBasket.ship.startDate == d %}
+                     btn-dark{% else %} btn-info  {% endif %}">{{ d|date('d M Y') }} <span class="btn-sm btn-warning ">{% if loop.index-1 == 1 %}5{% elseif loop.index-1 == 2%}4{% elseif loop.index-1 == 3%}3{% endif %} € </span></span> </a>
+            {% endif %}
+
+        {% endfor %}
+
+    </p>
     {% endif %}
-        <p>{% if userBasket.ship is null %}No shipping Selected{% else %}Shipping date: {{ userBasket.ship.startDate|date('d M Y') }}{% endif %}</p>
-        <p  class="text-dark my-2">Livraison indicative:
-            {% for d in date %}
-                {% set difference = date(d).diff(date("now")) %}
-                {% set leftDays = difference.days %}
-                {% if leftDays <= 0 %}
-                    <span class="disabled btn btn-info ">{{ d|date('d M Y') }}</span>
-                {% else %}
-                    <a href="{{path('updateShipping',{id: loop.index-1 })}}">  <span class="btn
-
-                    {% if userBasket.ship.startDate == d %}
-                     btn-dark
-                    {% else %}
-                     btn-info
-                    {% endif %}
-
-                    ">{{ d|date('d M Y') }} <span class="btn-sm btn-warning ">{% if loop.index-1 == 1 %}5{% elseif loop.index-1 == 2%}4{% elseif loop.index-1 == 3%}3{% endif %} € </span></span> </a>
-                {% endif %}
-
-            {% endfor %}
-
-            </p>
-
+    {% endif %}
 
         {% if  userBasket.total > 0 and address != false and userBasket.ship is not null %}
     <script src="https://js.stripe.com/v3/"></script>
