@@ -5,6 +5,8 @@ namespace App\Controller;
 
 use App\Entity\Basket;
 use App\Entity\Facture;
+use App\Entity\Ship;
+use App\Form\ShipType;
 use App\Repository\BasketRepository;
 use App\Repository\CollRepository;
 use App\Repository\FactureRepository;
@@ -38,7 +40,6 @@ class UserController extends AbstractController
             $user->setBasket($basket);
         }
         $basket = $user->getBasket();
-
         if ($basket->getOrder1()->count() == 0){
             $basket->setTotal(0);
         }
@@ -50,6 +51,9 @@ class UserController extends AbstractController
                 $newTotal += $a->getTotalPrice();
             }
         }
+       if($basket->getShip() !== null){
+           $newTotal += $basket->getShip()->getPrice();
+       }
         $basket->setTotal($newTotal);
         $this->insertInDB($basket);
 
@@ -70,15 +74,152 @@ class UserController extends AbstractController
             $address = true;
         }
         $total = $basketPrice->getTotal();
+        //testtime
+        $date=[];
+        $today= new \DateTime();
+        $nextmonday= clone $today;
+        $date[]= $nextmonday->modify('next mon');
+        $nextTue= clone $today;
+        $date[]= $nextTue->modify('next tue');
+        $nextthursday = clone $today;
+        $date[]= $nextthursday->modify('next thu');
 
+        usort($date, function($a, $b) {
+            if ($a == $b) {
+                return 0;
+            }
+            return $a < $b ? -1 : 1;
+        });
+        $newDay= clone $date[0];
+        $newDay1 = $newDay->modify('+7 days');
+        $date[]=$newDay1;
+        if($basket->getShip() == null){
+            $shipping = new Ship();
+            $shipping->setStartDate($date[1]);
+            $shipping->setPrice(500);
+            $this->insertInDB($shipping);
+            $bbship = $basket->setShip($shipping);
+            $this->insertInDB($bbship);
+        }else{
+            $diff = $today->diff($basket->getShip()->getStartDate())->format("%r%a");
+          //  dd($diff);
+            if($diff <= 0){
+                $shipping = $basket->getShip();
+                $shipping->setStartDate($date[1]);
+                $shipping->setPrice(500);
+                $this->insertInDB($shipping);
+            }
+        }
+      //  dd($date);
+       /* $secoudmonday = clone $nextmonday;
+        $secoudmonday->modify('+7 days');*/
+
+
+//testtime
 
         return $this->render('public/pages/basket.html.twig', [
             'categorys' => $this->categorys,
             'intent' => $this->intent,
             'userBasket' => $this->userBasket,
             'address' => $address,
-            'thisUserAddress' =>$thisUserAddress
+            'thisUserAddress' =>$thisUserAddress,
+
+            'date'=>$date
+
         ]);
+    }
+
+    public function updateShipping($id,UserRepository $userRepository,OrderRepository$orderR){
+
+        if($this->getUser() == null){
+            return $this->redirect('/login');
+        }
+        $user = $userRepository->find($this->getUser());
+        if ($user->getBasket() == null) {
+            return $this->redirect('/basket');
+        }
+        $basket = $user->getBasket();
+
+
+
+        //testtime
+        $date=[];
+        $sortDate=[];
+        $today= new \DateTime();
+        $nextmonday= clone $today;
+        $nextmonday->modify('next mon');
+        $date[]= $nextmonday;
+        $nextTue= clone $today;
+        $nextTue->modify('next tue');
+        $date[]= $nextTue;
+        $nextthursday = clone $today;
+        $nextthursday->modify('next thu');
+        $date[]= $nextthursday;
+
+        usort($date, function($a, $b) {
+            if ($a == $b) {
+                return 0;
+            }
+            return $a < $b ? -1 : 1;
+        });
+        $newDay= clone $date[0];
+        $newDay1 = $newDay->modify('+7 days');
+        $date[]=$newDay1;
+        if($basket->getShip() == null){
+            $shipping = new Ship();
+            $shipping->setStartDate($date[1]);
+            $shipping->setPrice(500);
+            $this->insertInDB($shipping);
+            $bbship = $basket->setShip($shipping);
+            $this->insertInDB($bbship);
+        }else{
+
+            $shipping = $basket->getShip();
+
+            switch ($id){
+                case 1:
+                    $shipping->setStartDate($date[$id]);
+                    $shipping->setPrice(500);
+                    break;
+                case 2:
+                    $shipping->setStartDate($date[$id]);
+                    $shipping->setPrice(400);
+                    break;
+                case 3:
+                    $shipping->setStartDate($date[$id]);
+                    $shipping->setPrice(300);
+                    break;
+                default:
+                    $shipping->setStartDate($date[1]);
+                    break;
+            }
+            $this->insertInDB($shipping);
+            $diff = $today->diff($basket->getShip()->getStartDate())->format("%r%a");
+            //  dd($diff);
+            if($diff <= 0){
+                $shipping = $basket->getShip();
+                $shipping->setStartDate($date[1]);
+                $shipping->setPrice(500);
+                $this->insertInDB($shipping);
+            }
+            $bbship = $basket->setShip($shipping);
+            $this->insertInDB($bbship);
+            $allOrderByThisUser = $orderR->findBy(['user'=> $this->getUser()]);
+            $newTotal=0;
+            foreach($allOrderByThisUser as $a){
+                if($a->getBasket() !== null){
+                    $newTotal += $a->getTotalPrice();
+                }
+            }
+
+            if($basket->getShip() !== null){
+                $newTotal += $basket->getShip()->getPrice();
+            }
+
+            $basket->setTotal($newTotal);
+            $this->insertInDB($basket);
+        }
+        return $this->redirect('/basket');
     }
 
     public function stripeAction(Request $request, UserRepository $userRepository){
@@ -134,6 +275,8 @@ class UserController extends AbstractController
                 $factures->setTel($user->getUserinfo()->getTel());
                 $factures->setNote($user->getUserinfo()->getNote());
                 $factures->setCreatedAt(new \DateTime());
+                $factures->setShip($basket->getShip()->getStartDate());
+                $factures->setShipPrice($basket->getShip()->getPrice());
                 $entityManager = $this->getDoctrine()->getManager();
                 $entityManager->persist($factures);
                 $entityManager->persist($basket);

@@ -75,6 +75,16 @@ class Facture
      */
     private $created_at;
 
+    /**
+     * @ORM\Column(type="datetime")
+     */
+    private $ship;
+
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $ship_price;
+
     public function __construct()
     {
         $this->order1 = new ArrayCollection();
@@ -232,6 +242,30 @@ class Facture
     public function setCreatedAt(\DateTimeInterface $created_at): self
     {
         $this->created_at = $created_at;
+
+        return $this;
+    }
+
+    public function getShip(): ?\DateTimeInterface
+    {
+        return $this->ship;
+    }
+
+    public function setShip(\DateTimeInterface $ship): self
+    {
+        $this->ship = $ship;
+
+        return $this;
+    }
+
+    public function getShipPrice(): ?int
+    {
+        return $this->ship_price;
+    }
+
+    public function setShipPrice(int $ship_price): self
+    {
+        $this->ship_price = $ship_price;
 
         return $this;
     }

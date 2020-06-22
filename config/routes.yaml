@@ -77,3 +77,7 @@ updateinfo:
 facture:
     path: /facture/{id}
     controller: App\Controller\ProfileController::factureAction
+
+updateShipping:
+    path: /updateShipping/{id}
+    controller: App\Controller\UserController::updateShipping

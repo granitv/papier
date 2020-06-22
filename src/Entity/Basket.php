@@ -40,6 +40,11 @@ class Basket
      */
     private $userinfo;
 
+    /**
+     * @ORM\OneToOne(targetEntity=Ship::class, cascade={"persist", "remove"})
+     */
+    private $ship;
+
     public function __construct()
     {
         $this->order1 = new ArrayCollection();
@@ -113,6 +118,18 @@ class Basket
     public function setUserinfo(?UserInfo $userinfo): self
     {
         $this->userinfo = $userinfo;
+
+        return $this;
+    }
+
+    public function getShip(): ?Ship
+    {
+        return $this->ship;
+    }
+
+    public function setShip(?Ship $ship): self
+    {
+        $this->ship = $ship;
 
         return $this;
     }

@@ -1,7 +1,7 @@
-
+{#{% extends'public/comp/base.html.twig' %}
+ {% block body %}#}
    <div class="container-fluid">
-       <h1>Facture: #{{ o.getFactures[0].id }}</h1>
-
+       <h1>Facture: #{{ facture.id }}</h1>
        <table class="table">
            <thead>
            <tr>
@@ -18,22 +18,33 @@
            </tr>
            </thead>
            <tbody>
-           <tr>
-               <td>{{ o.coll.name }}</td>
+  {% for o in facture.order1 %}
 
-               <td>{{ o.height }} cm</td>
-               <td> {{ o.width }} cm</td>
-               <td>{{ o.text }}</td>
-               <td> {{ o.quantity }}</td>
-               <td>{% if o.overlapping == 0 %} Aucun {% else %} 4cm {% endif %}</td>
-               <td>{{ o.typee.name }}</td>
-               <td> {{ o.totalPrice/100|number_format(2) }} €</td>
-               <td> {% if o.getBasket is not null %}<div class="text-center alert alert-warning" role="alert">UnPayed <a class="btn-sm btn-success" href="{{ path('basket') }}">Pay Now</a></div>  {% else %} <div class="text-center alert alert-success" role="alert">Payed</div>   {{ o.getBasket }}{% endif %}</td>
+          <tr>
+              <td>{{ o.coll.name }}</td>
 
-               <td class="text-center">{{ o.getFactures[0].createdAt|date("m/d/Y H:i", "Europe/Paris") }} <br> {% if o.LastModified is not null %}{{ o.LastModified|date("m/d/Y H:i", "Europe/Paris") }} {% endif %}</td>
+              <td>{{ o.height }} cm</td>
+              <td> {{ o.width }} cm</td>
+              <td>{{ o.text }}</td>
+              <td> {{ o.quantity }}</td>
+              <td>{% if o.overlapping == 0 %} Aucun {% else %} 4cm {% endif %}</td>
+              <td>{{ o.typee.name }}</td>
+              <td> {{ o.totalPrice/100|number_format(2) }} €</td>
+              <td> {% if o.getBasket is not null %}<div class="text-center alert alert-warning" role="alert">UnPayed <a class="btn-sm btn-success" href="{{ path('basket') }}">Pay Now</a></div>  {% else %} <div class="text-center alert alert-success" role="alert">Payed</div>   {{ o.getBasket }}{% endif %}</td>
 
-           </tr>
+              <td class="text-center">{{ o.getFactures[0].createdAt|date("m/d/Y H:i", "Europe/Paris") }} <br> {% if o.LastModified is not null %}{{ o.LastModified|date("m/d/Y H:i", "Europe/Paris") }} {% endif %}</td>
 
+          </tr>
+
+  {% endfor %}
+    <tr>
+        <td>Shipping</td>
+        <td></td><td></td><td></td><td></td><td></td><td></td><td>{{ facture.shipPrice/100 }} €</td><td></td><td></td>
+    </tr>
+      <tr>
+          <td>Prix Total</td>
+          <td></td><td></td><td></td><td></td><td></td><td></td><td>{{ facture.total/100 }} €</td><td></td><td></td>
+      </tr>
            </tbody>
        </table>
        <hr>
@@ -41,10 +52,10 @@
            <div class="row">
                <div class="col-md-4">
                    <address>
-                       <strong>{{ o.getFactures[0].fullname }}</strong><br>
-                       {{ o.getFactures[0].street }}<br>
-                       {{ o.getFactures[0].country }},    {{ o.getFactures[0].city }} {{ o.getFactures[0].postcode }}<br>
-                       <abbr title="Phone">Tel:</abbr>{{ o.getFactures[0].tel }}
+                       <strong>{{ facture.fullname }}</strong><br>
+                       {{ facture.street }}<br>
+                       {{ facture.country }},    {{ facture.city }} {{ facture.postcode }}<br>
+                       <abbr title="Phone">Tel:</abbr>{{facture.tel }}
                    </address>
 
 
@@ -52,9 +63,9 @@
                <div class="col-md-4">
                    <address>
                        <strong>Email:</strong>
-                       <a href="mailto:#">{{ o.user.email }}</a><br>
+                       <a href="mailto:#">{{ facture.user.email }}</a><br>
                        <strong>Notes:</strong>
-                       {{ o.getFactures[0].note }}
+                       {{ facture.note }}
                    </address>
                </div>
 
@@ -62,4 +73,10 @@
 
        </div>
    </div>
+     <div class="row justify-content-center">
+         <div class="alert alert-success" role="alert">
+             Shipping date: {{ facture.ship|date('d M Y') }}
+         </div>
+     </div>
 
+{#{% endblock %}#}

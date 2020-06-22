@@ -5,6 +5,7 @@ namespace App\Controller;
 
 use App\Entity\UserInfo;
 use App\Repository\BasketRepository;
+use App\Repository\FactureRepository;
 use App\Repository\OrderRepository;
 use App\Repository\TypeeRepository;
 use App\Repository\UserInfoRepository;
@@ -99,10 +100,10 @@ class ProfileController extends AbstractController
         ]);
     }
 
-    public function factureAction($id,OrderRepository $orderR){
-        $selectedOrder = $orderR->findOneBy(['id'=>$id]);
+    public function factureAction($id,FactureRepository $factureR){
+        $selectedFacture = $factureR->findOneBy(['id'=>$id]);
         $user = $this->getUser();
-        if($user !== $selectedOrder->getUser()){
+        if($user !== $selectedFacture->getUser()){
             return $this->redirect('/myhistory');
         }
 
@@ -115,8 +116,7 @@ class ProfileController extends AbstractController
 
         // Retrieve the HTML generated in our twig file
         $html = $this->renderView('public/pages/facture.html.twig', [
-            'o'=>$selectedOrder,
-            'title' => "Welcome to our PDF Test"
+            'facture' => $selectedFacture
         ]);
 
         // Load HTML to Dompdf
@@ -127,15 +127,13 @@ class ProfileController extends AbstractController
 
         // Render the HTML as PDF
         $dompdf->render();
-        $faturesID = $selectedOrder->getFactures();
-        $fatureID = $faturesID[0]->getId();
+        $fatureID = $selectedFacture->getId();
         // Output the generated PDF to Browser (force download)
         $dompdf->stream("facture-$fatureID.pdf", [
             "Attachment" => true
         ]);
-
         return $this->render('public/pages/facture.html.twig', [
-            'o'=>$selectedOrder
+            'facture' => $selectedFacture
         ]);
     }
 
