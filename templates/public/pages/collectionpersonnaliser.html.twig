@@ -1,5 +1,46 @@
 {% extends 'public/comp/base.html.twig' %}
 {% block body %}
     <h1>Collection Personnaliser</h1>
-    {{ form(collBaseForm) }}
+    <div class="row justify-content-center">
+
+        <div class="col-md-6">
+            {{ form_start(collBaseForm) }}
+            <label>Type: <ul hidden>{% for t in allType %}
+                        <span id="typeID{{ t.id }}">{{ t.price }}</span>
+                    {% endfor %}</ul></label>
+            {{ form_widget(collBaseForm.typee) }}
+            <label>Width:</label>
+            {{ form_widget(collBaseForm.width) }}
+            <label>Hight:</label>
+            {{ form_widget(collBaseForm.height) }}
+
+            <div class="row justify-content-end"> <span class="btn-sm btn-info m-2" id="addtext">Add text:</span><br></div>
+
+            <div id="addtextfield" style="display: none;"><label>Text:</label>
+                {{ form_widget(collBaseForm.text,{
+                    'attr':
+                    {
+                        'placeholder': 'Text'
+                    }
+                }) }}</div>
+            <label>File:</label>
+            {{ form_errors(collBaseForm.file_url) }}
+            {{ form_widget(collBaseForm.file_url) }}
+
+            <label>Recouvrement des laizes:</label>
+            {{ form_widget(collBaseForm.overlapping) }}
+            <label>Quantity:</label>
+            {{ form_widget(collBaseForm.quantity) }}
+
+            <div class="row justify-content-between p-4">
+                <div class="text-dark" style="font-size: x-large">
+                    Total: <span id="totalPrice">0</span> €
+                </div>
+                <div>
+                    {{ form_widget(collBaseForm.order) }}
+                </div>
+            </div>
+            {{ form_end(collBaseForm) }}
+        </div>
+    </div>
 {% endblock %}

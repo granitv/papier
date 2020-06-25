@@ -3,19 +3,12 @@
   <component name="ChangeListManager">
     <list default="true" id="99df481c-3e22-4ccc-b447-299b27aa347c" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Controller/AdminController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/AdminController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Controller/DefaultController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/DefaultController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Controller/ProfileController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/ProfileController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Entity/Order.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/Order.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Form/OrderType.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Form/OrderType.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Form/UserInfoType.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Form/UserInfoType.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/public/comp/footer.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/public/comp/footer.html.twig" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/public/pages/basket.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/public/pages/basket.html.twig" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/public/pages/collection.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/public/pages/collection.html.twig" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/public/pages/collectionpersonnaliser.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/public/pages/collectionpersonnaliser.html.twig" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/public/pages/editorder.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/public/pages/editorder.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/public/pages/facture.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/public/pages/facture.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/public/pages/myhistory.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/public/pages/myhistory.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/public/pages/updateinfo.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/public/pages/updateinfo.html.twig" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -196,7 +189,7 @@
       <workItem from="1592557472582" duration="3860000" />
       <workItem from="1592672440139" duration="2643000" />
       <workItem from="1592767340641" duration="16201000" />
-      <workItem from="1593067572269" duration="11479000" />
+      <workItem from="1593067572269" duration="15697000" />
     </task>
     <task id="LOCAL-00001" summary="roots">
       <created>1591696868198</created>
@@ -331,7 +324,14 @@
       <option name="project" value="LOCAL" />
       <updated>1592831958615</updated>
     </task>
-    <option name="localTasksCounter" value="20" />
+    <task id="LOCAL-00020" summary="personalize">
+      <created>1593081419281</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1593081419281</updated>
+    </task>
+    <option name="localTasksCounter" value="21" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -351,7 +351,8 @@
     <MESSAGE value="facture pdf" />
     <MESSAGE value="all in one facture" />
     <MESSAGE value="all in one facture+" />
-    <option name="LAST_COMMIT_MESSAGE" value="all in one facture+" />
+    <MESSAGE value="personalize" />
+    <option name="LAST_COMMIT_MESSAGE" value="personalize" />
   </component>
   <component name="WindowStateProjectService">
     <state x="395" y="124" width="800" height="677" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1591991093147">
@@ -374,18 +375,18 @@
       <screen x="0" y="27" width="1600" height="873" />
     </state>
     <state x="533" y="220" width="524" height="484" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/0.27.1600.873@0.27.1600.873" timestamp="1593077159921" />
-    <state x="243" y="27" width="1103" height="873" key="CommitChangelistDialog2" timestamp="1592831958574">
+    <state x="243" y="27" width="1103" height="873" key="CommitChangelistDialog2" timestamp="1593081419183">
       <screen x="0" y="27" width="1600" height="873" />
     </state>
-    <state x="243" y="27" width="1103" height="873" key="CommitChangelistDialog2/0.27.1600.873@0.27.1600.873" timestamp="1592831958574" />
+    <state x="243" y="27" width="1103" height="873" key="CommitChangelistDialog2/0.27.1600.873@0.27.1600.873" timestamp="1593081419183" />
     <state x="661" y="362" key="Github.ShareDialog" timestamp="1591692476801">
       <screen x="0" y="27" width="1600" height="873" />
     </state>
     <state x="661" y="362" key="Github.ShareDialog/0.27.1600.873@0.27.1600.873" timestamp="1591692476801" />
-    <state x="395" y="198" width="800" height="528" key="Vcs.Push.Dialog.v2" timestamp="1592831962307">
+    <state x="395" y="198" width="800" height="528" key="Vcs.Push.Dialog.v2" timestamp="1593081423749">
       <screen x="0" y="27" width="1600" height="873" />
     </state>
-    <state x="395" y="198" width="800" height="528" key="Vcs.Push.Dialog.v2/0.27.1600.873@0.27.1600.873" timestamp="1592831962307" />
+    <state x="395" y="198" width="800" height="528" key="Vcs.Push.Dialog.v2/0.27.1600.873@0.27.1600.873" timestamp="1593081423749" />
     <state x="495" y="251" width="600" height="423" key="git4idea.merge.GitPullDialog" timestamp="1591703504935">
       <screen x="0" y="27" width="1600" height="873" />
     </state>

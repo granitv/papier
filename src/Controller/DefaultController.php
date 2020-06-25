@@ -37,7 +37,9 @@ class DefaultController extends AbstractController
         ]);
     }
 
-    public function collectionpersonnaliserAction(Request $request,BasketRepository $basketRepository, UserRepository $userRepository){
+    public function collectionpersonnaliserAction(Request $request,BasketRepository $basketRepository, UserRepository $userRepository,
+TypeeRepository $typeeRepository){
+        $allType = $typeeRepository->findAll();
         $collBase = new Order();
         $collBaseForm = $this->createForm(OrderType::class,$collBase);
         $collBaseForm->handleRequest($request);
@@ -91,7 +93,8 @@ class DefaultController extends AbstractController
 
         }
         return $this->render('public/pages/collectionpersonnaliser.html.twig',[
-            'collBaseForm'=> $collBaseForm->createView()
+            'collBaseForm'=> $collBaseForm->createView(),
+            'allType'=>$allType
         ]);
     }
 
@@ -118,58 +121,32 @@ $allType = $typeeR->findAll();
         $orderForm = $this->createForm('App\Form\OrderType',$order);
         $orderForm->handleRequest($request);
         if($orderForm->isSubmitted()){
-                $order1 = $orderForm->getData();
-                if($this->getUser() == null){
-                    return $this->redirect('/login');
-                }
-                $order1->setUser($this->getUser());
-                $order1->setColl($coll);
-
-                $height = $orderForm->get('height')->getData();
-                $width = $orderForm->get('width')->getData();
-                $quantity = $orderForm->get('quantity')->getData();
-                $typeeInForm = $orderForm->get('typee')->getData();
-
-
-                $total = ((($height*$width)/10000)*$typeeInForm->getPrice())*$quantity*100;
-
-                $order1->setTotalPrice($total);
-                $order1->setCreatedAt(new \DateTime());
-                $this->insertInDB($order1);
-                $this->addFlash('success','Your order has been submitted');
-
-            //test
-    //prova
-
+            $order1 = $orderForm->getData();
+            if($this->getUser() == null){
+                return $this->redirect('/login');
+            }
+            $order1->setUser($this->getUser());
+            $order1->setColl($coll);
+            $height = $orderForm->get('height')->getData();
+            $width = $orderForm->get('width')->getData();
+            $quantity = $orderForm->get('quantity')->getData();
+            $typeeInForm = $orderForm->get('typee')->getData();
+            $total = ((($height*$width)/10000)*$typeeInForm->getPrice())*$quantity*100;
+            $order1->setTotalPrice($total);
+            $order1->setCreatedAt(new \DateTime());
+            $this->insertInDB($order1);
+            $this->addFlash('success','Your order has been submitted');
             $user = $userRepository->find($this->getUser());
             if ($user->getBasket() == null){
                 $basket = new Basket();
                 $user->setBasket($basket);
             }
             $basket = $user->getBasket();
-            $prices = [];
             $basket->addOrder1($order1);
             $basket->setUser($this->getUser());
-            //    dump($basket->getVolumes()->count());
             $this->insertInDB($basket);
-            $this->userBasket = $basketRepository->findBy(['id' => $basket->getId() ]);
-            foreach ($this->userBasket as $basket){
-                foreach ($basket->getOrder1() as $orderss){
-                    array_push($prices, $orderss->getTotalPrice());
-                }
-            }
-
-            if ($basket->getOrder1()->count() == 0){
-                $basket->setTotal(0);
-            }else{
-                $basket->setTotal(array_sum($prices));
-                $this->insertInDB($basket);
-            }
-
             return $this->redirect('/basket');
-
         }
-    //prova
         return $this->render('public/pages/collection.html.twig',[
             'coll'=>$coll,
             "orderForm" => $orderForm->createView(),

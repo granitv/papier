@@ -12,12 +12,20 @@
             {{ form_widget(editOrderForm.width) }}
             <label>Hight:</label>
             {{ form_widget(editOrderForm.height) }}
+            {% if oneEditOrder.text is null %} <div class="row justify-content-end"> <span class="btn-sm btn-info m-2" id="addtext">Add text:</span><br></div>{% endif %}
+
+            <div id="addtextfield" {% if oneEditOrder.text is null %}  style="display: none;" {% endif %} ><label>Text:</label>
+                {{ form_widget(editOrderForm.text,{
+                    'attr':
+                    {
+                        'placeholder': 'Text'
+                    }
+                }) }}</div>
             <div {% if coll is not null %} hidden {% endif %}>
                 <label>File:</label>
                 {{ form_errors(editOrderForm.file_url) }}
                 {{ form_widget(editOrderForm.file_url) }}
-                <label>Text: </label>
-                {{ form_widget(editOrderForm.text) }}</div>
+</div>
             <label>Recouvrement des laizes:</label>
             {{ form_widget(editOrderForm.overlapping) }}
             <label>Quantity:</label>
@@ -30,7 +38,7 @@
                     {{ form_widget(editOrderForm.order, {
                         'label' : 'Edit',
                         'attr': {
-                            'class': 'btn btn-info'}
+                            'class': 'btn btn-success'}
                     })
                     }}
 
