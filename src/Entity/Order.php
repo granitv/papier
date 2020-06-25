@@ -42,7 +42,7 @@ class Order
 
     /**
      * @ORM\ManyToOne(targetEntity=Coll::class, inversedBy="orders")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\JoinColumn(nullable=true)
      */
     private $coll;
 

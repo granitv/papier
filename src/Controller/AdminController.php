@@ -5,6 +5,7 @@ namespace App\Controller;
 
 use App\Entity\Coll;
 use App\Entity\Image;
+use App\Entity\Order;
 use App\Form\CollType;
 use App\Form\ImageType;
 use App\Repository\CollRepository;
@@ -56,6 +57,7 @@ class AdminController extends AbstractController
         ]);
     }
     public function addcollectionpersonnaliserAction(){
+
         return $this->render( 'admin/pages/addcollectionpersonnaliserAction.html.twig');
     }
 }

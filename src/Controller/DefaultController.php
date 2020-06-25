@@ -3,10 +3,12 @@ namespace App\Controller;
 
 use App\Entity\Basket;
 use App\Entity\Order;
+use App\Form\OrderType;
 use App\Repository\BasketRepository;
 use App\Repository\CollRepository;
 use App\Repository\TypeeRepository;
 use App\Repository\UserRepository;
+use App\Services\FormsManager;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -35,8 +37,62 @@ class DefaultController extends AbstractController
         ]);
     }
 
-    public function collectionpersonnaliserAction(){
-        return $this->render('public/pages/collectionpersonnaliser.html.twig');
+    public function collectionpersonnaliserAction(Request $request,BasketRepository $basketRepository, UserRepository $userRepository){
+        $collBase = new Order();
+        $collBaseForm = $this->createForm(OrderType::class,$collBase);
+        $collBaseForm->handleRequest($request);
+        if($collBaseForm->isSubmitted() && $collBaseForm->isValid()){
+
+         $collBase = $collBaseForm->getData();
+         $file = $collBaseForm->get('file_url')->getData();
+         if($file){
+             $newFileName = FormsManager::handleFileUpload($file, $this->getParameter('uploadPdf'));
+             $collBase->setFileUrl($newFileName);
+         }
+            $height = $collBaseForm->get('height')->getData();
+            $width = $collBaseForm->get('width')->getData();
+            $quantity = $collBaseForm->get('quantity')->getData();
+            $typeeInForm = $collBaseForm->get('typee')->getData();
+
+
+            $total = ((($height*$width)/10000)*$typeeInForm->getPrice())*$quantity*100;
+            $collBase->setUser($this->getUser());
+            $collBase->setCreatedAt(new \DateTime());
+            $collBase->setTotalPrice($total);
+            $this->insertInDB($collBase);
+            $this->addFlash('success','Order added successfully');
+
+            $user = $userRepository->find($this->getUser());
+            if ($user->getBasket() == null){
+                $basket = new Basket();
+                $user->setBasket($basket);
+            }
+            $basket = $user->getBasket();
+            $prices = [];
+            $basket->addOrder1($collBase);
+            $basket->setUser($this->getUser());
+            //    dump($basket->getVolumes()->count());
+            $this->insertInDB($basket);
+            $this->userBasket = $basketRepository->findBy(['id' => $basket->getId() ]);
+            foreach ($this->userBasket as $basket){
+                foreach ($basket->getOrder1() as $orderss){
+                    array_push($prices, $orderss->getTotalPrice());
+                }
+            }
+
+            if ($basket->getOrder1()->count() == 0){
+                $basket->setTotal(0);
+            }else{
+                $basket->setTotal(array_sum($prices));
+                $this->insertInDB($basket);
+            }
+
+            return $this->redirect('/basket');
+
+        }
+        return $this->render('public/pages/collectionpersonnaliser.html.twig',[
+            'collBaseForm'=> $collBaseForm->createView()
+        ]);
     }
 
     public function aboutAction(){

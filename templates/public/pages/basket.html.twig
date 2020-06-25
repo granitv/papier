@@ -10,20 +10,26 @@
                     <th scope="col"> Products </th>
                     <th scope="col">Width</th>
                     <th scope="col">Hight</th>
-                    <th scope="col">Recouvrement des laizes:</th>
-                    <th scope="col">Quantity:</th>
+                    <th scope="col">Text</th>
+                    <th scope="col" data-toggle="tooltip" data-placement="top" title="Recouvrement des laizes:">RL:</th>
+                    <th scope="col" data-toggle="tooltip" data-placement="top" title="Quantity:">Q:</th>
                     <th scope="col"> Prix </th>
-                    <th scope="col"> Edit </th>
-                    <th scope="col"> Suprime </th>
+                    <th scope="col" data-toggle="tooltip" data-placement="top" title="Edit:">E</th>
+                    <th scope="col" data-toggle="tooltip" data-placement="top" title="Supprimer">S</th>
                 </tr>
                 </thead>
                 <tbody>
 
                     {% for order in userBasket.Order1 %}
                         <tr>
-                            <td><img src="{{ order.coll.image[0].url }}" width="100px">  {{ order.coll.name }} </td>
+                            <td>{% if order.coll is not null %} <img src="{{ order.coll.image[0].url }}" width="100px">  {{ order.coll.name }}
+                                {% else %}
+                                    Personailze: <a class="btn-sm btn-info" target="_blank" href="{{ asset('uploads/pdf/' ~ order.fileUrl) }}">View</a>
+                                {% endif %}
+                                </td>
                             <td>{{ order.width }} cm</td>
                             <td>{{ order.height }} cm</td>
+                            <td>{{ order.text }}</td>
                             <td>{% if order.overlapping == 0 %} Aucun {% else %} 4cm {% endif %}</td>
                             <td>{{ order.quantity }}</td>
                             <td> {{ order.totalPrice/100|number_format(2) }} €</td>

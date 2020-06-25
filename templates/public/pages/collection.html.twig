@@ -44,6 +44,8 @@
          {{ form_widget(orderForm.overlapping) }}
          <label>Quantity:</label>
          {{ form_widget(orderForm.quantity) }}
+         <div hidden> {{ form_widget(orderForm.file_url) }}
+             {{ form_widget(orderForm.text) }}</div>
          <div class="row justify-content-between p-4">
             <div class="text-dark" style="font-size: x-large">
              Total: <span id="totalPrice">{{ coll.price }}</span> €

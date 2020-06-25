@@ -12,7 +12,7 @@
                <th scope="col">Quantity</th>
                <th scope="col" data-toggle="tooltip" data-placement="top" title="Recouvrement des laizes:">RL:</th>
                <th scope="col">Type:</th>
-               <th scope="col">Total Price:</th>
+               <th scope="col">Price:</th>
                <th scope="col">Status</th>
                <th scope="col">Created</th>
            </tr>
@@ -21,7 +21,10 @@
   {% for o in facture.order1 %}
 
           <tr>
-              <td>{{ o.coll.name }}</td>
+              <td> {% if o.coll is not null %}{{ o.coll.name }}
+                  {% else %}
+                      Personalize {{ o.fileUrl }}
+                  {% endif %}</td>
 
               <td>{{ o.height }} cm</td>
               <td> {{ o.width }} cm</td>
@@ -30,7 +33,7 @@
               <td>{% if o.overlapping == 0 %} Aucun {% else %} 4cm {% endif %}</td>
               <td>{{ o.typee.name }}</td>
               <td> {{ o.totalPrice/100|number_format(2) }} €</td>
-              <td> {% if o.getBasket is not null %}<div class="text-center alert alert-warning" role="alert">UnPayed <a class="btn-sm btn-success" href="{{ path('basket') }}">Pay Now</a></div>  {% else %} <div class="text-center alert alert-success" role="alert">Payed</div>   {{ o.getBasket }}{% endif %}</td>
+              <td> {% if o.getBasket is not null %}<div class="text-center alert alert-warning" role="alert">UnPaid <a class="btn-sm btn-success" href="{{ path('basket') }}">Pay Now</a></div>  {% else %} <div class="text-center alert alert-success" role="alert">Paid</div>   {{ o.getBasket }}{% endif %}</td>
 
               <td class="text-center">{{ o.getFactures[0].createdAt|date("m/d/Y H:i", "Europe/Paris") }} <br> {% if o.LastModified is not null %}{{ o.LastModified|date("m/d/Y H:i", "Europe/Paris") }} {% endif %}</td>
 
@@ -43,7 +46,7 @@
     </tr>
       <tr>
           <td>Prix Total</td>
-          <td></td><td></td><td></td><td></td><td></td><td></td><td>{{ facture.total/100 }} €</td><td></td><td></td>
+          <td></td><td></td><td></td><td></td><td></td><td></td><td>{{ facture.total/100|number_format(2) }} €</td><td></td><td></td>
       </tr>
            </tbody>
        </table>

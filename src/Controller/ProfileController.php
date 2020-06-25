@@ -4,11 +4,11 @@
 namespace App\Controller;
 
 use App\Entity\UserInfo;
-use App\Repository\BasketRepository;
+use App\Form\OrderType;
 use App\Repository\FactureRepository;
 use App\Repository\OrderRepository;
 use App\Repository\TypeeRepository;
-use App\Repository\UserInfoRepository;
+use App\Services\FormsManager;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Dompdf\Dompdf;
@@ -31,12 +31,20 @@ class ProfileController extends AbstractController
             return $this->redirect('/myhistory');
         }
 
-        $orderForm = $this->createForm('App\Form\OrderType',$oneEditOrder);
+        $orderForm = $this->createForm(OrderType::class,$oneEditOrder);
         $orderForm->handleRequest($request);
-        if($orderForm->isSubmitted()) {
+        $coll = $oneEditOrder->getColl();
+        if($orderForm->isSubmitted() && $orderForm->isValid()) {
             $order1 = $orderForm->getData();
+
             if ($this->getUser() == null) {
                 return $this->redirect('/login');
+            }
+            $file = $orderForm->get('file_url')->getData();
+            if($file){
+                unlink($this->getParameter('uploadPdf').'/'.$oneEditOrder->getFileUrl());
+                $newFileName = FormsManager::handleFileUpload($file, $this->getParameter('uploadPdf'));
+                $order1->setFileUrl($newFileName);
             }
             $order1->setUser($this->getUser());
             $order1->setLastModified(new \DateTime());
@@ -44,37 +52,18 @@ class ProfileController extends AbstractController
             $width = $orderForm->get('width')->getData();
             $quantity = $orderForm->get('quantity')->getData();
             $typeeInForm = $orderForm->get('typee')->getData();
-
-
             $total = ((($height * $width) / 10000) * $typeeInForm->getPrice()) * $quantity * 100;
-
             $order1->setTotalPrice($total);
-
             $this->insertInDB($order1);
-            //test
-
-            $user = $this->getUser();
-            $basket = $user->getBasket();
-            $basketPrice = $basket->getTotal();
-            $allOrderByThisUser = $orderR->findBy(['user'=> $this->getUser()]);
-            $newTotal=0;
-            foreach($allOrderByThisUser as $a){
-                if($a->getBasket() !== null){
-                    $newTotal += $a->getTotalPrice();
-                }
-            }
-                $basket->setTotal($newTotal);
-            $this->insertInDB($basket);
-
-
-            //Test
             $this->addFlash('success', 'Your order has been edited');
             return $this->redirect('/basket');
         }
         return $this->render('public/pages/editorder.html.twig',[
             "oneEditOrder" => $oneEditOrder,
             "editOrderForm"=>$orderForm->createView(),
-            "allType"=>$allType
+            "allType"=>$allType,
+            'coll'=>$coll,
+
         ]);
     }
 

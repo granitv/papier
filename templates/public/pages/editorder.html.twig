@@ -12,6 +12,12 @@
             {{ form_widget(editOrderForm.width) }}
             <label>Hight:</label>
             {{ form_widget(editOrderForm.height) }}
+            <div {% if coll is not null %} hidden {% endif %}>
+                <label>File:</label>
+                {{ form_errors(editOrderForm.file_url) }}
+                {{ form_widget(editOrderForm.file_url) }}
+                <label>Text: </label>
+                {{ form_widget(editOrderForm.text) }}</div>
             <label>Recouvrement des laizes:</label>
             {{ form_widget(editOrderForm.overlapping) }}
             <label>Quantity:</label>
