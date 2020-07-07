@@ -9,9 +9,30 @@
 <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/fontawesome.js" integrity="sha384-6OIrr52G08NpOFSZdxxz1xdNSndlD4vdcf/q2myIUVO0VsqaGHJsB0RaBE01VTOY" crossorigin="anonymous"></script>
 
 <script type="text/javascript">
-
-
     $(document).ready(function () {
+        {% if app.request.attributes.get('_route') == 'home' %}
+        let header = $('#header1');
+        let linkuHeader = $('#linkuHeader');
+        let count=0;
+        let imgUrl = [];
+        {% for img in allSlideImg %}
+        imgUrl.push(["{{ img.imgName }}","{{ img.link }}","{{ img.delay }}"]);
+        {% endfor %}
+        console.log(imgUrl);
+        header.attr('style','background-image: url(..'+'/uploads/images/'+imgUrl[0][0]+');');
+        linkuHeader.attr('href',imgUrl[0][1]);
+        f();
+        function f() {
+            let inter = setInterval(function() {
+                count++;
+                count = count%imgUrl.length;
+                header.attr('style','background-image: url(..'+'/uploads/images/'+ imgUrl[count][0]+');');
+                linkuHeader.attr('href',imgUrl[count][1]);
+                clearInterval(inter);
+                f();
+            }, imgUrl[count][2]*1000);
+        }
+        {% endif %}
         $("#addtext").click(function(){
             $("#addtext").hide();
             $("#addtextfield").show();
@@ -66,18 +87,6 @@
 
 
 
-
-        let header = $('#header1');
-        let count=0
-
-        let imgUrl = '{{ asset('assets/uploads/images/background') }}'
-        setInterval(function() {
-            count++;
-            if(count > 3){
-                count=0;
-            }
-            header.attr('style','background-image: url(..'+imgUrl+count+'.jpg);');
-        }, 15000);
 
 
         const menuDown = $('#menuDown');

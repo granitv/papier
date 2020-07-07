@@ -1,7 +1,13 @@
 {#{% extends'public/comp/base.html.twig' %}
  {% block body %}#}
+     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+<link rel="stylesheet" href="/assets/css/mainstyle.css">
    <div class="container-fluid">
-       <h1>Facture: #{{ facture.id }}</h1>
+       <div class="row col-md-12 justify-content-between">
+           <div class="col-md-6"><p style="font-size: x-large">Facture: #{{ facture.id }} </p></div>
+           <div class="col-md-6">Created at: {{ facture.createdAt|date("m/d/Y H:i", "Europe/Paris") }}</div>
+       </div>
+
        <table class="table">
            <thead>
            <tr>
@@ -14,7 +20,6 @@
                <th scope="col">Type:</th>
                <th scope="col">Price:</th>
                <th scope="col">Status</th>
-               <th scope="col">Created</th>
            </tr>
            </thead>
            <tbody>
@@ -35,7 +40,6 @@
               <td> {{ o.totalPrice/100|number_format(2) }} €</td>
               <td> {% if o.getBasket is not null %}<div class="text-center alert alert-warning" role="alert">UnPaid <a class="btn-sm btn-success" href="{{ path('basket') }}">Pay Now</a></div>  {% else %} <div class="text-center alert alert-success" role="alert">Paid</div>   {{ o.getBasket }}{% endif %}</td>
 
-              <td class="text-center">{{ o.getFactures[0].createdAt|date("m/d/Y H:i", "Europe/Paris") }} <br> {% if o.LastModified is not null %}{{ o.LastModified|date("m/d/Y H:i", "Europe/Paris") }} {% endif %}</td>
 
           </tr>
 

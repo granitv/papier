@@ -44,6 +44,11 @@
         </ul>
 
         <ul class="list-unstyled CTAs">
+            {% if is_granted('ROLE_ADMIN') %}
+                <li>
+                    <a href="/admin" class="btn btn-success text-dark">Admin Panel</a>
+                </li>
+            {% endif %}
             {% if app.user %}
             <li>
                 <a href="/logout" class="download">Logout</a>

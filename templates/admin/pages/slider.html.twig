@@ -1,0 +1,50 @@
+{% extends 'admin/comp/base.html.twig' %}
+ {% block body %}
+     <h1>Slider</h1>
+
+     <table class="table">
+         <thead class="thead-dark">
+         <tr>
+             <th scope="col">#</th>
+             <th scope="col">Name</th>
+             <th scope="col">Img Name</th>
+             <th scope="col">Link</th>
+             <th scope="col">Delay sec</th>
+             <th scope="col">Edit</th>
+             <th scope="col">Delete</th>
+         </tr>
+         </thead>
+         <tbody>
+        {% for s in allSilder %}
+         <tr>
+             <th scope="row">{{ s.id }}</th>
+             <td>{{ s.name }}</td>
+             <td><img src="{{ asset('uploads/images/' ~ s.imgName) }}" width="100px" alt=""></td>
+             <td>{{ s.link }}</td>
+             <td>{{ s.delay }}</td>
+             <td><a  href="{{ path('adminSlider',{id: s.id}) }}"><i class="text-info fas fa-pencil-alt"></i></a></td>
+             <td class="px-5"> <a onclick='return confirm("Are you sure you wanna delete this image?")'
+                                   href="{{ path('delete',{ repository: 'Slider',id : s.id,redirect: 'slider' }) }}"><i class="text-danger fas fa-trash-alt"></i></a></td>
+         </tr>
+         {% endfor %}
+         </tbody>
+     </table>
+{% if id == 0 %}
+     <h1>Add Image</h1>
+    {{ form(sliderForm) }}
+     {% else %}
+     <h1>Edit Image</h1>
+         {{ form_start(sliderForm) }}
+
+         {{ form_row(sliderForm.name) }}
+         {{ form_row(sliderForm.img_name) }}
+         {{ form_row(sliderForm.link) }}
+         {{ form_row(sliderForm.delay) }}
+         {{ form_row(sliderForm.add,{
+             "label":
+            "Edit Image"
+         }) }}
+         {{ form_end(sliderForm) }}
+      {% endif %}
+
+{% endblock %}

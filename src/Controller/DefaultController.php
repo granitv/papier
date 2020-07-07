@@ -6,6 +6,7 @@ use App\Entity\Order;
 use App\Form\OrderType;
 use App\Repository\BasketRepository;
 use App\Repository\CollRepository;
+use App\Repository\SliderRepository;
 use App\Repository\TypeeRepository;
 use App\Repository\UserRepository;
 use App\Services\FormsManager;
@@ -15,10 +16,10 @@ use Symfony\Component\HttpFoundation\Request;
 class DefaultController extends AbstractController
 {
 
-    public function indexAction(){
-
+    public function indexAction(SliderRepository $sliderR){
+        $allSlideImg = $sliderR->findAll();
             return $this->render('public/pages/home.html.twig', [
-
+                "allSlideImg"=>$allSlideImg
             ]);
     }
 
@@ -39,12 +40,15 @@ class DefaultController extends AbstractController
 
     public function collectionpersonnaliserAction(Request $request,BasketRepository $basketRepository, UserRepository $userRepository,
 TypeeRepository $typeeRepository){
+
         $allType = $typeeRepository->findAll();
         $collBase = new Order();
         $collBaseForm = $this->createForm(OrderType::class,$collBase);
         $collBaseForm->handleRequest($request);
         if($collBaseForm->isSubmitted() && $collBaseForm->isValid()){
-
+            if($this->getUser() == null){
+                return $this->redirect('/login');
+            }
          $collBase = $collBaseForm->getData();
          $file = $collBaseForm->get('file_url')->getData();
          if($file){

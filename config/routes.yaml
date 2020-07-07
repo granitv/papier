@@ -46,6 +46,14 @@ addCollectionBase:
     path: /admin/add/collectionBase
     controller: App\Controller\AdminController::addcollectionBaseAction
 
+adminSlider:
+    path: /admin/slider/{id}
+    controller: App\Controller\AdminController::sliderAction
+
+delete:
+    path: /admin/delete/{repository}/{id}/{redirect}
+    controller: App\Controller\AdminController::delete
+
 addCollectionpersonnaliser:
     path: /admin/add/collectionpersonnaliser
     controller: App\Controller\AdminController::addcollectionpersonnaliserAction
