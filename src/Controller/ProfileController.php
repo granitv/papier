@@ -5,6 +5,7 @@ namespace App\Controller;
 
 use App\Entity\UserInfo;
 use App\Form\OrderType;
+use App\Repository\CategoryCollRepository;
 use App\Repository\FactureRepository;
 use App\Repository\OrderRepository;
 use App\Repository\TypeeRepository;
@@ -17,10 +18,17 @@ use Dompdf\Options;
 
 class ProfileController extends AbstractController
 {
+    public $categorys;
+    public function __construct(CategoryCollRepository $categoryCollRepository)
+    {
+        $this->categorys = $categoryCollRepository->findCatIfPlus1();
+    }
+
     public function myHistoryAction(OrderRepository $orderR){
         $allOrder = $orderR->findBy(["user"=>$this->getUser()]);
         return $this->render('public/pages/myhistory.html.twig',[
-            "allOrder"=>$allOrder
+            "allOrder"=>$allOrder,
+            "categorys" => $this->categorys
         ]);
     }
 
@@ -63,6 +71,7 @@ class ProfileController extends AbstractController
             "editOrderForm"=>$orderForm->createView(),
             "allType"=>$allType,
             'coll'=>$coll,
+            "categorys" => $this->categorys
 
         ]);
     }
@@ -85,7 +94,8 @@ class ProfileController extends AbstractController
             return $this->redirect('/basket');
         }
         return $this->render('public/pages/updateinfo.html.twig',[
-            'updateinfoForm'=> $updateinfoForm->createView()
+            'updateinfoForm'=> $updateinfoForm->createView(),
+            "categorys" => $this->categorys
         ]);
     }
 
@@ -122,7 +132,8 @@ class ProfileController extends AbstractController
             "Attachment" => true
         ]);
         return $this->render('public/pages/facture.html.twig', [
-            'facture' => $selectedFacture
+            'facture' => $selectedFacture,
+            "categorys" => $this->categorys
         ]);
     }
 

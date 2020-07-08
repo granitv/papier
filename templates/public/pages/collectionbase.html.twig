@@ -1,6 +1,11 @@
 {% extends 'public/comp/base.html.twig' %}
 {% block body %}
-    <h1>Collection Base</h1>
+    <h1>  {% if app.request.attributes.get('_route') == 'category' %}
+            {{ cat.name }}
+    {% else %}
+        Collection Base
+    {% endif %}</h1>
+
     <div class="row justify-content-around">
         <div id="myModal" class="modal">
             <span class="close">&times;</span>
@@ -23,6 +28,11 @@
                     </div>
                     <div class="card-body">
                         <h5 class="card-title">{{ coll.name }}</h5>
+                        <p class="card-text text-info">{% for c in  coll.categoryColls|slice(0, 5)  %}
+                                <a href="{{ path('category',{id: c.id}) }}">{{ c.name }}</a>{% if loop.last == false %},{% endif %}
+                        {% endfor %}
+                        </p>
+
                         <p class="card-text">{{ coll.description }}</p>
                         <a href="{{ path('collection',{id: coll.id}) }}" class="btn btn-primary">Read More</a>
                     </div>

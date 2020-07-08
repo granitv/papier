@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\User;
 use App\Form\UserType;
+use App\Repository\CategoryCollRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
@@ -11,6 +12,11 @@ use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 class RegistrationController extends AbstractController
 {
+    public $categorys;
+    public function __construct(CategoryCollRepository $categoryCollRepository)
+    {
+        $this->categorys = $categoryCollRepository->findCatIfPlus1();
+    }
     /**
      * @Route("/registration", name="registration")
      */
@@ -49,7 +55,9 @@ class RegistrationController extends AbstractController
 
         return $this->render(
             'public/pages/register.html.twig',
-            ['form' => $form->createView()
+            [
+                "categorys"=> $this->categorys,
+                'form' => $form->createView()
             ]
         );
     }

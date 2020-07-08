@@ -64,6 +64,11 @@ class Coll
      */
     private $users;
 
+    /**
+     * @ORM\ManyToMany(targetEntity=CategoryColl::class, mappedBy="Coll")
+     */
+    private $categoryColls;
+
     public function __construct()
     {
         $this->orders = new ArrayCollection();
@@ -71,6 +76,7 @@ class Coll
         $this->baskets = new ArrayCollection();
         $this->factures = new ArrayCollection();
         $this->users = new ArrayCollection();
+        $this->categoryColls = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -269,6 +275,34 @@ class Coll
         if ($this->users->contains($user)) {
             $this->users->removeElement($user);
             $user->removeColl($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|CategoryColl[]
+     */
+    public function getCategoryColls(): Collection
+    {
+        return $this->categoryColls;
+    }
+
+    public function addCategoryColl(CategoryColl $categoryColl): self
+    {
+        if (!$this->categoryColls->contains($categoryColl)) {
+            $this->categoryColls[] = $categoryColl;
+            $categoryColl->addColl($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCategoryColl(CategoryColl $categoryColl): self
+    {
+        if ($this->categoryColls->contains($categoryColl)) {
+            $this->categoryColls->removeElement($categoryColl);
+            $categoryColl->removeColl($this);
         }
 
         return $this;

@@ -7,20 +7,27 @@
         </div>
 
         <ul class="list-unstyled components">
-            <li>
-                <a href="{{ path('home') }}">ACCUEIL</a>
-            </li>
             <li class="active">
+                <a href="#category" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Papier peint - Category</a>
+                <ul class="collapse list-unstyled" id="category">
+                    {% for c in categorys %}
+                        {% dump(c.getColl)  %}
+                        {% if c.getColl is not null %}
+                        <li>
+                            <a href="{{ path('category',{id: c.id}) }}">{{ c.name }}</a>
+                        </li>
+                        {% endif %}
+                    {% endfor %}
+                </ul>
+            </li>
+           {# <li class="active">
                 <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">SUR MESURE</a>
                 <ul class="collapse list-unstyled" id="homeSubmenu">
                     <li>
                         <a href="{{ path('papierpeint') }}">Papier peint</a>
                     </li>
-                    <li>
-                        <a href="{{ path('murtendu') }}">Mur tendu</a>
-                    </li>
                 </ul>
-            </li>
+            </li>#}
             <li>
                 <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">COLLECTION</a>
                 <ul class="collapse list-unstyled" id="pageSubmenu">

@@ -7,9 +7,13 @@ use App\Entity\Coll;
 use App\Entity\Image;
 use App\Entity\Order;
 use App\Entity\Slider;
+use App\Entity\User;
+use App\Form\AdminCollType;
+use App\Form\AdminUserType;
 use App\Form\CollType;
 use App\Form\ImageType;
 use App\Form\SliderType;
+use App\Form\UserType;
 use App\Repository\CollRepository;
 use App\Repository\ImageRepository;
 use App\Repository\SliderRepository;
@@ -21,14 +25,10 @@ use Symfony\Component\HttpFoundation\Request;
 
 class AdminController extends AbstractController
 {
-    public function homeAction(UserRepository $userR,CollRepository $collR){
-
-        $allUsers = $userR->findAll();
+    public function homeAction(CollRepository $collR){
         $allColls = $collR->findAll();
         return $this->render( 'admin/pages/home.html.twig' ,[
-            "allUsers"=>$allUsers,
             "allColls"=>$allColls,
-
         ] );
     }
 
@@ -103,28 +103,83 @@ class AdminController extends AbstractController
     }
 
     public function delete($repository,$id, $redirect){
+
         $something = $this->getDoctrine()
-                ->getRepository('App\Entity\\' . $repository)
-                ->findOneBy(["id"=>$id]);
+            ->getRepository('App\Entity\\' . $repository)
+            ->find($id);
         $em = $this->getDoctrine()->getManager();
-        if($redirect == 'slider'){
+
+
+
+        if($redirect == 'slider' ){
             unlink($this->getParameter('uploads').'/'.$something->getImgName());
         }
+        /*  if($redirect == 'collBaseAdmin'){
+              unlink($this->getParameter('uploadPdf').'/'.$something->getFileUrl());
+          }*/
         $em->remove($something);
         $em->flush();
 
-            $this->addFlash('success', $repository . ' deleted successfully');
-            // Suggestion: add a message in the flashbag
-
-            // Redirect to the table page
-        if($redirect == 'slider'){
+        $this->addFlash('success', $repository . ' deleted successfully');
+        if($redirect == 'slider' || $redirect == 'allUsers' || $redirect == 'collBaseAdmin'){
             return $this->redirect('/admin/'.$redirect.'/0');
         }else{
             return $this->redirect('/admin/'.$redirect);
         }
+    }
 
-            //http://127.0.0.1:8000/admin/delete/Comment/8/adminHome
+    public function allUsersAction($id,UserRepository $userR,Request $request){
+            $allUsers = $userR->findAll();
+            if($id == 0 ){
+                $newUser = new User();
+                $userForm = $this->createForm(UserType::class,$newUser);
+            }else{
+                $newUser = $userR->find($id);
+                $userForm = $this->createForm(AdminUserType::class,$newUser);
+            }
 
-
+            $userForm->handleRequest($request);
+            if($userForm->isSubmitted() && $userForm->isValid()){
+                $newUserData = $userForm->getData();
+                $manager = $this->getDoctrine()->getManager();
+                $manager->persist($newUserData);
+                $manager->flush();
+                $this->addFlash('success','User Added Succesfuly');
+                return $this->redirect('/admin/allUsers/0');
+            }
+        return $this->render('admin/pages/allusers.html.twig',[
+            "allUsers"=>$allUsers,
+            "userForm"=>$userForm->createView()
+        ]);
+    }
+    public function collBaseAdminAction($id,CollRepository $collR,Request $request){
+        $allColls = $collR->findAll();
+        if($id == 0) {
+            $newcoll = new Coll();
+        }else{
+            $newcoll = $collR->find($id);
+        }
+        $collBaseForm = $this->createForm(AdminCollType::class,$newcoll);
+        $collBaseForm->handleRequest($request);
+        if($collBaseForm->isSubmitted() && $collBaseForm->isValid()){
+            $newCollData = $collBaseForm->getData();
+            $file = $collBaseForm->get('file_url')->getData();
+            if($file){
+                if($id != 0){
+                    unlink($this->getParameter('uploadPdf').'/'.$newCollData->getFileUrl());
+                }
+                $newFileName = FormsManager::handleFileUpload($file, $this->getParameter('uploadPdf'));
+                $newCollData->setFileUrl($newFileName);
+            }
+            $manager = $this->getDoctrine()->getManager();
+            $manager->persist($newCollData);
+            $manager->flush();
+            $this->addFlash('success','Collection added Successfuly');
+            return $this->redirect('/admin/collBaseAdmin/0');
+        }
+    return $this->render('admin/pages/collBase.html.twig',[
+        "allColls"=>$allColls,
+        "collBaseForm"=> $collBaseForm->createView()
+    ]);
     }
 }

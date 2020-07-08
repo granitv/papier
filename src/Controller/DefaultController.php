@@ -5,6 +5,7 @@ use App\Entity\Basket;
 use App\Entity\Order;
 use App\Form\OrderType;
 use App\Repository\BasketRepository;
+use App\Repository\CategoryCollRepository;
 use App\Repository\CollRepository;
 use App\Repository\SliderRepository;
 use App\Repository\TypeeRepository;
@@ -15,26 +16,52 @@ use Symfony\Component\HttpFoundation\Request;
 
 class DefaultController extends AbstractController
 {
+    public $categorys;
+
+    public function __construct(CategoryCollRepository $categoryCollRepository)
+    {
+        $this->categorys = $categoryCollRepository->findCatIfPlus1();
+    }
 
     public function indexAction(SliderRepository $sliderR){
         $allSlideImg = $sliderR->findAll();
             return $this->render('public/pages/home.html.twig', [
-                "allSlideImg"=>$allSlideImg
+                "allSlideImg"=>$allSlideImg,
+                "categorys" => $this->categorys
             ]);
     }
 
-    public function papierpeintAction(){
-        return $this->render('public/pages/papierpeint.html.twig');
+    public function categoryAction($id,CollRepository $collR,CategoryCollRepository $categoryCollR){
+        $allColl = $collR->findAll();
+        $cat = $categoryCollR->find($id);
+        $selected=[];
+      foreach( $allColl as $coll){
+          $allcat = $coll->getCategoryColls();
+          foreach($allcat as $c){
+              if($c == $cat){
+                  $selected[]= $coll;
+              }
+          }
+      }
+        return $this->render('public/pages/collectionbase.html.twig',[
+            "allColl" => $selected,
+            "categorys" => $this->categorys,
+            "cat"=>$cat
+        ]);
     }
 
-    public function murtenduAction(){
-        return $this->render('public/pages/murtendu.html.twig');
+    public function papierpeintAction(){
+        return $this->render('public/pages/papierpeint.html.twig',[
+
+            "categorys" => $this->categorys
+        ]);
     }
 
     public function collectionbaseAction(CollRepository $collR){
         $allColl = $collR->findAll();
         return $this->render('public/pages/collectionbase.html.twig',[
-            "allColl" => $allColl
+            "allColl" => $allColl,
+            "categorys" => $this->categorys
         ]);
     }
 
@@ -98,24 +125,36 @@ TypeeRepository $typeeRepository){
         }
         return $this->render('public/pages/collectionpersonnaliser.html.twig',[
             'collBaseForm'=> $collBaseForm->createView(),
-            'allType'=>$allType
+            'allType'=>$allType,
+            "categorys" => $this->categorys
         ]);
     }
 
     public function aboutAction(){
-        return $this->render('public/pages/about.html.twig');
+        return $this->render('public/pages/about.html.twig',[
+
+            "categorys" => $this->categorys
+        ]);
     }
 
     public function portfolioAction(){
-        return $this->render('public/pages/portfolio.html.twig');
+        return $this->render('public/pages/portfolio.html.twig',[
+
+            "categorys" => $this->categorys
+        ]);
     }
 
     public function contactAction(){
-        return $this->render('public/pages/contact.html.twig');
+        return $this->render('public/pages/contact.html.twig',[
+                "categorys" => $this->categorys
+        ]);
     }
 
     public function registerAction(){
-        return $this->render('public/pages/register.html.twig');
+        return $this->render('public/pages/register.html.twig',[
+
+            "categorys" => $this->categorys
+        ]);
     }
 
     public function collectionAction($id,CollRepository $collR,Request $request,UserRepository $userRepository,BasketRepository $basketRepository, CollRepository $collRepository,TypeeRepository $typeeR){
@@ -154,7 +193,8 @@ $allType = $typeeR->findAll();
         return $this->render('public/pages/collection.html.twig',[
             'coll'=>$coll,
             "orderForm" => $orderForm->createView(),
-            "allType"=>$allType
+            "allType"=>$allType,
+            "categorys" => $this->categorys
         ]);
     }
 

@@ -2,13 +2,13 @@ home:
     path: /
     controller: App\Controller\DefaultController::indexAction
 
+category:
+    path: /category/{id}
+    controller: App\Controller\DefaultController::categoryAction
+
 papierpeint:
     path: /papierpeint
     controller: App\Controller\DefaultController::papierpeintAction
-
-murtendu:
-    path: /murtendu
-    controller: App\Controller\DefaultController::murtenduAction
 
 collectionbase:
     path: /collectionbase
@@ -57,6 +57,14 @@ delete:
 addCollectionpersonnaliser:
     path: /admin/add/collectionpersonnaliser
     controller: App\Controller\AdminController::addcollectionpersonnaliserAction
+
+allUsers:
+    path: /admin/allUsers/{id}
+    controller: App\Controller\AdminController::allUsersAction
+
+collBaseAdmin:
+    path: /admin/collBaseAdmin/{id}
+    controller: App\Controller\AdminController::collBaseAdminAction
 
 basket:
     path: /basket

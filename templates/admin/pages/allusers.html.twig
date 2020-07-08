@@ -1,0 +1,35 @@
+{% extends 'admin/comp/base.html.twig' %}
+{% block body %}
+    <h3>All Users</h3>
+
+    <table class="table table-dark"> {#table users start#}
+        <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Username</th>
+            <th scope="col">Password</th>
+            <th scope="col">Email</th>
+            <th scope="col">Is active</th>
+            <th scope="col">Roles</th>
+            <th scope="col">Edit</th>
+            <th scope="col">Delete</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for user in allUsers %}
+            <tr>
+                <th scope="row">{{ user.id }}</th>
+                <td>{{ user.username }}</td>
+                <td>Hide</td>
+                <td>{{ user.email }}</td>
+                <td>{{ user.isActive }}</td>
+                <td>{% for role in user.roles %}{{ role }}{% if loop.last == false %},{% endif%} {% endfor %}</td>
+                <td><a href="{{ path('allUsers',{id:user.id}) }}"><i class="text-info fas fa-pencil-alt"></i></a></td>
+                <td class="px-5"> <a onclick='return confirm("Are you sure you wanna delete this user?")'
+                                     href="{{ path('delete',{ repository: 'User',id : user.id,redirect: 'allUsers' }) }}"><i class="text-danger fas fa-trash-alt"></i></a></td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table> {#table users end#}
+    {{ form(userForm) }}
+{% endblock %}

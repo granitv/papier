@@ -1,55 +1,6 @@
 {% extends 'admin/comp/base.html.twig' %}
 {% block body %}
     <h1>Admin</h1>
-    <h3>All Users</h3>
 
-    <table class="table table-dark"> {#table users start#}
-        <thead>
-        <tr>
-            <th scope="col">#</th>
-            <th scope="col">Username</th>
-            <th scope="col">Password</th>
-            <th scope="col">Email</th>
-            <th scope="col">Is active</th>
-            <th scope="col">Roles</th>
-        </tr>
-        </thead>
-        <tbody>
-        {% for user in allUsers %}
-        <tr>
-            <th scope="row">{{ user.id }}</th>
-            <td>{{ user.username }}</td>
-            <td>Hide</td>
-            <td>{{ user.email }}</td>
-            <td>{{ user.isActive }}</td>
-            <td>{% for role in user.roles %}{{ role }}, {% endfor %}</td>
-        </tr>
-        {% endfor %}
-        </tbody>
-    </table> {#table users end#}
-    <h3>All Collections</h3>
-    <table class="table table-dark"> {#all collections start#}
-        <thead>
-        <tr>
-            <th scope="col">#</th>
-            <th scope="col">name</th>
-            <th scope="col">description</th>
-            <th scope="col">price</th>
-            <th scope="col">Images</th>
-            <th scope="col">file_url</th>
-        </tr>
-        </thead>
-        <tbody>
-        {% for coll in allColls %}
-            <tr>
-                <th scope="row">{{ coll.id }}</th>
-                <td>{{ coll.name }}</td>
-                <td>{{ coll.description|slice(0, 30) }}{% if coll.description|length  > 30 %}...{% endif %}</td>
-                <td>{{ coll.price }} €</td>
-                <td>{% for img in coll.image %} {{ img.url }}{% endfor %}</td>
-                <td>{{ coll.fileUrl }}</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table> {#all collections end#}
+   <h3>Homepage</h3>
 {% endblock %}
