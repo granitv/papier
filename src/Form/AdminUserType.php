@@ -32,7 +32,13 @@ class AdminUserType extends AbstractType
                     'multiple' => true,
                 ]
             )
-
+            ->add(
+                'isActive', ChoiceType::class, [
+                    'choices' => ['Active' => 1, 'Deactive' => 0],
+                    'expanded' => true,
+                    'multiple' => false,
+                ]
+            )
             ->add('edit', SubmitType::class,[ 'attr' => ['class' => 'btn btn-success my-2']])
         ;
     }

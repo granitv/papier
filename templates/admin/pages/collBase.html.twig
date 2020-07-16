@@ -7,9 +7,9 @@
             <th scope="col">#</th>
             <th scope="col">name</th>
             <th scope="col">description</th>
-            <th scope="col">price</th>
             <th scope="col">Images</th>
-            <th scope="col">file_url</th>
+            <th scope="col">PDF</th>
+            <th scope="col">Category</th>
             <th scope="col">Edit</th>
             <th scope="col">Delete</th>
         </tr>
@@ -20,9 +20,19 @@
                 <th scope="row">{{ coll.id }}</th>
                 <td>{{ coll.name }}</td>
                 <td>{{ coll.description|slice(0, 30) }}{% if coll.description|length  > 30 %}...{% endif %}</td>
-                <td>{{ coll.price }} €</td>
-                <td>{% for img in coll.image %} <img src="{{ asset('uploads/images/'~ img.url ) }}" width="80px">{% endfor %}</td>
+                <td><a href="{{ path('collBaseImage',{id: 0,coll: coll.id}) }}">Add Image <i class="text-warning fas fa-plus"></i></a>
+                        {% for img in coll.image %}<div class="border"> <img src="{{ asset('uploads/images/'~ img.url ) }}" width="80px">
+                            <a href="{{ path('collBaseImage',{id: img.id,coll:0}) }}"><i class="text-info fas fa-pencil-alt"></i></a>
+                            <a onclick='return confirm("Are you sure you wanna delete this image?")'
+                               href="{{ path('delete',{ repository: 'Image',id: img.id, redirect: 'collBaseAdmin' }) }}"><i class="text-danger fas fa-trash-alt"></i></a>
+                            </div>{% endfor %}
+
+
+
+
+                       </td>
                 <td>{% if coll.fileUrl %}<a class="btn-sm btn-info" target="_blank" href="{{ asset('uploads/pdf/' ~ coll.fileUrl )}}">View</a>{% endif %}</td>
+                <td>{% for c in coll.categoryColls %}{{ c.name }}{% if loop.last == false %}, {% endif %}{% endfor %}</td>
                 <td><a href="{{ path('collBaseAdmin',{id:coll.id}) }}"><i class="text-info fas fa-pencil-alt"></i></a></td>
                 <td class="px-5"> <a onclick='return confirm("Are you sure you wanna delete this collection?")'
                                      href="{{ path('delete',{ repository: 'Coll',id: coll.id, redirect: 'collBaseAdmin' }) }}"><i class="text-danger fas fa-trash-alt"></i></a></td>
@@ -31,5 +41,8 @@
         </tbody>
     </table> {#all collections end#}
 
-    {{ form(collBaseForm) }}
+    <div class="border p-4">
+        {{ form(collBaseForm) }}
+    </div>
+
 {% endblock %}

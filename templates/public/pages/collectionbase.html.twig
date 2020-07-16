@@ -19,7 +19,7 @@
                     <div class="row">
                     {% for img in coll.image  %}
                         {% if loop.first %}
-                            <img class="myImg" src="{{ img.url }}" alt="{{ coll.name }}" style="width:100%;max-width:300px">
+                            <img class="myImg" src="{{ asset('uploads/images/'~img.url) }}" alt="{{ coll.name }}" style="width:100%;max-width:300px">
                             {% else %}
                                 <img class="myImg" src="{{ img.url }}" alt="{{ coll.name }}" style="width:30%;margin: 4px; border-radius: 5%">
                         {% endif %}

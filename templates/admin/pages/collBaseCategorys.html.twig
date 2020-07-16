@@ -1,0 +1,31 @@
+{% extends 'admin/comp/base.html.twig' %}
+{% block body %}
+    <h1>Categorys</h1>
+
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Name</th>
+            <th scope="col">Description</th>
+            <th scope="col">Image</th>
+            <th scope="col">Edit</th>
+            <th scope="col">Delete</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for c in  allCategorys %}
+        <tr>
+            <th scope="row">{{ c.id }}</th>
+            <td>{{ c.name }}</td>
+            <td>{{ c.description }}</td>
+            <td><img src="{{ asset('uploads/images/'~ c.image ) }}" width="80px"></td>
+            <td><a href="{{ path('collBaseCategorys',{id:c.id}) }}"><i class="text-info fas fa-pencil-alt"></i></a></td>
+            <td class="px-5"> <a onclick='return confirm("Are you sure you wanna delete this category?")'
+                                 href="{{ path('delete',{ repository: 'CategoryColl',id : c.id,redirect: 'collBaseCategorys' }) }}"><i class="text-danger fas fa-trash-alt"></i></a></td>
+        </tr>
+{% endfor %}
+        </tbody>
+    </table>
+    {{ form(categoryForm) }}
+{% endblock %}

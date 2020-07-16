@@ -1,0 +1,25 @@
+{% extends 'admin/comp/base.html.twig' %}
+{% block body %}
+    <h1>Edit Image</h1>
+    {% if newImage.id %}
+  <div class="row justify-content-center">
+      <img src="{{ asset('uploads/images/'~ newImage.url)  }}" width="250px">
+  </div>
+    {% endif %}
+<div class="border p-4 bg-info" >
+    {{ form_start(imgForm) }}
+    {{ form_row(imgForm.url,{
+        "label": "Image",
+        "attr":
+        {"class":"form-control"}
+    }) }}
+    {{ form_row(imgForm.coll,{
+        "label":"Select Collection",
+        "attr":
+        {
+            "class": "form-control"
+        }
+    }) }}
+    {{ form_end(imgForm) }}
+</div>
+{% endblock%}

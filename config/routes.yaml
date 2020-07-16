@@ -42,21 +42,21 @@ admin:
     path: /admin
     controller: App\Controller\AdminController::homeAction
 
-addCollectionBase:
-    path: /admin/add/collectionBase
-    controller: App\Controller\AdminController::addcollectionBaseAction
-
 adminSlider:
     path: /admin/slider/{id}
     controller: App\Controller\AdminController::sliderAction
 
+collBaseCategorys:
+    path: /admin/collBaseCategorys/{id}
+    controller: App\Controller\AdminController::collBaseCategorysAction
+
+typePapier:
+    path: /admin/typePapier/{id}
+    controller: App\Controller\AdminController::typePapierAction
+
 delete:
     path: /admin/delete/{repository}/{id}/{redirect}
     controller: App\Controller\AdminController::delete
-
-addCollectionpersonnaliser:
-    path: /admin/add/collectionpersonnaliser
-    controller: App\Controller\AdminController::addcollectionpersonnaliserAction
 
 allUsers:
     path: /admin/allUsers/{id}
@@ -65,6 +65,10 @@ allUsers:
 collBaseAdmin:
     path: /admin/collBaseAdmin/{id}
     controller: App\Controller\AdminController::collBaseAdminAction
+
+collBaseImage:
+    path: /admin/collBaseImage/{id}/{coll}
+    controller: App\Controller\AdminController::collBaseImageAction
 
 basket:
     path: /basket

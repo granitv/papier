@@ -19,7 +19,6 @@ class CollType extends AbstractType
         $builder
             ->add('name', TextType::class,[ 'attr' => ['class' => 'form-control']])
             ->add('description', TextType::class,[ 'attr' => ['class' => 'form-control']])
-            ->add('price', NumberType::class,[ 'attr' => ['class' => 'form-control']])
             ->add('file_url',FileType::class,['mapped'=>false, 'required' =>false,
                 'constraints' => [
                     new File([

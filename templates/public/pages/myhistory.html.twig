@@ -29,7 +29,7 @@
 
             <th scope="row">{{ o.id }}</th>
         <td>{% if o.coll is not null %}
-            <a href="{{ path('collection',{id: o.coll.id}) }}"><img src="{{ o.coll.image[0].url }}" width="60px"></a>
+            <a href="{{ path('collection',{id: o.coll.id}) }}"><img src="{{ asset('uploads/images/'~o.coll.image[0].url) }}" width="60px"></a>
                 {% else %}
                     Personailze: <a class="btn-sm btn-info" target="_blank" href="{{ asset('uploads/pdf/' ~ o.fileUrl )}}">View</a>
 

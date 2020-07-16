@@ -30,11 +30,6 @@ class Coll
     private $description;
 
     /**
-     * @ORM\Column(type="integer")
-     */
-    private $price;
-
-    /**
      * @ORM\OneToMany(targetEntity=Order::class, mappedBy="coll")
      */
     private $orders;
@@ -108,17 +103,6 @@ class Coll
         return $this;
     }
 
-    public function getPrice(): ?int
-    {
-        return $this->price;
-    }
-
-    public function setPrice(int $price): self
-    {
-        $this->price = $price;
-
-        return $this;
-    }
 
     /**
      * @return Collection|Order[]

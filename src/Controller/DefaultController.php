@@ -23,11 +23,15 @@ class DefaultController extends AbstractController
         $this->categorys = $categoryCollRepository->findCatIfPlus1();
     }
 
-    public function indexAction(SliderRepository $sliderR){
+    public function indexAction(SliderRepository $sliderR,CollRepository $collR){
+
+            $allColl = $collR->findBy(array(), array('id' => 'ASC'),3);
+
         $allSlideImg = $sliderR->findAll();
             return $this->render('public/pages/home.html.twig', [
                 "allSlideImg"=>$allSlideImg,
-                "categorys" => $this->categorys
+                "categorys" => $this->categorys,
+                "allColl" => $allColl,
             ]);
     }
 

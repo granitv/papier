@@ -13,9 +13,9 @@
                    <div class="row">
                        {% for img in coll.image  %}
                            {% if loop.first %}
-                               <img class="myImg" src="{{ img.url }}" alt="{{ coll.name }}" style="width:100%;max-width:300px">
+                               <img class="myImg" src="{{ asset('uploads/images/'~img.url) }}" alt="{{ coll.name }}" style="width:100%;max-width:300px">
                            {% else %}
-                               <img class="myImg" src="{{ img.url }}" alt="{{ coll.name }}" style="width:30%;margin: 4px; border-radius: 5%">
+                               <img class="myImg" src="{{ asset('uploads/images/'~img.url) }}" alt="{{ coll.name }}" style="width:30%;margin: 4px; border-radius: 5%">
                            {% endif %}
 
                        {% endfor %}
@@ -58,7 +58,7 @@
              </div>
          <div class="row justify-content-between p-4">
             <div class="text-dark" style="font-size: x-large">
-             Total: <span id="totalPrice">{{ coll.price }}</span> €
+             Total: <span id="totalPrice">0</span> €
             </div>
             <div>
             {{ form_widget(orderForm.order) }}

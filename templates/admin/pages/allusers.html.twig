@@ -22,7 +22,7 @@
                 <td>{{ user.username }}</td>
                 <td>Hide</td>
                 <td>{{ user.email }}</td>
-                <td>{{ user.isActive }}</td>
+                <td>{% if user.isActive == 1 %}<span class="alert-success p-2">Active</span>{% else %}<span class="alert-danger p-2">Deactive</span>{% endif %}</td>
                 <td>{% for role in user.roles %}{{ role }}{% if loop.last == false %},{% endif%} {% endfor %}</td>
                 <td><a href="{{ path('allUsers',{id:user.id}) }}"><i class="text-info fas fa-pencil-alt"></i></a></td>
                 <td class="px-5"> <a onclick='return confirm("Are you sure you wanna delete this user?")'

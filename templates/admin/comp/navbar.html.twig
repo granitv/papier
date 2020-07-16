@@ -16,25 +16,18 @@
                     </li>
             </li>
       <li>
-                        <a href="{{ path('collBaseAdmin',{id: 0}) }}">COLLECTION Base</a>
-                    </li>
-
+          <a href="{{ path('collBaseAdmin',{id: 0}) }}">COLLECTION Base</a>
+      </li>
             <li>
-                <a href="#addSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Add COLLECTION</a>
-                <ul class="collapse list-unstyled" id="addSubmenu">
-                    <li>
-                        <a href="{{ path('addCollectionBase') }}">Add COLLECTION Base</a>
-                    </li>
-                    <li>
-                        <a href="{{ path('addCollectionpersonnaliser') }}">Add COLLECTION Personnaliser</a>
-                    </li>
-                </ul>
+                <a href="{{ path('collBaseCategorys',{id: 0}) }}">Categorys</a>
             </li>
             <li>
+                <a href="{{ path('typePapier',{id: 0}) }}">Type</a>
+            </li>
             <li>
                 <a href="{{ path('adminSlider',{id: 0}) }}">Slider Image</a>
             </li>
-            </li>
+
         </ul>
 
         <ul class="list-unstyled CTAs">

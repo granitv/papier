@@ -22,7 +22,7 @@
 
                     {% for order in userBasket.Order1 %}
                         <tr>
-                            <td>{% if order.coll is not null %} <img src="{{ order.coll.image[0].url }}" width="100px">  {{ order.coll.name }}
+                            <td>{% if order.coll is not null %} <img src="{{ asset('uploads/images/'~order.coll.image[0].url) }}" width="100px">  {{ order.coll.name }}
                                 {% else %}
                                     Personailze: <a class="btn-sm btn-info" target="_blank" href="{{ asset('uploads/pdf/' ~ order.fileUrl) }}">View</a>
                                 {% endif %}

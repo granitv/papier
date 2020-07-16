@@ -2,13 +2,11 @@
 
 namespace App\Form;
 
+use App\Entity\CategoryColl;
 use App\Entity\Coll;
-use App\Entity\Image;
-use App\Repository\ImageRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
-use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -22,10 +20,8 @@ class AdminCollType extends AbstractType
         $builder
             ->add('name', TextType::class,[ 'attr' => ['class' => 'form-control']])
             ->add('description', TextType::class,[ 'attr' => ['class' => 'form-control']])
-            ->add('price', NumberType::class,[ 'attr' => ['class' => 'form-control']])
-            ->add('image', EntityType::class,[ 'expanded' => true,
-                'multiple' => true, 'class'=>Image::class, 'choice_label'=>'url', 'attr' => ['class' => 'form-check']])
-
+            ->add('Categorycolls', EntityType::class,[ 'expanded' => true,
+                'multiple' => true, 'class'=>CategoryColl::class, 'choice_label'=>'name', 'attr' => ['class' => 'form-check']])
             ->add('file_url',FileType::class,['mapped'=>false, 'required' =>false,
                 'constraints' => [
                     new File([
