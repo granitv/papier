@@ -1,10 +1,14 @@
 {% extends 'public/comp/base.html.twig' %}
 {% block body %}
     <h1>  {% if app.request.attributes.get('_route') == 'category' %}
-            {{ cat.name }}
+            {{ cat.name }}</h1>
+    <div class="alert alert-primary text-center" role="alert">
+        {{ cat.description }}
+    </div>
+
     {% else %}
-        Collection Base
-    {% endif %}</h1>
+        Collection Base</h1>
+    {% endif %}
 
     <div class="row justify-content-around">
         <div id="myModal" class="modal">
@@ -21,7 +25,7 @@
                         {% if loop.first %}
                             <img class="myImg" src="{{ asset('uploads/images/'~img.url) }}" alt="{{ coll.name }}" style="width:100%;max-width:300px">
                             {% else %}
-                                <img class="myImg" src="{{ img.url }}" alt="{{ coll.name }}" style="width:30%;margin: 4px; border-radius: 5%">
+                                <img class="myImg" src="{{ asset('uploads/images/'~img.url) }}" alt="{{ coll.name }}" style="width:30%;margin: 4px; border-radius: 5%">
                         {% endif %}
 
                     {% endfor %}
@@ -40,4 +44,5 @@
             </div>
     {% endfor %}
     </div> {#one part#}
+
 {% endblock %}

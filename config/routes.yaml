@@ -101,3 +101,7 @@ facture:
 updateShipping:
     path: /updateShipping/{id}
     controller: App\Controller\UserController::updateShipping
+
+successPay:
+    path: /success/{id}
+    controller: App\Controller\UserController::successPayAction

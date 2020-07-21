@@ -8,6 +8,7 @@ use App\Entity\Facture;
 use App\Entity\Ship;
 use App\Form\ShipType;
 use App\Repository\BasketRepository;
+use App\Repository\CategoryCollRepository;
 use App\Repository\CollRepository;
 use App\Repository\FactureRepository;
 use App\Repository\OrderRepository;
@@ -29,6 +30,11 @@ class UserController extends AbstractController
     public $fail;
     public $volumes;
     public $lib;
+
+    public function __construct(CategoryCollRepository $categoryCollRepository)
+    {
+        $this->categorys = $categoryCollRepository->findCatIfPlus1();
+    }
 
     public function basketAction(OrderRepository $orderR,UserRepository $userRepository,BasketRepository $basketRepository){
         if($this->getUser() == null){
@@ -57,9 +63,9 @@ class UserController extends AbstractController
                 $newTotal += $a->getTotalPrice();
             }
         }
-       if($basket->getShip() !== null){
-           $newTotal += $basket->getShip()->getPrice();
-       }
+        if($basket->getShip() !== null){
+            $newTotal += $basket->getShip()->getPrice();
+        }
         $basket->setTotal($newTotal);
         $this->insertInDB($basket);
 
@@ -110,7 +116,26 @@ class UserController extends AbstractController
             if ($basket->getOrder1()->count() !== 0){
                 if($basket->getShip() && $basket->getShip()->getPrice() == 0){
                     $shipping = $basket->getShip();
-                    $shipping->setPrice(500);
+                    foreach ($date as $key => $d){
+                        if($d == $shipping->getStartDate()){
+                           // dd($key);
+                            switch ($key){
+                                case 1:
+                                    $shipping->setPrice(500);
+                                    break;
+                                case 2:
+                                    $shipping->setPrice(400);
+                                    break;
+                                case 3:
+                                    $shipping->setPrice(300);
+                                    break;
+                                default:
+                                    $shipping->setPrice(500);
+                                    break;
+                            }
+                        }
+                    }
+
                     $this->insertInDB($shipping);
                 }
             }else{
@@ -123,9 +148,34 @@ class UserController extends AbstractController
                 $shipping->setPrice(500);
                 $this->insertInDB($shipping);
             }
+
         }
 
+        if($newTotal >= 30000){
+            $newTotal=0;
+            foreach($allOrderByThisUser as $a){
+                if($a->getBasket() !== null){
+                    $newTotal += $a->getTotalPrice();
+                }
+            }
+            $basket->setTotal($newTotal);
+            $this->insertInDB($basket);
+            $shipping = $basket->getShip();
+            $shipping->setPrice(0);
+            $this->insertInDB($shipping);
+        }else{
+            $newTotal=0;
+            foreach($allOrderByThisUser as $a){
+                if($a->getBasket() !== null){
+                    $newTotal += $a->getTotalPrice();
+                }
+            }
+            $shipping = $basket->getShip();
 
+            $newTotal += $shipping->getPrice();
+            $basket->setTotal($newTotal);
+            $this->insertInDB($basket);
+        }
 
         return $this->render('public/pages/basket.html.twig', [
             'categorys' => $this->categorys,
@@ -227,10 +277,22 @@ class UserController extends AbstractController
             $basket->setTotal($newTotal);
             $this->insertInDB($basket);
         }
+        if($newTotal >= 30000){
+            $newTotal=0;
+            foreach($allOrderByThisUser as $a){
+                if($a->getBasket() !== null){
+                    $newTotal += $a->getTotalPrice();
+                }
+            }
+            $basket->setTotal($newTotal);
+            $this->insertInDB($basket);
+            $shipping->setPrice(0);
+            $this->insertInDB($shipping);
+        }
         return $this->redirect('/basket');
     }
 
-    public function stripeAction(Request $request, UserRepository $userRepository){
+    public function stripeAction(Request $request, UserRepository $userRepository,FactureRepository $factureR){
         $user = $userRepository->find($this->getUser());
         $this->fail = false;
         $basket = $user->getBasket();
@@ -293,9 +355,22 @@ class UserController extends AbstractController
                 $this->addFlash('success', 'Your order has been submitted');
             }
         }
-        return $this->redirect('/myhistory');
+        $id = $factures->getId();
+        return $this->redirect('/success/'.$id);
     }
+    //test
+    public function successPayAction($id, FactureRepository $factureR){
+        $selectedFacture = $factureR->findOneBy(['id'=>$id]);
 
+        if($selectedFacture->getUser() !== $this->getUser()){
+            return $this->redirect('/');
+        }
+        return $this->render('public/pages/success.html.twig',[
+            'facture' => $selectedFacture,
+            "categorys" => $this->categorys
+        ]);
+    }
+    //test
     public function deleteOrder($id,OrderRepository $orderR){
         $selectOrder = $orderR->findOneBy(["id"=>$id]);
 

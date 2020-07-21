@@ -21,9 +21,9 @@ class OrderType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
+            ->add('typee', EntityType::class,[ 'expanded' => true,
+                'multiple' => false, 'class'=>Typee::class, 'choice_label'=>'name', 'attr' => ['class' => 'form-control form-check']])
 
-            ->add('typee', EntityType::class,[
-                'required' => true, 'class'=>Typee::class, 'choice_label'=>'name', 'attr' => ['class' => 'form-control']])
             ->add('height',IntegerType::class,[ 'attr' => ['class' => 'form-control',  'placeholder' => 'cm']])
             ->add('width',IntegerType::class,[ 'attr' => ['class' => 'form-control',  'placeholder' => 'cm']])
             ->add('file_url',FileType::class,['mapped'=>false, 'required' =>false,
@@ -40,11 +40,14 @@ class OrderType extends AbstractType
                 'attr' => [ 'class' => 'form-control']])
             ->add('text',TextareaType::class,[ 'required'=>false, 'attr' => ['class' => 'form-control',  'placeholder' => 'Notes']])
             ->add('quantity',IntegerType::class,[ 'attr' => ['class' => 'form-control',  'placeholder' => 'number']])
+
             ->add('overlapping', ChoiceType::class, ['attr' => ['class' => 'form-control',  'placeholder' => 'number'],
                 'choices'  => [
                     'Aucun ' => 0,
                     '4 cm' => 1,
                 ],
+                'expanded' => true,
+                'multiple' => false,
             ])
             ->add('order', SubmitType::class ,[ 'attr' => ['class' => 'btn btn-success mt-2']])
         ;

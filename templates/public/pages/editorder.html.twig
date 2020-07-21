@@ -1,13 +1,15 @@
 {% extends'public/comp/base.html.twig' %}
 {% block body %}
     <div class="row justify-content-center">
-
+<span hidden id="OrderType">{% if oneEditOrder.coll is null %}P{% else %}B{% endif %}</span>
         <div class="col-md-6">
             {{ form_start(editOrderForm) }}
             <label>Type: <ul hidden>{% for t in allType %}
                         <span id="typeID{{ t.id }}">{{ t.price }}</span>
+                        <span id="typeDescID{{ t.id }}">{{ t.description }}</span>
                     {% endfor %}</ul></label>
             {{ form_widget(editOrderForm.typee) }}
+            <p  id="TypeDesc"></p>
             <label>Width:</label>
             {{ form_widget(editOrderForm.width) }}
             <label>Hight:</label>

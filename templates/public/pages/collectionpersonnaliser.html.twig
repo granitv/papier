@@ -7,8 +7,10 @@
             {{ form_start(collBaseForm) }}
             <label>Type: <ul hidden>{% for t in allType %}
                         <span id="typeID{{ t.id }}">{{ t.price }}</span>
+                        <span id="typeDescID{{ t.id }}">{{ t.description }}</span>
                     {% endfor %}</ul></label>
-            {{ form_widget(collBaseForm.typee) }}
+                {{ form_widget(collBaseForm.typee) }}
+                <p  id="TypeDesc"></p>
             <label>Width:</label>
             {{ form_widget(collBaseForm.width) }}
             <label>Hight:</label>

@@ -7,19 +7,7 @@
         </div>
 
         <ul class="list-unstyled components">
-            <li class="active">
-                <a href="#category" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Papier peint - Category</a>
-                <ul class="collapse list-unstyled" id="category">
-                    {% for c in categorys %}
-                        {% dump(c.getColl)  %}
-                        {% if c.getColl is not null %}
-                        <li>
-                            <a href="{{ path('category',{id: c.id}) }}">{{ c.name }}</a>
-                        </li>
-                        {% endif %}
-                    {% endfor %}
-                </ul>
-            </li>
+
            {# <li class="active">
                 <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">SUR MESURE</a>
                 <ul class="collapse list-unstyled" id="homeSubmenu">
@@ -29,8 +17,22 @@
                 </ul>
             </li>#}
             <li>
-                <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">COLLECTION</a>
+                <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Papier peint</a>
                 <ul class="collapse list-unstyled" id="pageSubmenu">
+
+                    <li class="active">
+                        <a href="#category" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Papier peint - Category</a>
+                        <ul class="collapse list-unstyled" id="category">
+                            {% for c in categorys %}
+                                {% dump(c.getColl)  %}
+                                {% if c.getColl is not null %}
+                                    <li>
+                                        <a href="{{ path('category',{id: c.id}) }}">{{ c.name }}</a>
+                                    </li>
+                                {% endif %}
+                            {% endfor %}
+                        </ul>
+                    </li>
                     <li>
                         <a href="{{ path('collectionbase') }}">COLLECTION Base</a>
                     </li>
@@ -76,12 +78,15 @@
                 <i class="fas fa-align-left"></i>
             </button>
             <div class="row mr-2">
-
+                <a href="#insta" target="_blank"><i class="text-danger mx-2 fab fa-instagram fa-2x"></i></a>
+                <a href="#facebook" target="_blank"><i class="text-info mx-2 fab fa-facebook-square fa-2x"></i></a>
+                <a href="#yt" target="_blank"><i class="text-danger mx-2 fab fa-youtube fa-2x"></i></a>
+<p class=" m-2 p-2 rounded text-info">FREE Shipping pour command +300€ </p>
                 {% if app.user %}
-                    <p class="border rounded mx-2 px-4" >Hi {{ app.user.username }}</p>
+                    <p class=" rounded m-2 p-2" >Hi {{ app.user.username|capitalize }}</p>
 
-                    <a class="border rounded mx-2" href="{{ path('basket') }}" >Cart<i class="text-info fas fa-shopping-cart fa-2x"></i></a>
-                    <a class="border rounded mx-2" href="{{ path('myhistory') }}" >My History<i class="text-info fas fa-history fa-2x"></i></a>
+                    <a class=" rounded mx-2" href="{{ path('basket') }}" >Cart<i class="text-info fas fa-shopping-cart fa-2x"></i></a>
+                    <a class=" rounded mx-2" href="{{ path('myhistory') }}" >My History<i class="text-info fas fa-history fa-2x"></i></a>
                 {% endif %}
             </div>
         </div>

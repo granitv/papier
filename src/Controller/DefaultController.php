@@ -91,8 +91,7 @@ TypeeRepository $typeeRepository){
             $quantity = $collBaseForm->get('quantity')->getData();
             $typeeInForm = $collBaseForm->get('typee')->getData();
 
-
-            $total = ((($height*$width)/10000)*$typeeInForm->getPrice())*$quantity*100;
+            $total = ((($height*$width)/10000)*($typeeInForm->getPrice()+10))*$quantity*100;
             $collBase->setUser($this->getUser());
             $collBase->setCreatedAt(new \DateTime());
             $collBase->setTotalPrice($total);
@@ -161,9 +160,30 @@ TypeeRepository $typeeRepository){
         ]);
     }
 
-    public function collectionAction($id,CollRepository $collR,Request $request,UserRepository $userRepository,BasketRepository $basketRepository, CollRepository $collRepository,TypeeRepository $typeeR){
+    public function collectionAction($id,CollRepository $collR,Request $request,UserRepository $userRepository,BasketRepository $basketRepository, CollRepository $collRepository,TypeeRepository $typeeR,CategoryCollRepository $categoryCollR){
 $allType = $typeeR->findAll();
         $coll = $collR->find($id);
+        $allCatInThisCol = $coll->getCategoryColls();
+        //test
+        $idCat = $allCatInThisCol[0]->getId();
+
+        $allColl2 = $collR->findAll();
+        $cat = $categoryCollR->find($idCat);
+        $selected=[];
+        foreach( $allColl2 as $coll1){
+            $allcat = $coll1->getCategoryColls();
+            foreach($allcat as $c){
+                if($c == $cat && $coll1 !== $coll){
+                      $selected[]= $coll1;
+                }
+            }
+        }
+
+        //test
+
+
+        $allColl = $collR->findBy(array(), array('id' => 'ASC'),3);
+
         $order= new Order();
         $orderForm = $this->createForm('App\Form\OrderType',$order);
         $orderForm->handleRequest($request);
@@ -198,7 +218,8 @@ $allType = $typeeR->findAll();
             'coll'=>$coll,
             "orderForm" => $orderForm->createView(),
             "allType"=>$allType,
-            "categorys" => $this->categorys
+            "categorys" => $this->categorys,
+              "allColl" => $selected
         ]);
     }
 

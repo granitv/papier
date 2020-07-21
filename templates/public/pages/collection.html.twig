@@ -1,13 +1,14 @@
 {% extends 'public/comp/base.html.twig' %}
 {% block body %}
-   <div>
+    <h1>Collection {{ coll.name }}</h1>
+   <div class="row justify-content-around">
        <div id="myModal" class="modal">
            <span class="close">&times;</span>
            <img class="modal-content" id="img01">
            <div id="caption"></div>
        </div>
-       <h1>Collection {{ coll.name }}</h1>
-       <div class="row justify-content-around">
+
+       <div class="row col-md-6 justify-content-around">
            <div class="col-md-12 p-4">
                <div class="card p-4" >
                    <div class="row">
@@ -27,15 +28,17 @@
                </div>
            </div>
        </div> {#one part#}
-   </div>
-  <div class="row justify-content-center">
+
+  <div class="row col-md-6 justify-content-center">
 
      <div class="col-md-6">
          {{ form_start(orderForm) }}
          <label>Type: <ul hidden>{% for t in allType %}
             <span id="typeID{{ t.id }}">{{ t.price }}</span>
+                     <span id="typeDescID{{ t.id }}">{{ t.description }}</span>
              {% endfor %}</ul></label>
          {{ form_widget(orderForm.typee) }}
+             <p  id="TypeDesc"></p>
          <label>Width:</label>
          {{ form_widget(orderForm.width) }}
          <label>Hight:</label>
@@ -67,5 +70,41 @@
          {{ form_end(orderForm) }}
      </div>
   </div>
+   </div>
+    <hr>
+    <h4>Produits connexes:</h4>
+    <div class="row justify-content-around">
+        <div id="myModal" class="modal">
+            <span class="close">&times;</span>
+            <img class="modal-content" id="img01">
+            <div id="caption"></div>
+        </div>
+        {% for coll in allColl %}
 
+            <div class="col-md-4 p-4">
+                <div class="card p-4" >
+                    <div class="row">
+                        {% for img in coll.image  %}
+                            {% if loop.first %}
+                                <img class="myImg" src="{{ asset('uploads/images/'~img.url) }}" alt="{{ coll.name }}" style="width:100%;max-width:300px">
+                            {% else %}
+                                <img class="myImg" src="{{ asset('uploads/images/'~img.url) }}" alt="{{ coll.name }}" style="width:30%;margin: 4px; border-radius: 5%">
+                            {% endif %}
+
+                        {% endfor %}
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title">{{ coll.name }}</h5>
+                        <p class="card-text text-info">{% for c in  coll.categoryColls|slice(0, 5)  %}
+                                <a href="{{ path('category',{id: c.id}) }}">{{ c.name }}</a>{% if loop.last == false %},{% endif %}
+                            {% endfor %}
+                        </p>
+
+                        <p class="card-text">{{ coll.description }}</p>
+                        <a href="{{ path('collection',{id: coll.id}) }}" class="btn btn-primary">Read More</a>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div> {#one part#}
 {% endblock %}

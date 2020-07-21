@@ -1,0 +1,68 @@
+{% extends 'public/comp/base.html.twig' %}
+ {% block body %}
+
+     <div class="row m-2 justify-content-center ">
+         <a class="btn btn-info mx-1" href="{{ path('home') }}"> Home </a>
+         <a class="btn btn-info mx-1" href="{{ path('myhistory') }}" >My History</a>
+     </div>
+     <div class="alert alert-info  text-center" role="alert">
+        Merci {{ facture.user.username|capitalize }} pour votre command
+         <p>Date d'expédition: {{ facture.ship|date('d M Y') }}</p>
+     </div>
+<div  class="border p-2" >
+    <p style="font-size: x-large">Command No: #{{ facture.id }} </p>
+    <p>Created at: {{ facture.createdAt|date("m/d/Y H:i", "Europe/Paris") }}</p>
+    <table class="table">
+        <thead>
+        <tr>
+            <th scope="col">Design</th>
+            <th scope="col">Height</th>
+            <th scope="col">Width</th>
+            <th scope="col">Text</th>
+            <th scope="col">Q</th>
+            <th scope="col" data-toggle="tooltip" data-placement="top" title="Recouvrement des laizes:">RL:</th>
+            <th scope="col">Type:</th>
+            <th scope="col">Price:</th>
+            <th scope="col">Status</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for o in facture.order1 %}
+            <tr>
+                <td> {% if o.coll is not null %}
+                        <a href="{{ path('collection',{id: o.coll.id}) }}"> <img src="{{ asset('uploads/images/'~ o.coll.image[0].url) }}" width="100px"></a>
+                    {% else %}
+                        Personalize {{ o.fileUrl }}
+                    {% endif %}</td>
+                <td>{{ o.height }} cm</td>
+                <td> {{ o.width }} cm</td>
+                {#{{ o.text|slice(0, 5) }}{% if o.text|length  > 5 %}...{% endif %}#}
+                <td> {{ o.text|slice(0, 5) }}{% if o.text|length  > 5 %}...{% endif %}</td>
+                <td> {{ o.quantity }}</td>
+                <td>{% if o.overlapping == 0 %} Aucun {% else %} 4cm {% endif %}</td>
+                <td>{{ o.typee.name }}</td>
+                <td> {{ o.totalPrice/100|number_format(2) }} €</td>
+                <td> {% if o.getBasket is not null %}<div class="text-center alert alert-warning" role="alert">UnPaid <a class="btn-sm btn-success" href="{{ path('basket') }}">Pay Now</a></div>  {% else %} <div class="text-center alert alert-success" role="alert">Paid</div>   {{ o.getBasket }}{% endif %}</td>
+            </tr>
+        {% endfor %}
+        <tr>
+            <td>Shipping</td>
+            <td></td><td></td><td></td><td></td><td></td><td></td><td>{{ facture.shipPrice/100 }} €</td><td></td>
+        </tr>
+        <tr>
+            <td>Prix Total</td>
+            <td></td><td></td><td></td><td></td><td></td><td></td><td>{{ facture.total/100|number_format(2) }} €</td><td></td>
+        </tr>
+        </tbody>
+    </table>
+    <hr>
+    <div class=" my-4 border p-4">
+        <p>{{ facture.fullname }}</p>
+        <p>  {{ facture.street }}, {{ facture.country }},    {{ facture.city }} {{ facture.postcode }}</p>
+        <p> Tel: {{facture.tel }}</p>
+        <p>Email: {{ facture.user.email }}</p>
+        <p>Notes: {{ facture.note }}</p>
+    </div>
+    <p class="border p-2 rounded"> Shipping date: {{ facture.ship|date('d M Y') }}</p>
+</div>
+{% endblock %}

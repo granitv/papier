@@ -60,7 +60,13 @@ class ProfileController extends AbstractController
             $width = $orderForm->get('width')->getData();
             $quantity = $orderForm->get('quantity')->getData();
             $typeeInForm = $orderForm->get('typee')->getData();
-            $total = ((($height * $width) / 10000) * $typeeInForm->getPrice()) * $quantity * 100;
+            $coll = $oneEditOrder->getColl();
+            if ($coll == null) {
+                $pricePerM2 = $typeeInForm->getPrice()+10;
+            }else{
+                $pricePerM2 = $typeeInForm->getPrice();
+            }
+            $total = ((($height * $width) / 10000) * $pricePerM2) * $quantity * 100;
             $order1->setTotalPrice($total);
             $this->insertInDB($order1);
             $this->addFlash('success', 'Your order has been edited');

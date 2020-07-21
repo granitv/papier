@@ -1,3 +1,6 @@
+input[type=radio] {
+    margin-left: 15px;
+}
 /*shoping cart start*/
 
 .quantity {
@@ -62,9 +65,11 @@
 .quantity .minus {
     bottom: 0
 }
+
 .shopping-cart {
     margin-top: 20px;
 }
+
 /*shoping cart end*/
 /*stripe */
 
